@@ -5,21 +5,21 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   {
     path: 'main',
-    loadChildren: () => import('./board/board-routing.module').then(m => m.BoardRoutingModule),
+    loadChildren: () => import('./board/board.module').then(m => m.BoardModule),
   },
   {
     path: 'welcome',
     loadChildren: () =>
-      import('./welcome/welcome-routing.module').then(m => m.WelcomeRoutingModule),
+      import('./welcome/welcome.module').then(m => m.WelcomeModule),
   },
   {
     path: 'account',
     loadChildren: () =>
-      import('./account/account-routing.module').then(m => m.AccountRoutingModule),
+      import('./account/account.module').then(m => m.AccountModule),
   },
   {
-    path: 'login',
-    loadChildren: () => import('./login/login-routing.module').then(m => m.LoginRoutingModule),
+    path: 'auth',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
   },
 ];
 
