@@ -2,9 +2,19 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <head>
+
+    </head>
+
+    <body>
+      <app-header></app-header>
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </body>
+  `,
   styleUrls: ['./app.component.scss'],
 })
 export default class AppComponent {
-  title = 'project-management-app';
+  title: string = 'project-management-app';
 }

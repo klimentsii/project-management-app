@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
+  template: `
+    <p>main-page works!</p>
+  `,
   styleUrls: ['./main-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class MainPageComponent {
-
-}
+export default class MainPageComponent { }
