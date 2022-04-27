@@ -9,13 +9,11 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
-    loadChildren: () =>
-      import('./welcome/welcome.module').then(m => m.WelcomeModule),
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule),
   },
   {
     path: 'account',
-    loadChildren: () =>
-      import('./account/account.module').then(m => m.AccountModule),
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
   },
   {
     path: 'auth',

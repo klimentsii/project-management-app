@@ -7,6 +7,7 @@ import MainPageComponent from './core/pages/main-page/main-page.component';
 import ProjectsPageComponent from './core/pages/projects-page/projects-page.component';
 import HeaderComponent from './core/components/header/header.component';
 import FooterComponent from './core/components/footer/footer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,11 +17,8 @@ import FooterComponent from './core/components/footer/footer.component';
     HeaderComponent,
     FooterComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
-export default class AppModule { }
+export default class AppModule {}

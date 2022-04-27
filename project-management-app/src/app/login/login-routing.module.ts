@@ -4,12 +4,12 @@ import { SingInComponent } from './pages/sing-in/sing-in.component';
 import { SingUpComponent } from './pages/sing-up/sing-up.component';
 
 const routes: Routes = [
-  { path:'sign-in', component: SingInComponent },
-  { path:'sign-up', component: SingUpComponent },
+  { path: 'sign-in', component: SingInComponent },
+  { path: 'sign-up', component: SingUpComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LoginRoutingModule { }
+export class LoginRoutingModule {}
