@@ -1,0 +1,32 @@
+header {
+  background-color: #3F51B5;
+  position: fixed;
+  left: 0;
+  right: 0;
+
+  .header-inner {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .mat-button-toggle {
+      background-color: #3F51B5;
+      color: white;
+    }
+
+    .mat-button-toggle-checked {
+      background-color: #324191;
+    }
+
+    .mat-button-toggle-group {
+      border: none;
+      margin-right: 10px;
+    }
+
+    .header-nav {
+      display: flex;
+      column-gap: 10px;
+    }
+  }
+}

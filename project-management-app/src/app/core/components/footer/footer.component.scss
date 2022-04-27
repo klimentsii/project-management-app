@@ -1,0 +1,32 @@
+footer {
+  position: absolute;
+  background-color: #3F51B5;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .footer-inner {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+
+    .footer-nav {
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+
+      img {
+        width: 40px;
+        border-radius: 50%;
+        padding: 5px;
+      }
+    }
+  }
+}
