@@ -6,15 +6,15 @@ footer {
   right: 0;
 
   .footer-inner {
-    padding: 10px 0;
     display: flex;
     justify-content: space-between;
+    padding: 10px 0;
 
     .footer-nav {
-      color: white;
-      font-family: Arial, Helvetica, sans-serif;
       display: flex;
       align-items: center;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
       column-gap: 10px;
 
       a {

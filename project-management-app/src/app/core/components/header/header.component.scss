@@ -1,14 +1,14 @@
 header {
-  background-color: #3F51B5;
   position: fixed;
+  background-color: #3F51B5;
   left: 0;
   right: 0;
 
   .header-inner {
-    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 0;
 
     .mat-button-toggle {
       background-color: #3F51B5;
