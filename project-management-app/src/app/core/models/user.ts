@@ -13,3 +13,7 @@ export interface UserNoIdModel {
   name: string;
   login: string;
 }
+
+export interface Token {
+  token: string;
+}

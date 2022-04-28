@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {UserNoIdModel} from "../models/user";
+import {LoginModel, Token, UserModel, UserNoIdModel} from "../models/user";
 import {Observable, tap} from "rxjs";
 
 @Injectable({
@@ -40,6 +40,7 @@ export class ApiService {
 
   updateUser(id: UUIDType, name?: string, login?: string, password?: string): Observable<ArrayBuffer> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.put<ArrayBuffer>(`${this.url.Users}/${id}`,
       {
@@ -48,5 +49,34 @@ export class ApiService {
         "password": password
       }, {headers}
     );
+  }
+
+  /** Authorization **/
+
+  signIn(login: string, password: string): Observable<Token> {
+    const headers = new HttpHeaders()
+      .set("accept", "application/json")
+      .set("Content-Type", "application/json");
+    return this.http.post<Token>(this.url.Auth[0],
+      {
+        "login": login,
+        "password": password
+      },
+      {headers}
+    )
+  }
+
+  signUp(name: string, login: string, password: string): Observable<UserModel | null> {
+    const headers = new HttpHeaders()
+      .set("accept", "application/json")
+      .set("Content-Type", "application/json");
+    return this.http.post<UserModel | null>(this.url.Auth[0],
+      {
+        "name": name,
+        "login": login,
+        "password": password
+      },
+      {headers}
+    )
   }
 }
