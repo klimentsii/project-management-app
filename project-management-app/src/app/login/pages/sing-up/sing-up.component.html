@@ -1,1 +1,22 @@
-<p>sing-up works!</p>
+<mat-card class="box">
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="signUpData" (ngSubmit)="onSubmit()" class="example-form">
+    <mat-card-content>
+      <mat-form-field class="example-full-width">
+        <input formControlName= "email" matInput placeholder="email">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input formControlName= "userName" matInput placeholder="name">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input type="password" formControlName="password" matInput placeholder="password">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input type="password" formControlName="repeatedPassword" matInput placeholder="repeat password">
+      </mat-form-field>
+    </mat-card-content>
+    <button type="submit" [disabled]="!signUpData.valid" mat-stroked-button color="primary" class="btn-block">Login</button>
+  </form>
+</mat-card>
