@@ -10,6 +10,16 @@ export interface TaskModel {
   files: FileModel[]
 }
 
+export interface TaskModelPlus {
+  id: UUIDType;
+  title: string;
+  order: number;
+  description: string;
+  userId: UUIDType;
+  boardId: UUIDType;
+  columnId: UUIDType;
+}
+
 export interface TaskModelExtra {
   id: UUIDType;
   title: string;

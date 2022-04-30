@@ -4,6 +4,7 @@ import {LoginModel, Token, UserModel, UserModelExtended, UserNoIdModel} from "..
 import {Observable, tap} from "rxjs";
 import {BoardModel, BoardModelExtended} from "../models/boards";
 import {ColumnModel, ColumnModelExtended} from "../models/columns";
+import {TaskModelPlus} from "../models/tasks";
 
 @Injectable({
   providedIn: 'root'
@@ -41,14 +42,14 @@ export class ApiService {
       )
   }
 
-  updateUser$(id: UUIDType, name: string, login: string, password: string): Observable<UserModelExtended> {
+  updateUser$(id: UUIDType, newName: string, newLogin: string, newPassword: string): Observable<UserModelExtended> {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
     return this.http.put<UserModelExtended>(`${this.url.Users}/${id}`,
       {
-        "name": name,
-        "login": login,
-        "password": password
+        "name": newName,
+        "login": newLogin,
+        "password": newPassword
       }, {headers}
     );
   }
@@ -110,12 +111,12 @@ export class ApiService {
       )
   }
 
-  updateBoard$(id: UUIDType, title: string): Observable<BoardModel> {
+  updateBoard$(id: UUIDType, newTitle: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
     return this.http.put<BoardModel>(`${this.url.Boards}/${id}`,
       {
-        "title": title,
+        "title": newTitle,
       }, {headers}
     );
   }
@@ -153,13 +154,84 @@ export class ApiService {
       )
   }
 
-  updateColumn$(boardId: UUIDType, columnId: UUIDType, title: string, order: number): Observable<ColumnModel> {
+  updateColumn$(boardId: UUIDType, columnId: UUIDType, newTitle: string, newOrder: number): Observable<ColumnModel> {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
     return this.http.put<ColumnModel>(`${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
       {
+        "title": newTitle,
+        "order": newOrder,
+      }, {headers}
+    );
+  }
+
+  /** Tasks **/
+
+  getTasks$(boardId: UUIDType, columnId: UUIDType): Observable<TaskModelPlus[]> {
+    return this.http.get<TaskModelPlus[]>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}`);
+  }
+
+  getTaskById$(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Observable<TaskModelPlus> {
+    return this.http.get<TaskModelPlus>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`);
+  }
+
+  createTask(
+    boardId: UUIDType,
+    columnId: UUIDType,
+    taskId: UUIDType,
+    title: string,
+    order: number,
+    description: string,
+    userId: UUIDType
+  ): Observable<TaskModelPlus> {
+    const headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
+    return this.http.post<TaskModelPlus>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
+      {
         "title": title,
         "order": order,
+        "description": description,
+        "userId": userId
+      },
+      {headers}
+    )
+  }
+
+  deleteTask$(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Observable<Response> {
+    return this.http.delete<Response>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`)
+      .pipe(
+        tap((response: Response) => {
+          console.log(response);
+        })
+      )
+  }
+
+  updateTask$(
+    boardId: UUIDType,
+    columnId: UUIDType,
+    taskId: UUIDType,
+    newTitle: string,
+    newOrder: number,
+    newDescription: string,
+    newUserId: UUIDType,
+    newBoardId: UUIDType,
+    newColumnId: UUIDType
+    ): Observable<ColumnModel> {
+    const headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
+    return this.http.put<ColumnModel>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
+      {
+        "title": newTitle,
+        "order": newOrder,
+        "description": newDescription,
+        "userId": newUserId,
+        "boardId": newBoardId,
+        "columnId": newColumnId
       }, {headers}
     );
   }
