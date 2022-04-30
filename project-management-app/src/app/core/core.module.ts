@@ -4,20 +4,20 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
-import MainPageComponent from "./pages/main-page/main-page.component";
-import ProjectsPageComponent from "./pages/projects-page/projects-page.component";
+import MainPageComponent from "../board/pages/main-page/main-page.component";
+import ProjectsPageComponent from "../board/pages/projects-page/projects-page.component";
 import HeaderComponent from "./components/header/header.component";
 import FooterComponent from "./components/footer/footer.component";
-import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {MatButtonModule} from "@angular/material/button";
-import {MatIconModule} from "@angular/material/icon";
+import {SharedModule} from "../shared/shared.module";
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     MainPageComponent,
     ProjectsPageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PageNotFoundComponent
   ],
   exports: [
     HeaderComponent,
@@ -25,12 +25,11 @@ import {MatIconModule} from "@angular/material/icon";
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatIconModule,
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
