@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {LoginModel, Token, UserModel, UserNoIdModel} from "../models/user";
+import {LoginModel, Token, UserModel, UserModelExtended, UserNoIdModel} from "../models/user";
 import {Observable, tap} from "rxjs";
 import {BoardModel, BoardModelExtended} from "../models/boards";
+import {ColumnModel, ColumnModelExtended} from "../models/columns";
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class ApiService {
     return this.http.get<UserNoIdModel>(`${this.url.Users}/${id}`);
   }
 
-  deleteUserById$(id: UUIDType): Observable<Response> {
+  deleteUser$(id: UUIDType): Observable<Response> {
     return this.http.delete<Response>(`${this.url.Users}/${id}`)
       .pipe(
         tap((response: Response) => {
@@ -40,14 +41,14 @@ export class ApiService {
       )
   }
 
-  updateUser$(id: UUIDType, name?: string, login?: string, password?: string): Observable<ArrayBuffer> {
+  updateUser$(id: UUIDType, name: string, login: string, password: string): Observable<UserModelExtended> {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    return this.http.put<ArrayBuffer>(`${this.url.Users}/${id}`,
+    return this.http.put<UserModelExtended>(`${this.url.Users}/${id}`,
       {
-        "name": name || '',
-        "login": login || '',
-        "password": password || ''
+        "name": name,
+        "login": login,
+        "password": password
       }, {headers}
     );
   }
@@ -84,6 +85,7 @@ export class ApiService {
   getBoards$(): Observable<BoardModel[]> {
     return this.http.get<BoardModel[]>(this.url.Boards);
   }
+
   createBoard$(title: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
@@ -99,7 +101,7 @@ export class ApiService {
     return this.http.get<BoardModelExtended>(`${this.url.Boards}/${id}`);
   }
 
-  deleteBoardById$(id: UUIDType): Observable<Response> {
+  deleteBoard$(id: UUIDType): Observable<Response> {
     return this.http.delete<Response>(`${this.url.Boards}/${id}`)
       .pipe(
         tap((response: Response) => {
@@ -108,15 +110,61 @@ export class ApiService {
       )
   }
 
-  updateBoard$(id: UUIDType, title?: string): Observable<ArrayBuffer> {
+  updateBoard$(id: UUIDType, title: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json");
-    return this.http.put<ArrayBuffer>(`${this.url.Boards}/${id}`,
+    return this.http.put<BoardModel>(`${this.url.Boards}/${id}`,
       {
-        "title": title || '',
+        "title": title,
       }, {headers}
     );
   }
+
+  /** Columns **/
+
+  getColumns$(boardId: UUIDType): Observable<ColumnModel[]> {
+    return this.http.get<ColumnModel[]>(`${this.url.Boards}/${boardId}/${this.url.Columns}`);
+  }
+
+  getColumnById$(boardId: UUIDType, columnId: UUIDType): Observable<ColumnModelExtended> {
+    return this.http.get<ColumnModelExtended>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`);
+  }
+
+  createColumn(boardId: UUIDType, title: string, order: number): Observable<ColumnModel> {
+    const headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
+    return this.http.post<ColumnModel>(`${this.url.Boards}/${boardId}/${this.url.Columns}`,
+      {
+        "title": title,
+        "order": order
+      },
+      {headers}
+    )
+  }
+
+  deleteColumn$(boardId: UUIDType, columnId: UUIDType): Observable<Response> {
+    return this.http.delete<Response>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`)
+      .pipe(
+        tap((response: Response) => {
+          console.log(response);
+        })
+      )
+  }
+
+  updateColumn$(boardId: UUIDType, columnId: UUIDType, title: string, order: number): Observable<ColumnModel> {
+    const headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
+    return this.http.put<ColumnModel>(`${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
+      {
+        "title": title,
+        "order": order,
+      }, {headers}
+    );
+  }
+
+
 
 
 
