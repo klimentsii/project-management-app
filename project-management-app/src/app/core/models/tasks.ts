@@ -1,4 +1,16 @@
+import {FileModel} from "./files";
+
 export interface TaskModel {
+  id: UUIDType;
+  title: string;
+  order: number;
+  done: boolean,
+  description: string;
+  userId: string | null;
+  files: FileModel[]
+}
+
+export interface TaskModelExtra {
   id: UUIDType;
   title: string;
   order: number;
