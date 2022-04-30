@@ -5,7 +5,7 @@ module.exports = {
   "semi": true,
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "trailingComma": "es5",
+  "trailingComma": "all",
   "bracketSameLine": true,
   "printWidth": 100,
   "endOfLine": "auto"

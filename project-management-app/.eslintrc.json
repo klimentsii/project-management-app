@@ -19,7 +19,6 @@
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:import/recommended",
         "airbnb-typescript/base",
-        "prettier/@typescript-eslint",
         "plugin:prettier/recommended"
       ],
       "rules": {
