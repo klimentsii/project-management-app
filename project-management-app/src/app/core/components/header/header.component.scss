@@ -1,32 +1,35 @@
 header {
-  position: fixed;
-  background-color: #3F51B5;
-  left: 0;
-  right: 0;
+  height: 67px;
 
-  .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-
-    .mat-button-toggle {
-      background-color: #3F51B5;
-      color: white;
-    }
-
-    .mat-button-toggle-checked {
-      background-color: #324191;
-    }
-
-    .mat-button-toggle-group {
-      border: none;
-      margin-right: 10px;
-    }
-
-    .header-nav {
+  .header-container {
+    position: fixed;
+    background-color: #3F51B5;
+    left: 0;
+    right: 0;
+    .header-inner {
       display: flex;
-      column-gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+
+      .mat-button-toggle {
+        background-color: #3F51B5;
+        color: white;
+      }
+
+      .mat-button-toggle-checked {
+        background-color: #324191;
+      }
+
+      .mat-button-toggle-group {
+        border: none;
+        margin-right: 10px;
+      }
+
+      .header-nav {
+        display: flex;
+        column-gap: 10px;
+      }
     }
   }
 }

@@ -1,9 +1,9 @@
 <header>
-  <div class="container">
+  <div class="header-container">
     <div class="header-inner">
       <nav class='header-nav'>
         <button mat-raised-button color="primary" routerLink="/"><mat-icon>assessment</mat-icon></button>
-        <button mat-raised-button color="primary" routerLink="">Boards</button>
+        <button mat-raised-button color="primary" routerLink="boards">Boards</button>
 
         <mat-button-toggle-group>
           <mat-button-toggle value="en">en</mat-button-toggle>
@@ -12,10 +12,10 @@
       </nav>
 
       <nav class='header-nav'>
-        <button mat-raised-button routerLink="" *ngIf="true" color="primary">Sign in</button>
-        <button mat-raised-button routerLink="" color="primary">Sign up</button>
-        <button mat-raised-button routerLink="" *ngIfElse="true" color="primary"><mat-icon>account_circle</mat-icon></button>
-        <button mat-raised-button routerLink="" *ngIfElse="true" color="primary"><mat-icon>exit_to_app</mat-icon></button>
+        <button mat-raised-button routerLink="auth/sign-in" *ngIf="true" color="primary">Sign in</button>
+        <button mat-raised-button routerLink="auth/sign-up" color="primary">Sign up</button>
+        <button mat-raised-button routerLink="profile" *ngIf="true" color="primary"><mat-icon>account_circle</mat-icon></button>
+        <button mat-raised-button routerLink="" *ngIf="true" color="primary"><mat-icon>exit_to_app</mat-icon></button>
       </nav>
     </div>
   </div>

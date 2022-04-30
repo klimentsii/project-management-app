@@ -1,9 +1,10 @@
-export interface ColumnModel {
-  id: UUIDType;
-  title: string;
-  order: number;
-}
+import {ColumnModelExtended} from "./columns";
+
 export interface BoardModel {
   id: UUIDType;
   title: string;
+}
+
+export interface BoardModelExtended extends BoardModel {
+  columns: ColumnModelExtended[]
 }
