@@ -21,15 +21,11 @@ export class ApiInterceptor implements HttpInterceptor {
       ? next.handle(request.clone({
         url: `${environment.API.url}${request.url}`,
         setHeaders: {
-          accept: `application/json`,
           Authorization: `Bearer ${this.authService.getToken()}`
         }
       }))
       : next.handle(request.clone({
-        url: `${environment.API.url}${request.url}`,
-        setHeaders: {
-          accept: `application/json`
-        }
+        url: `${environment.API.url}${request.url}`
       }))
   }
 }

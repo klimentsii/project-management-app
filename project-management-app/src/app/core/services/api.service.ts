@@ -26,15 +26,21 @@ export class ApiService {
   /** Users **/
 
   getUsers$(): Observable<UserNoIdModel[]> {
-    return this.http.get<UserNoIdModel[]>(this.url.Users);
+    const headers = new HttpHeaders()
+      .set("accept", "application/json");
+    return this.http.get<UserNoIdModel[]>(this.url.Users, {headers});
   }
 
   getUserById$(id: UUIDType): Observable<UserNoIdModel> {
-    return this.http.get<UserNoIdModel>(`${this.url.Users}/${id}`);
+    const headers = new HttpHeaders()
+      .set("accept", "application/json");
+    return this.http.get<UserNoIdModel>(`${this.url.Users}/${id}`, {headers});
   }
 
   deleteUser$(id: UUIDType): Observable<Response> {
-    return this.http.delete<Response>(`${this.url.Users}/${id}`)
+    const headers = new HttpHeaders()
+      .set("accept", "*/*");
+    return this.http.delete<Response>(`${this.url.Users}/${id}`, {headers})
       .pipe(
         tap((response: Response) => {
           console.log(response);
@@ -44,6 +50,7 @@ export class ApiService {
 
   updateUser$(id: UUIDType, newName: string, newLogin: string, newPassword: string): Observable<UserModelExtended> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.put<UserModelExtended>(`${this.url.Users}/${id}`,
       {
@@ -58,6 +65,7 @@ export class ApiService {
 
   signIn$(login: string, password: string): Observable<Token> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.post<Token>(this.url.Auth[0],
       {
@@ -70,6 +78,7 @@ export class ApiService {
 
   signUp$(name: string, login: string, password: string): Observable<UserModel | null> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.post<UserModel | null>(this.url.Auth[0],
       {
@@ -84,11 +93,14 @@ export class ApiService {
   /** Boards **/
 
   getBoards$(): Observable<BoardModel[]> {
-    return this.http.get<BoardModel[]>(this.url.Boards);
+    const headers = new HttpHeaders()
+      .set("accept", "application/json");
+    return this.http.get<BoardModel[]>(this.url.Boards, {headers});
   }
 
   createBoard$(title: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.post<BoardModel>(this.url.Boards,
       {
@@ -99,11 +111,17 @@ export class ApiService {
   }
 
   getBoardById$(id: UUIDType): Observable<BoardModelExtended> {
-    return this.http.get<BoardModelExtended>(`${this.url.Boards}/${id}`);
+    const headers = new HttpHeaders()
+      .set("accept", "application/json")
+    return this.http.get<BoardModelExtended>(
+      `${this.url.Boards}/${id}`,
+      {headers});
   }
 
   deleteBoard$(id: UUIDType): Observable<Response> {
-    return this.http.delete<Response>(`${this.url.Boards}/${id}`)
+    const headers = new HttpHeaders()
+      .set("accept", "*/*");
+    return this.http.delete<Response>(`${this.url.Boards}/${id}`, {headers})
       .pipe(
         tap((response: Response) => {
           console.log(response);
@@ -113,27 +131,38 @@ export class ApiService {
 
   updateBoard$(id: UUIDType, newTitle: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
-    return this.http.put<BoardModel>(`${this.url.Boards}/${id}`,
+    return this.http.put<BoardModel>(
+      `${this.url.Boards}/${id}`,
       {
         "title": newTitle,
-      }, {headers}
+      },
+      {headers}
     );
   }
 
   /** Columns **/
 
   getColumns$(boardId: UUIDType): Observable<ColumnModel[]> {
-    return this.http.get<ColumnModel[]>(`${this.url.Boards}/${boardId}/${this.url.Columns}`);
+    const headers = new HttpHeaders()
+      .set("accept", "application/json");
+    return this.http.get<ColumnModel[]>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}`,
+      {headers});
   }
 
   getColumnById$(boardId: UUIDType, columnId: UUIDType): Observable<ColumnModelExtended> {
+    const headers = new HttpHeaders()
+      .set("accept", "application/json");
     return this.http.get<ColumnModelExtended>(
-      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`);
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
+      {headers});
   }
 
   createColumn(boardId: UUIDType, title: string, order: number): Observable<ColumnModel> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.post<ColumnModel>(`${this.url.Boards}/${boardId}/${this.url.Columns}`,
       {
@@ -145,8 +174,12 @@ export class ApiService {
   }
 
   deleteColumn$(boardId: UUIDType, columnId: UUIDType): Observable<Response> {
+    const headers = new HttpHeaders()
+      .set("accept", "*/*");
     return this.http.delete<Response>(
-      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`)
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
+      {headers}
+    )
       .pipe(
         tap((response: Response) => {
           console.log(response);
@@ -156,6 +189,7 @@ export class ApiService {
 
   updateColumn$(boardId: UUIDType, columnId: UUIDType, newTitle: string, newOrder: number): Observable<ColumnModel> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.put<ColumnModel>(`${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
       {
@@ -168,13 +202,21 @@ export class ApiService {
   /** Tasks **/
 
   getTasks$(boardId: UUIDType, columnId: UUIDType): Observable<TaskModelPlus[]> {
+    const headers = new HttpHeaders()
+      .set("accept", "application/json");
     return this.http.get<TaskModelPlus[]>(
-      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}`);
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}`,
+      {headers}
+    );
   }
 
   getTaskById$(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Observable<TaskModelPlus> {
+    const headers = new HttpHeaders()
+      .set("accept", "application/json");
     return this.http.get<TaskModelPlus>(
-      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`);
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
+      {headers}
+    );
   }
 
   createTask(
@@ -187,6 +229,7 @@ export class ApiService {
     userId: UUIDType
   ): Observable<TaskModelPlus> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
     return this.http.post<TaskModelPlus>(
       `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
@@ -201,8 +244,11 @@ export class ApiService {
   }
 
   deleteTask$(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Observable<Response> {
+    const headers = new HttpHeaders()
+      .set("accept", "*/*");
     return this.http.delete<Response>(
-      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`)
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
+      {headers})
       .pipe(
         tap((response: Response) => {
           console.log(response);
@@ -220,10 +266,11 @@ export class ApiService {
     newUserId: UUIDType,
     newBoardId: UUIDType,
     newColumnId: UUIDType
-    ): Observable<ColumnModel> {
+  ): Observable<TaskModelPlus> {
     const headers = new HttpHeaders()
+      .set("accept", "application/json")
       .set("Content-Type", "application/json");
-    return this.http.put<ColumnModel>(
+    return this.http.put<TaskModelPlus>(
       `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
       {
         "title": newTitle,
@@ -236,10 +283,45 @@ export class ApiService {
     );
   }
 
+  /** Files **/
 
+  uploadFile(
+    taskId: UUIDType,
+    file: File,
+  ): Observable<Response> {
+    const headers = new HttpHeaders()
+      .set("accept", "*/*")
+      .set("Content-Type", "application/json");
+    return this.http.post<Response>(
+      `${this.url.File}`,
+      {
+        "taskId": taskId,
+        "file": file,
+      },
+      {headers}
+    )
+    .pipe(
+      tap((response: Response) => {
+        console.log(response);
+      })
+    )
+  }
 
-
-
-
-
+  downloadFile(
+    taskId: UUIDType,
+    filename: string,
+  ): Observable<Response> {
+    const headers = new HttpHeaders()
+      .set("accept", "*/*")
+      .set("Content-Type", "application/json");
+    return this.http.get<Response>(
+      `${this.url.File}/${taskId}/${filename}`,
+      {headers}
+    )
+    .pipe(
+      tap((response: Response) => {
+        console.log(response);
+      })
+    )
+  }
 }
