@@ -9,8 +9,7 @@ describe('MainPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MainPageComponent],
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

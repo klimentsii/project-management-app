@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
+import { myValidatorForPassword } from 'src/app/shared/helpers';
 import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
 
 @Component({
@@ -16,12 +17,12 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   emailPlaceholder = EmailPlaceholders.default;
 
-  signUpData = PasswordPlaceholders.default;
+  passwordPlaceholder = PasswordPlaceholders.default;
 
   constructor() {
     this.loginData = new FormGroup({
-      email: new FormControl('', []),
-      password: new FormControl('', []),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, myValidatorForPassword]),
     });
   }
 
@@ -43,7 +44,7 @@ export class SingInComponent implements OnInit, OnDestroy {
           : EmailPlaceholders.invalid;
     }
 
-    this.loginData = this.loginData.controls['password'].pristine
+    this.passwordPlaceholder = this.loginData.controls['password'].pristine
       ? PasswordPlaceholders.default
       : this.loginData.controls['password'].getError('message') || PasswordPlaceholders.valid;
   }

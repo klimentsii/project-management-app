@@ -1,4 +1,4 @@
-import {ColumnModelExtended} from "./columns";
+import { ColumnModelExtended } from './columns';
 
 export interface BoardModel {
   id: UUIDType;
@@ -6,5 +6,5 @@ export interface BoardModel {
 }
 
 export interface BoardModelExtended extends BoardModel {
-  columns: ColumnModelExtended[]
+  columns: ColumnModelExtended[];
 }

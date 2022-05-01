@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {PageNotFoundComponent} from "./core/pages/page-not-found/page-not-found.component";
+import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -21,8 +21,8 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
   },
   {
-    path:'**',
-    component: PageNotFoundComponent
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 
