@@ -7,7 +7,7 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
 import ProjectsPageComponent from "../board/pages/projects-page/projects-page.component";
 import HeaderComponent from "./components/header/header.component";
 import FooterComponent from "./components/footer/footer.component";
-import {SharedModule} from "../shared/shared.module";
+import { SharedModule } from "../shared/shared.module";
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
