@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
+import { ApiService } from 'src/app/core/services/api.service';
 import { myValidatorForPassword } from 'src/app/shared/helpers';
 import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
 
@@ -19,7 +20,11 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   passwordPlaceholder = PasswordPlaceholders.default;
 
-  constructor() {
+  login: string = '';
+
+  password: string = '';
+
+  constructor(private AuthServices: ApiService) {
     this.loginData = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, myValidatorForPassword]),
@@ -29,6 +34,8 @@ export class SingInComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loginData.statusChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.showPlaceholders();
+      this.login = this.loginData.controls['email'].value;
+      this.password = this.loginData.controls['password'].value;
     });
   }
 
@@ -49,5 +56,7 @@ export class SingInComponent implements OnInit, OnDestroy {
       : this.loginData.controls['password'].getError('message') || PasswordPlaceholders.valid;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.AuthServices.signIn$(this.login, this.password).subscribe();
+  }
 }
