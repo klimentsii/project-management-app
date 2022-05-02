@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoginModel, Token, UserModel, UserModelExtended, UserNoIdModel } from '../models/user';
+import { Token, UserModelExtended, UserNoIdModel } from '../models/user';
 import { Observable, tap } from 'rxjs';
 import { BoardModel, BoardModelExtended } from '../models/boards';
 import { ColumnModel, ColumnModelExtended } from '../models/columns';
@@ -78,12 +78,13 @@ export class ApiService {
     );
   }
 
-  signUp$(name: string, login: string, password: string): Observable<UserModel | null> {
+  signUp$(name: string, login: string, password: string): Observable<UserNoIdModel | null> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
-    return this.http.post<UserModel | null>(
-      this.url.Auth[0],
+
+    return this.http.post<UserNoIdModel | null>(
+      this.url.Auth[1],
       {
         name: name,
         login: login,
