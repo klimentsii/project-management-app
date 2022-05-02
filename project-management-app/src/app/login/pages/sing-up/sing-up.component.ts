@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
+import { NavigatorService } from 'src/app/core/services/navigator.service';
 // import { myValidatorForPassword } from 'src/app/shared/helpers';
 import {
   EmailPlaceholders,
@@ -35,7 +36,7 @@ export class SingUpComponent implements OnInit, OnDestroy {
 
   password: string = '';
 
-  constructor(private AuthServices: AuthService) {
+  constructor(private AuthServices: AuthService, private navigator: NavigatorService) {
     this.signUpData = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       userName: new FormControl('', [Validators.required, Validators.min(3)]),
@@ -103,6 +104,8 @@ export class SingUpComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.AuthServices.signUp$(this.name, this.login, this.password).subscribe();
+    this.AuthServices.signUp$(this.name, this.login, this.password).subscribe(() => {
+      this.navigator.goHome();
+    });
   }
 }

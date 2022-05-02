@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { Token, UserNoIdModel } from 'src/app/core/models/user';
+import { EMPTY, mergeMap, Observable, tap } from 'rxjs';
+import { Token } from 'src/app/core/models/user';
 import { ApiService } from 'src/app/core/services/api.service';
 import { BrowserStorageService } from '../../core/services/storage.service';
 
@@ -22,14 +22,15 @@ export class AuthService {
     return this.localStorageService.set('auth', value.token);
   }
 
-  signUp$(name: string, login: string, password: string): Observable<UserNoIdModel | null> {
+  signUp$(name: string, login: string, password: string): Observable<Token> {
     return this.API.signUp$(name, login, password).pipe(
-      tap(user => {
+      mergeMap(user => {
         if (user) {
-          this.signIn$(user.login, user.name);
-          console.log('User created');
+          return this.signIn$(user.login, user.name);
         }
+        return EMPTY;
       }),
+      tap(() => console.log('User created')),
     );
   }
 
@@ -38,10 +39,5 @@ export class AuthService {
       tap(token => this.setToken(token)),
       tap(() => console.log('Token taken')),
     );
-
-    // .subscribe((token: Token) => {
-    //   this.setToken(token);
-    //   console.log('Token taken');
-    // });
   }
 }

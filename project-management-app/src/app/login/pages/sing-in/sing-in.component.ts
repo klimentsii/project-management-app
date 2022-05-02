@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { ApiService } from 'src/app/core/services/api.service';
-import { myValidatorForPassword } from 'src/app/shared/helpers';
+import { NavigatorService } from 'src/app/core/services/navigator.service';
+// import { myValidatorForPassword } from 'src/app/shared/helpers';
 import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sing-in',
@@ -24,10 +25,10 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   password: string = '';
 
-  constructor(private AuthServices: ApiService) {
+  constructor(private AuthServices: AuthService, private navigator: NavigatorService) {
     this.loginData = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, myValidatorForPassword]),
+      password: new FormControl('', [Validators.required /*,  myValidatorForPassword */]),
     });
   }
 
@@ -57,6 +58,8 @@ export class SingInComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.AuthServices.signIn$(this.login, this.password).subscribe();
+    this.AuthServices.signIn$(this.login, this.password).subscribe(() => {
+      this.navigator.goHome();
+    });
   }
 }
