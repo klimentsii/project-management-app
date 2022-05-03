@@ -2,9 +2,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 
+export interface Iboards {
+  id: UUIDType;
+  title: string;
+}
+
 export interface Idb {
-  value: string;
-  deleteButton: boolean;
+  title: Array<string>;
+  deleteButton: Array<boolean>;
+  users: Array<Array<UUIDType>>;
+  id: Array<UUIDType>;
 }
 
 @Component({
@@ -15,14 +22,26 @@ export interface Idb {
 })
 export class BoardComponent implements OnInit {
 
+  // Example: board from server
+  boards: Array<Iboards> = [
+    {
+      id: 'vrq8-9b9r-bbrb-b5bb',
+      title: JSON.stringify({title: "Shiba Inu", id: ["6-364-62-464", "246-624-2644"]}),
+    },
+    {
+      id: '5g55-gg33-grbg-g55g',
+      title: JSON.stringify({title: "Etherium", id: ["6-364-62-464", "246-624-2644"]}),
+    }
+  ]
+
   newBoardState: boolean = true;
 
-  db: Array<Idb> = [
-    {
-      value: 'Shiba Inu',
-      deleteButton: false,
-    },
-  ];
+  db: Idb = {
+    title: [],
+    deleteButton: [],
+    users: [],
+    id: [],
+  };
 
   errorTitle: string = '';
 
@@ -42,13 +61,18 @@ export class BoardComponent implements OnInit {
     ])
   });
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.boards.map(e => {
+      this.db.title.push(JSON.parse(e.title).title);
+      this.db.deleteButton.push(false);
+      this.db.users.push(JSON.parse(e.title).id);
+      this.db.id.push(e.id);
+    });
+  }
 
   ngOnInit(): void {
-    this.apiService.createBoard$('gg');
-    let eve = this.apiService.getBoards$().subscribe(data => console.log(data));
-    // console.log(eve);
-
+    // this.apiService.createBoard$('gg');
+    // let eve = this.apiService.getBoards$().subscribe(data => console.log(data));
   }
 
   changeState(): void {
@@ -56,11 +80,11 @@ export class BoardComponent implements OnInit {
   }
 
   createNewBoard(): void {
-    if (this.newBoardForm.controls['title'].status === 'VALID' && !this.db.includes(this.newBoardForm.value.title)) {
-      this.db.push({
-        value: this.newBoardForm.value.title,
-        deleteButton: false,
-      });
+    if (this.newBoardForm.controls['title'].status === 'VALID' && !this.db.title  .includes(this.newBoardForm.value.title)) {
+      this.db.title.push(this.newBoardForm.value.title);
+      this.db.deleteButton.push(false);
+      this.db.users.push(['erb']);
+      this.db.id.push('ve4b-b53b-35hh-hhg3');
       this.changeState();
     }
   }
@@ -83,25 +107,28 @@ export class BoardComponent implements OnInit {
 
   deleteBoard(item: string) {
     let currentItemNumber = -1;
-    this.db.map((e, i) => {
-      if (e.value === item) currentItemNumber = i
+    this.db.title.map((e, i) => {
+      if (e === item) currentItemNumber = i
     });
 
-    if (this.db[currentItemNumber].deleteButton === true) {
-      this.db.splice(currentItemNumber, 1);
+    if (this.db.deleteButton[currentItemNumber] === true) {
+      this.db.title.splice(currentItemNumber, 1);
+      this.db.users.splice(currentItemNumber, 1);
+      this.db.id.splice(currentItemNumber, 1);
+      this.db.deleteButton.splice(currentItemNumber, 1);
       this.changeDeleteBoardState(item);
     } else {
-      this.db[currentItemNumber].deleteButton = true;
+      this.db.deleteButton[currentItemNumber] = true;
     }
   }
 
   changeDeleteBoardState(item: string) {
     let currentItemNumber = -1;
-    this.db.map((e, i) => {
-      if (e.value === item) currentItemNumber = i
+    this.db.title.map((e, i) => {
+      if (e === item) currentItemNumber = i;
     });
-    if (this.db[currentItemNumber]) {
-      this.db[currentItemNumber].deleteButton = false;
+    if (this.db.title[currentItemNumber]) {
+      this.db.deleteButton[currentItemNumber] = false;
     }
   }
 }

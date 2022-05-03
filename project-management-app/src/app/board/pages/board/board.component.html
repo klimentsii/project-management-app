@@ -2,23 +2,22 @@
   <div class="container">
     <div class="board-inner">
 
-      <mat-card class="board-item" *ngFor="let item of db">
-        <mat-card-title>{{item.value}}</mat-card-title>
+      <mat-card class="board-item" *ngFor="let item of db.title; let i = index">
+        <mat-card-title>{{item}}</mat-card-title>
         <div class="mat-card-controls">
           <div class="delete">
-            <button class="board-item-button" *ngIf="item.deleteButton" (click)="changeDeleteBoardState(item.value)">
+            <button class="board-item-button" *ngIf="db.deleteButton[i]" (click)="changeDeleteBoardState(item)">
               <mat-icon>arrow_back</mat-icon>
             </button>
-            <button class="board-item-button" (click)="deleteBoard(item.value)">
+            <button class="board-item-button" (click)="deleteBoard(item)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
-          <button class="board-item-button">
+          <button class="board-item-button" routerLink="/board?id={{db.id[i]}}">
             <mat-icon>launch</mat-icon>
           </button>
         </div>
       </mat-card>
-
 
       <button *ngIf="newBoardState" mat-button class="board-item" (click)="changeState()">
         <mat-icon>add</mat-icon>
