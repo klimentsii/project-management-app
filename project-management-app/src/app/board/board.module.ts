@@ -5,9 +5,6 @@ import { BoardRoutingModule } from './board-routing.module';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    BoardRoutingModule,
-  ],
+  imports: [CommonModule, BoardRoutingModule],
 })
-export class BoardModule { }
+export class BoardModule {}

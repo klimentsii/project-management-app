@@ -1,4 +1,4 @@
-import {TaskModel} from "./tasks";
+import { TaskModel } from './tasks';
 
 export interface ColumnModel {
   id: UUIDType;
@@ -7,5 +7,5 @@ export interface ColumnModel {
 }
 
 export interface ColumnModelExtended extends ColumnModel {
-  tasks: TaskModel[]
+  tasks: TaskModel[];
 }

@@ -5,12 +5,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
-  declarations: [
-    ProfileComponent
-  ],
-  imports: [
-    CommonModule,
-    AccountRoutingModule,
-  ],
+  declarations: [ProfileComponent],
+  imports: [CommonModule, AccountRoutingModule],
 })
-export class AccountModule { }
+export class AccountModule {}

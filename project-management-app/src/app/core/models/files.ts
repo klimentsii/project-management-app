@@ -1,4 +1,4 @@
 export interface FileModel {
-  filename: string,
-  fileSize: number
+  filename: string;
+  fileSize: number;
 }

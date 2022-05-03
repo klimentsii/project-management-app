@@ -1,13 +1,15 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
-import { myValidatorForPassword } from 'src/app/shared/helpers';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { NavigatorService } from 'src/app/core/services/navigator.service';
+// import { myValidatorForPassword } from 'src/app/shared/helpers';
 import {
   EmailPlaceholders,
   PasswordPlaceholders,
   RepeatedPasswordPlaceholders,
   UserNamePlaceholders,
 } from 'src/app/shared/placeholder.enum';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sing-up',
@@ -28,20 +30,34 @@ export class SingUpComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor() {
+  login: string = '';
+
+  name: string = '';
+
+  password: string = '';
+
+  constructor(private AuthServices: AuthService, private navigator: NavigatorService) {
     this.signUpData = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       userName: new FormControl('', [Validators.required, Validators.min(3)]),
-      password: new FormControl('', [Validators.required, myValidatorForPassword]),
-      repeatedPassword: new FormControl('', [Validators.required, myValidatorForPassword]),
+      password: new FormControl('', [Validators.required]),
+      repeatedPassword: new FormControl('', [Validators.required]),
     });
   }
 
   ngOnInit() {
-    this.signUpData.statusChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.validateRepeatedPassword();
-      this.showPlaceholders();
-    });
+    this.signUpData.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => {
+          // this.validateRepeatedPassword();
+          this.showPlaceholders();
+          this.login = this.signUpData.controls['email'].value;
+          this.name = this.signUpData.controls['userName'].value;
+          this.password = this.signUpData.controls['password'].value;
+        }),
+      )
+      .subscribe();
   }
 
   showPlaceholders() {
@@ -64,17 +80,18 @@ export class SingUpComponent implements OnInit, OnDestroy {
       : this.signUpData.controls['password'].getError('message') || PasswordPlaceholders.valid;
 
     if (!this.signUpData.controls['repeatedPassword'].pristine) {
-      this.userNamePlaceholder =
+      this.repeatedPasswordPlaceholder =
         this.signUpData.controls['repeatedPassword'].status === 'VALID'
-          ? UserNamePlaceholders.valid
-          : UserNamePlaceholders.invalid;
+          ? RepeatedPasswordPlaceholders.valid
+          : RepeatedPasswordPlaceholders.invalid;
     }
   }
 
   validateRepeatedPassword() {
     if (
+      this.signUpData.controls['repeatedPassword'].value &&
       this.signUpData.controls['password'].value !==
-      this.signUpData.controls['repeatedPassword'].value
+        this.signUpData.controls['repeatedPassword'].value
     ) {
       this.signUpData.controls['repeatedPassword'].setErrors({
         message: 'Wrong repeated password',
@@ -86,5 +103,9 @@ export class SingUpComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.AuthServices.signUp$(this.name, this.login, this.password).subscribe(() => {
+      this.navigator.goHome();
+    });
+  }
 }

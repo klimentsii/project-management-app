@@ -1,7 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
+import { NavigatorService } from 'src/app/core/services/navigator.service';
+// import { myValidatorForPassword } from 'src/app/shared/helpers';
 import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sing-in',
@@ -16,18 +19,24 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   emailPlaceholder = EmailPlaceholders.default;
 
-  signUpData = PasswordPlaceholders.default;
+  passwordPlaceholder = PasswordPlaceholders.default;
 
-  constructor() {
+  login: string = '';
+
+  password: string = '';
+
+  constructor(private AuthServices: AuthService, private navigator: NavigatorService) {
     this.loginData = new FormGroup({
-      email: new FormControl('', []),
-      password: new FormControl('', []),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required /*,  myValidatorForPassword */]),
     });
   }
 
   ngOnInit(): void {
     this.loginData.statusChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.showPlaceholders();
+      this.login = this.loginData.controls['email'].value;
+      this.password = this.loginData.controls['password'].value;
     });
   }
 
@@ -43,10 +52,14 @@ export class SingInComponent implements OnInit, OnDestroy {
           : EmailPlaceholders.invalid;
     }
 
-    this.loginData = this.loginData.controls['password'].pristine
+    this.passwordPlaceholder = this.loginData.controls['password'].pristine
       ? PasswordPlaceholders.default
       : this.loginData.controls['password'].getError('message') || PasswordPlaceholders.valid;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.AuthServices.signIn$(this.login, this.password).subscribe(() => {
+      this.navigator.goHome();
+    });
+  }
 }

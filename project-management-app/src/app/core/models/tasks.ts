@@ -1,13 +1,13 @@
-import {FileModel} from "./files";
+import { FileModel } from './files';
 
 export interface TaskModel {
   id: UUIDType;
   title: string;
   order: number;
-  done: boolean,
+  done: boolean;
   description: string;
   userId: string | null;
-  files: FileModel[]
+  files: FileModel[];
 }
 
 export interface TaskModelPlus {
