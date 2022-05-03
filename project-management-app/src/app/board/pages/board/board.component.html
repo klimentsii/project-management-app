@@ -1,21 +1,44 @@
 <section class="board">
   <div class="container">
     <div class="board-inner">
-      <button mat-button class="board-item card" >
-        <mat-card>
-          <mat-card-title>Shiba Inu
-          </mat-card-title>
-          <mat-card-content>
-            <p>
-              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
-            </p>
-          </mat-card-content>
-        </mat-card>
+
+      <mat-card class="board-item" *ngFor="let item of db">
+        <mat-card-title>{{item.value}}</mat-card-title>
+        <div class="mat-card-controls">
+          <div class="delete">
+            <button class="board-item-button" *ngIf="item.deleteButton" (click)="changeDeleteBoardState(item.value)">
+              <mat-icon>arrow_back</mat-icon>
+            </button>
+            <button class="board-item-button" (click)="deleteBoard(item.value)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <button class="board-item-button">
+            <mat-icon>launch</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+
+
+      <button *ngIf="newBoardState" mat-button class="board-item" (click)="changeState()">
+        <mat-icon>add</mat-icon>
       </button>
 
-      <button mat-button class="board-item"><mat-icon>add</mat-icon></button>
+      <form [formGroup]="newBoardForm" (ngSubmit)="createNewBoard()" *ngIf="!newBoardState" class="board-item">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Name of board</mat-label>
+          <input (input)="chooseTitleError()" type="text" matInput formControlName="title" matInput placeholder="Ex. Projects">
+          <mat-hint>Errors appear instantly!</mat-hint>
+          <mat-error *ngIf="myselfError">
+            {{errorTitle}}
+          </mat-error>
+        </mat-form-field>
 
-
+        <div class="mat-card-controls">
+          <button class="board-item-button" (click)="changeState()"><mat-icon>arrow_back</mat-icon></button>
+          <button class="board-item-button" type="submit"><mat-icon>check</mat-icon></button>
+        </div>
+      </form>
     </div>
   </div>
 </section>

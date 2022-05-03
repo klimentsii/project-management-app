@@ -12,8 +12,8 @@
 
     .board-item {
 
-      height: 200px;
       width: 200px;
+      height: 100px;
       background-color: #F7F7F7;
       border: 1px solid rgb(209, 209, 209);
       border-radius: 20px;
@@ -21,28 +21,60 @@
       padding: 0;
     }
 
-    .board-item.card {
-      display: flex;
-      text-align: left;
+    button {
+      cursor: pointer;
+    }
 
-      p {
-        width: 100%;
-        white-space: normal;
-        line-height: 15px;
-      }
+      .board-item-button {
+        border: none;
+        z-index: 10;
+        border-radius: 50%;
+        transition: all 0.3s;
+        background-color: #F7F7F7;
+        height: 24px;
+        width: 24px;
+        padding: 0;
 
-      ::ng-deep .mat-button-wrapper {
-        border-radius: 20px;
-        width: 200px;
-        height: 200px;
-
-        .mat-card {
-          padding: 10px;
-          border-radius: 20px;
-          background-color: #F7F7F7;
-          box-shadow: none;
+        &:hover {
+          background-color: #cacaca;
         }
       }
-    }
+
+      .delete {
+        width: 48px;
+        display: flex;
+        justify-content: center;
+      }
+      .mat-form-field {
+        border-radius: 20px;
+      }
+
+      ::ng-deep .mat-form-field-wrapper {
+        border-radius: 20px;
+        background-color: none;
+      }
+
+      .mat-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .mat-card-title {
+          margin: 0;
+          margin-top: 15px;
+          width: 90%;
+          word-wrap: break-word;
+          text-align: center;
+        }
+      }
+
+      .mat-card-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin: 0 auto;
+        width: 100%;
+      }
   }
 }
