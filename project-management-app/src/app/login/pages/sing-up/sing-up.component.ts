@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { NavigatorService } from 'src/app/core/services/navigator.service';
-// import { myValidatorForPassword } from 'src/app/shared/helpers';
+import { myValidatorForPassword } from 'src/app/shared/helpers';
 import {
   EmailPlaceholders,
   PasswordPlaceholders,
@@ -40,8 +40,8 @@ export class SingUpComponent implements OnInit, OnDestroy {
     this.signUpData = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       userName: new FormControl('', [Validators.required, Validators.min(3)]),
-      password: new FormControl('', [Validators.required]),
-      repeatedPassword: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, myValidatorForPassword]),
+      repeatedPassword: new FormControl('', [Validators.required, myValidatorForPassword]),
     });
   }
 
@@ -50,12 +50,25 @@ export class SingUpComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         tap(() => {
-          // this.validateRepeatedPassword();
           this.showPlaceholders();
           this.login = this.signUpData.controls['email'].value;
           this.name = this.signUpData.controls['userName'].value;
           this.password = this.signUpData.controls['password'].value;
         }),
+      )
+      .subscribe();
+
+    this.signUpData.controls['password'].valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => this.validateRepeatedPassword()),
+      )
+      .subscribe();
+
+    this.signUpData.controls['repeatedPassword'].valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() => this.validateRepeatedPassword()),
       )
       .subscribe();
   }
@@ -104,8 +117,8 @@ export class SingUpComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.AuthServices.signUp$(this.name, this.login, this.password).subscribe(() => {
-      this.navigator.goHome();
-    });
+    this.AuthServices.signUp$(this.name, this.login, this.password)
+      .pipe(tap(() => this.navigator.goToTheBoards()))
+      .subscribe();
   }
 }

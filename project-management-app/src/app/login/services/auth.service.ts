@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, mergeMap, Observable, tap } from 'rxjs';
+import { EMPTY, Observable, switchMap, tap } from 'rxjs';
 import { Token } from 'src/app/core/models/user';
 import { ApiService } from 'src/app/core/services/api.service';
 import { BrowserStorageService } from '../../core/services/storage.service';
@@ -24,7 +24,7 @@ export class AuthService {
 
   signUp$(name: string, login: string, password: string): Observable<Token> {
     return this.API.signUp$(name, login, password).pipe(
-      mergeMap(user => {
+      switchMap(user => {
         if (user) {
           return this.signIn$(user.login, user.name);
         }
