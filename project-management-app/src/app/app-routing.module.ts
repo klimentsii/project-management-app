@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-found.component';
+import { AuthorizeGuard } from './core/guards/authorize.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: 'boards',
     loadChildren: () => import('./board/board.module').then(m => m.BoardModule),
+    canActivateChild: [AuthorizeGuard],
   },
   {
     path: 'profile',
