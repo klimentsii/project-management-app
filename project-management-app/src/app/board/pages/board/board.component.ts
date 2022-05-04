@@ -43,10 +43,6 @@ export class BoardComponent implements OnInit {
     id: [],
   };
 
-  errorTitle: string = '';
-
-  myselfError: boolean = false;
-
   obj: object = {
     required: 'Title is required',
     minlength: 'Title must be at least 3 characters long',
@@ -80,55 +76,36 @@ export class BoardComponent implements OnInit {
   }
 
   createNewBoard(): void {
-    if (this.newBoardForm.controls['title'].status === 'VALID' && !this.db.title  .includes(this.newBoardForm.value.title)) {
-      this.db.title.push(this.newBoardForm.value.title);
-      this.db.deleteButton.push(false);
-      this.db.users.push(['erb']);
-      this.db.id.push('ve4b-b53b-35hh-hhg3');
-      this.changeState();
-    }
+    this.db.title.push(this.newBoardForm.value.title);
+    this.db.deleteButton.push(false);
+    this.db.users.push(['erb']);
+    this.db.id.push((performance.now().toString(36)+Math.random().toString(36)).replace(/\./g,""));
+    this.changeState();
+    console.log(this.db);
   }
 
-  chooseTitleError(): void {
-    this.myselfError = true;
-    if (this.newBoardForm.controls['title'].errors) {
-      for (let item in this.newBoardForm.controls['title'].errors) {
-        this.errorTitle = Object.entries(this.obj)[Object.keys(this.obj).indexOf(item)][1];
-      }
+  chooseTitleError(): string {
+    for (let item in this.newBoardForm.controls['title'].errors) {
+      return Object.entries(this.obj)[Object.keys(this.obj).indexOf(item)][1];
     }
-    // else if (this.db.includes(this.newBoardForm.value.title)) {
-    //   console.log('Same titles');
-    //   this.errorTitle = 'You have the same title';
-    // }
-    else {
-      this.myselfError = false;
-    }
+    return '';
   }
 
-  deleteBoard(item: string) {
-    let currentItemNumber = -1;
-    this.db.title.map((e, i) => {
-      if (e === item) currentItemNumber = i
-    });
-
-    if (this.db.deleteButton[currentItemNumber] === true) {
-      this.db.title.splice(currentItemNumber, 1);
-      this.db.users.splice(currentItemNumber, 1);
-      this.db.id.splice(currentItemNumber, 1);
-      this.db.deleteButton.splice(currentItemNumber, 1);
-      this.changeDeleteBoardState(item);
+  deleteBoard(i: number) {
+    if (this.db.deleteButton[i] === true) {
+      this.db.title.splice(i, 1);
+      this.db.users.splice(i, 1);
+      this.db.id.splice(i, 1);
+      this.db.deleteButton.splice(i, 1);
+      this.changeDeleteBoardState(i);
     } else {
-      this.db.deleteButton[currentItemNumber] = true;
+      this.db.deleteButton[i] = true;
     }
   }
 
-  changeDeleteBoardState(item: string) {
-    let currentItemNumber = -1;
-    this.db.title.map((e, i) => {
-      if (e === item) currentItemNumber = i;
-    });
-    if (this.db.title[currentItemNumber]) {
-      this.db.deleteButton[currentItemNumber] = false;
+  changeDeleteBoardState(i: number) {
+    if (this.db.title[i]) {
+      this.db.deleteButton[i] = false;
     }
   }
 }

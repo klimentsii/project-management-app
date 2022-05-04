@@ -6,10 +6,10 @@
         <mat-card-title>{{item}}</mat-card-title>
         <div class="mat-card-controls">
           <div class="delete">
-            <button class="board-item-button" *ngIf="db.deleteButton[i]" (click)="changeDeleteBoardState(item)">
+            <button class="board-item-button" *ngIf="db.deleteButton[i]" (click)="changeDeleteBoardState(i)">
               <mat-icon>arrow_back</mat-icon>
             </button>
-            <button class="board-item-button" (click)="deleteBoard(item)">
+            <button class="board-item-button" (click)="deleteBoard(i)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
@@ -26,16 +26,17 @@
       <form [formGroup]="newBoardForm" (ngSubmit)="createNewBoard()" *ngIf="!newBoardState" class="board-item">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Name of board</mat-label>
-          <input (input)="chooseTitleError()" type="text" matInput formControlName="title" matInput placeholder="Ex. Projects">
+          <input type="text" matInput formControlName="title" matInput placeholder="Ex. Projects">
           <mat-hint>Errors appear instantly!</mat-hint>
-          <mat-error *ngIf="myselfError">
-            {{errorTitle}}
+          <mat-error *ngIf="newBoardForm.controls['title'].errors">
+            {{chooseTitleError()}}
           </mat-error>
         </mat-form-field>
 
         <div class="mat-card-controls">
           <button class="board-item-button" (click)="changeState()"><mat-icon>arrow_back</mat-icon></button>
-          <button class="board-item-button" type="submit"><mat-icon>check</mat-icon></button>
+          <button class="board-item-button" *ngIf="this.newBoardForm.controls['title'].status !== 'VALID'" disabled><mat-icon>check</mat-icon></button>
+          <button class="board-item-button" *ngIf="this.newBoardForm.controls['title'].status === 'VALID'" type="submit"><mat-icon>check</mat-icon></button>
         </div>
       </form>
     </div>
