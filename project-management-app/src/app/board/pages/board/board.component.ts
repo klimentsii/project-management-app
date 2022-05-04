@@ -1,18 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
+import { Iboards, Idb } from '../../interfaces/db.interface';
 
-export interface Iboards {
-  id: UUIDType;
-  title: string;
-}
-
-export interface Idb {
-  title: Array<string>;
-  deleteButton: Array<boolean>;
-  users: Array<Array<UUIDType>>;
-  id: Array<UUIDType>;
-}
 
 @Component({
   selector: 'app-board',
@@ -79,9 +69,13 @@ export class BoardComponent implements OnInit {
     this.db.title.push(this.newBoardForm.value.title);
     this.db.deleteButton.push(false);
     this.db.users.push(['erb']);
-    this.db.id.push((performance.now().toString(36)+Math.random().toString(36)).replace(/\./g,""));
+    this.db.id.push(this.createUniqueId());
     this.changeState();
     console.log(this.db);
+  }
+
+  createUniqueId(): string {
+    return (performance.now().toString(36)+Math.random().toString(36)).replace(/\./g,"");
   }
 
   chooseTitleError(): string {

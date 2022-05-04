@@ -14,8 +14,8 @@
       <nav class='header-nav'>
         <button mat-raised-button routerLink="auth/sign-in" *ngIf="true" color="primary">Sign in</button>
         <button mat-raised-button routerLink="auth/sign-up" color="primary">Sign up</button>
-        <button mat-raised-button routerLink="profile" *ngIfElse="" color="primary"><mat-icon>account_circle</mat-icon></button>
-        <button mat-raised-button routerLink="" *ngIfElse="" color="primary"><mat-icon>exit_to_app</mat-icon></button>
+        <button mat-raised-button routerLink="profile" *ngIf="true" color="primary"><mat-icon>account_circle</mat-icon></button>
+        <button mat-raised-button routerLink="" *ngIf="true" color="primary"><mat-icon>exit_to_app</mat-icon></button>
       </nav>
     </div>
   </div>

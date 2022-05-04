@@ -35,8 +35,8 @@
 
         <div class="mat-card-controls">
           <button class="board-item-button" (click)="changeState()"><mat-icon>arrow_back</mat-icon></button>
-          <button class="board-item-button" *ngIf="this.newBoardForm.controls['title'].status !== 'VALID'" disabled><mat-icon>check</mat-icon></button>
-          <button class="board-item-button" *ngIf="this.newBoardForm.controls['title'].status === 'VALID'" type="submit"><mat-icon>check</mat-icon></button>
+          <button class="board-item-button" *ngIf="newBoardForm.invalid" disabled><mat-icon>check</mat-icon></button>
+          <button class="board-item-button" *ngIf="newBoardForm.valid" type="submit"><mat-icon>check</mat-icon></button>
         </div>
       </form>
     </div>
