@@ -117,8 +117,8 @@ export class SingUpComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.AuthServices.signUp$(this.name, this.login, this.password).subscribe(() => {
-      this.navigator.goHome();
-    });
+    this.AuthServices.signUp$(this.name, this.login, this.password)
+      .pipe(tap(() => this.navigator.goToTheBoards()))
+      .subscribe();
   }
 }

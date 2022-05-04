@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { NavigatorService } from 'src/app/core/services/navigator.service';
 import { myValidatorForPassword } from 'src/app/shared/helpers';
 import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
@@ -58,8 +58,8 @@ export class SingInComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.AuthServices.signIn$(this.login, this.password).subscribe(() => {
-      this.navigator.goHome();
-    });
+    this.AuthServices.signIn$(this.login, this.password)
+      .pipe(tap(() => this.navigator.goToTheBoards()))
+      .subscribe();
   }
 }

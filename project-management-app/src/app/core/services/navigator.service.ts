@@ -10,4 +10,8 @@ export class NavigatorService {
   goHome() {
     this.router.navigate(['']);
   }
+
+  goToTheBoards() {
+    this.router.navigate(['boards']);
+  }
 }
