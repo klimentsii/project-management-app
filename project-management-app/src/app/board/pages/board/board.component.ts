@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
-import { Iboards, Idb } from '../../interfaces/db.interface';
+import { Iboards, Idb } from '../../models/db.model';
 
 
 @Component({
@@ -71,7 +71,6 @@ export class BoardComponent implements OnInit {
     this.db.users.push(['erb']);
     this.db.id.push(this.createUniqueId());
     this.changeState();
-    console.log(this.db);
   }
 
   createUniqueId(): string {

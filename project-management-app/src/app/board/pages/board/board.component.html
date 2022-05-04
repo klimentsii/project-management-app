@@ -5,7 +5,7 @@
       <mat-card class="board-item" *ngFor="let item of db.title; let i = index">
         <mat-card-title>{{item}}</mat-card-title>
         <div class="mat-card-controls">
-          <div class="delete">
+          <div class="mat-card-controls-delete">
             <button class="board-item-button" *ngIf="db.deleteButton[i]" (click)="changeDeleteBoardState(i)">
               <mat-icon>arrow_back</mat-icon>
             </button>
@@ -34,8 +34,8 @@
         </mat-form-field>
 
         <div class="mat-card-controls">
-          <button class="board-item-button" (click)="changeState()"><mat-icon>arrow_back</mat-icon></button>
-          <button class="board-item-button" *ngIf="newBoardForm.invalid" disabled><mat-icon>check</mat-icon></button>
+          <button class="board-item-button" type="button" (click)="changeState()"><mat-icon>arrow_back</mat-icon></button>
+          <button class="board-item-button" *ngIf="newBoardForm.invalid" type="button" disabled><mat-icon>check</mat-icon></button>
           <button class="board-item-button" *ngIf="newBoardForm.valid" type="submit"><mat-icon>check</mat-icon></button>
         </div>
       </form>
