@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
-import MainPageComponent from '../board/pages/main-page/main-page.component';
 import ProjectsPageComponent from '../board/pages/projects-page/projects-page.component';
 import HeaderComponent from './components/header/header.component';
 import FooterComponent from './components/footer/footer.component';
@@ -13,7 +12,6 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 
 @NgModule({
   declarations: [
-    MainPageComponent,
     ProjectsPageComponent,
     HeaderComponent,
     FooterComponent,

@@ -1,11 +1,12 @@
 header {
-  height: 67px;
+  height: 70px;
+  position: fixed;
+  background-color: #3F51B5;
+  width: 100%;
 
   .header-container {
-    position: fixed;
-    background-color: #3F51B5;
-    left: 0;
-    right: 0;
+    height: 70px;
+
     .header-inner {
       display: flex;
       justify-content: space-between;
