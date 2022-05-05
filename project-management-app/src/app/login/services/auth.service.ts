@@ -26,7 +26,7 @@ export class AuthService {
     return this.API.signUp$(name, login, password).pipe(
       switchMap(user => {
         if (user) {
-          return this.signIn$(user.login, user.name);
+          return this.signIn$(user.login, password);
         }
         return EMPTY;
       }),
