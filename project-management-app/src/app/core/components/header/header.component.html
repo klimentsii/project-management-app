@@ -12,6 +12,9 @@
       </nav>
 
       <nav class='header-nav'>
+        <div class="mat-typography" *ngIf="(userLogged$ | async) as user">
+          User: {{user.name + '(' + user.login + ')'}}
+        </div>
         <button mat-raised-button routerLink="auth/sign-in" *ngIf="true" color="primary">Sign in</button>
         <button mat-raised-button routerLink="auth/sign-up" color="primary">Sign up</button>
         <button mat-raised-button routerLink="profile" *ngIf="true" color="primary"><mat-icon>account_circle</mat-icon></button>
