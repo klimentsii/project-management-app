@@ -1,8 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/core/services/api.service';
 import { Iboards, Idb } from '../../models/db.model';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-board',
@@ -16,22 +18,17 @@ export class BoardComponent implements OnInit {
   boards: Array<Iboards> = [
     {
       id: 'vrq8-9b9r-bbrb-b5bb',
-      title: JSON.stringify({title: "Shiba Inu", id: ["6-364-62-464", "246-624-2644"]}),
+      title: JSON.stringify({title: "Shiba Inu", id: ["26-364-62-34ywny4", "246-62w4ymy-2644"]}),
     },
     {
       id: '5g55-gg33-grbg-g55g',
-      title: JSON.stringify({title: "Etherium", id: ["6-364-62-464", "246-624-2644"]}),
+      title: JSON.stringify({title: "Etherium", id: ["6ttq-364-q62-94", "2qtnq6-6-22464274", "2qtbqnq6-6"]}),
     }
   ]
 
   newBoardState: boolean = true;
 
-  db: Idb = {
-    title: [],
-    deleteButton: [],
-    users: [],
-    id: [],
-  };
+  db: Idb[] = [];
 
   obj: object = {
     required: 'Title is required',
@@ -47,12 +44,13 @@ export class BoardComponent implements OnInit {
     ])
   });
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private dialog: MatDialog) {
     this.boards.map(e => {
-      this.db.title.push(JSON.parse(e.title).title);
-      this.db.deleteButton.push(false);
-      this.db.users.push(JSON.parse(e.title).id);
-      this.db.id.push(e.id);
+      this.db.push({
+        title: JSON.parse(e.title).title,
+        users: JSON.parse(e.title).id,
+        id: e.id,
+      })
     });
   }
 
@@ -66,15 +64,16 @@ export class BoardComponent implements OnInit {
   }
 
   createNewBoard(): void {
-    this.db.title.push(this.newBoardForm.value.title);
-    this.db.deleteButton.push(false);
-    this.db.users.push(['erb']);
-    this.db.id.push(this.createUniqueId());
+    this.db.push({
+      title: this.newBoardForm.value.title,
+      users: ['erb'],
+      id: this.createUniqueId(),
+    })
     this.changeState();
   }
 
   createUniqueId(): string {
-    return (performance.now().toString(36)+Math.random().toString(36)).replace(/\./g,"");
+    return (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "");
   }
 
   chooseTitleError(): string {
@@ -84,21 +83,17 @@ export class BoardComponent implements OnInit {
     return '';
   }
 
-  deleteBoard(i: number) {
-    if (this.db.deleteButton[i] === true) {
-      this.db.title.splice(i, 1);
-      this.db.users.splice(i, 1);
-      this.db.id.splice(i, 1);
-      this.db.deleteButton.splice(i, 1);
-      this.changeDeleteBoardState(i);
-    } else {
-      this.db.deleteButton[i] = true;
-    }
-  }
+  deleteBoard(i: number): void {
+    const dialog = this.dialog.open(ConfirmationModalComponent, {
+      height: '150px',
+      width: '300px',
+      data: i,
+    });
 
-  changeDeleteBoardState(i: number) {
-    if (this.db.title[i]) {
-      this.db.deleteButton[i] = false;
-    }
+    dialog.afterClosed().subscribe(i => {
+      if (i !== undefined) {
+        this.db.splice(i, 1);
+      }
+    });
   }
 }

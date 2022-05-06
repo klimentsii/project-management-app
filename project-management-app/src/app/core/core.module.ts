@@ -9,15 +9,17 @@ import HeaderComponent from './components/header/header.component';
 import FooterComponent from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
     ProjectsPageComponent,
+    ConfirmationModalComponent,
     HeaderComponent,
     FooterComponent,
     PageNotFoundComponent,
   ],
-  exports: [HeaderComponent, FooterComponent],
+  exports: [HeaderComponent, FooterComponent, ConfirmationModalComponent],
   imports: [CommonModule, SharedModule, RouterModule, HttpClientModule, ReactiveFormsModule],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }],
 })
