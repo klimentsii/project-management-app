@@ -4,10 +4,13 @@ import * as UserActions from '../actions/user.action';
 import {catchError, map, of, switchMap, switchMapTo, tap} from "rxjs";
 import {AuthService} from "../../../login/services/auth.service";
 import {LogoutUser} from "../actions/user.action";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService) {
   }
 
   fetchUser = createEffect(
@@ -35,8 +38,7 @@ export class UserEffects {
       map(() => {
         this.authService.clearStorage();
         return UserActions.LogoutUserSuccess()
-      }),
-      catchError(() => of(UserActions.FetchUserFailed()))
+      })
     )
   )
 }
