@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API: {
-    url: 'http://localhost:4200/api/',
+    url: 'https://gentle-peak-00968.herokuapp.com/',
   },
 };
 
