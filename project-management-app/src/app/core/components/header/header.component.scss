@@ -1,3 +1,5 @@
+@import "../../../../styles/colors";
+
 header {
   height: 70px;
   position: fixed;
@@ -14,7 +16,7 @@ header {
       padding: 10px 0;
 
       .mat-button-toggle {
-        background-color: #3F51B5;
+        background-color: $color-primary;
         color: white;
       }
 
@@ -30,6 +32,13 @@ header {
       .header-nav {
         display: flex;
         column-gap: 10px;
+
+        .header-user-info {
+          padding-top: 12px;
+          padding-right: 40px;
+          color: $color1;
+          font-size: 1rem;
+        }
       }
     }
   }

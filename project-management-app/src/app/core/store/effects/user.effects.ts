@@ -3,28 +3,40 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import * as UserActions from '../actions/user.action';
 import {catchError, map, of, switchMap, switchMapTo, tap} from "rxjs";
 import {AuthService} from "../../../login/services/auth.service";
+import {LogoutUser} from "../actions/user.action";
 
 @Injectable()
 export class UserEffects {
-  constructor( private actions$: Actions, private authService: AuthService ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {
+  }
 
   fetchUser = createEffect(
     () => this.actions$.pipe(
-      ofType(UserActions.fetchUser),
+      ofType(UserActions.FetchUser),
       switchMapTo(
         of(this.authService.getAuthInfo()).pipe(
           tap((res) => console.log(res)),
           map(user => {
             console.log('USER AFTER SIGN IN', user);
-
             return user
-              ? UserActions.fetchUserSuccess({user})
-              : UserActions.fetchUserFailed()
+              ? UserActions.FetchUserSuccess({user})
+              : UserActions.FetchUserFailed()
           }),
-          catchError(() => of(UserActions.fetchUserFailed()))
+          catchError(() => of(UserActions.FetchUserFailed()))
         )
       )
     )
   )
 
+  logoutUser = createEffect(
+    () => this.actions$.pipe(
+      ofType(UserActions.LogoutUser),
+      tap(() => console.log('Local storage is cleaned')),
+      map(() => {
+        this.authService.clearStorage();
+        return UserActions.LogoutUserSuccess()
+      }),
+      catchError(() => of(UserActions.FetchUserFailed()))
+    )
+  )
 }

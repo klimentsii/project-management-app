@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import * as fromUser from '../../store/reducers/user.reducer';
-import {Observable, tap} from "rxjs";
 import {AuthInfoModel} from "../../../login/models/auth.model";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import * as fromUser from '../../store/reducers/user.reducer';
+import * as UserAction from "../../store/actions/user.action";
 
 @Component({
   selector: 'app-header',
@@ -20,4 +21,7 @@ export default class HeaderComponent implements OnInit{
     this.store.subscribe((store) => console.log('STORE', store));
   }
 
+  logOut() {
+    this.store.dispatch(UserAction.LogoutUser())
+  }
 }

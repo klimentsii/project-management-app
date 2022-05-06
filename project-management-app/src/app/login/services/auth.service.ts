@@ -39,6 +39,11 @@ export class AuthService {
     return auth ? JSON.parse(auth) : null;
   }
 
+  clearStorage():void {
+    this.localStorageService.clear();
+  }
+
+
   signIn$(login: string, password: string): Observable<UserNoIdModel[]> {
     return this.API.signIn$(login, password)
       .pipe(
@@ -51,8 +56,9 @@ export class AuthService {
             return this.API.getUsers$().pipe(
               tap(users => {
                 const currentUser = users.filter(user => user.login === login);
-                this.setAuthInfo({...token, ...currentUser[0]});
-                this.store.dispatch(UserAction.fetchUser())
+                const auth = {...token, ...currentUser[0]};
+                this.setAuthInfo(auth);
+                this.store.dispatch(UserAction.FetchUserSuccess({user: auth}));
                 console.log('User registered');
               }),
             )
@@ -71,4 +77,5 @@ export class AuthService {
         tap(() => console.log('User created'))
       );
   }
+
 }

@@ -18,7 +18,7 @@ export default class AppComponent implements OnInit {
   ngOnInit() {
     if (this.authService.isUserLoggedIn()){
       console.log('Logged in')
-      this.store.dispatch(UserAction.fetchUser())
+      this.store.dispatch(UserAction.FetchUser())
     }
   }
 }

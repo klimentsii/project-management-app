@@ -3,15 +3,23 @@ import {AuthInfoModel} from "../../../login/models/auth.model";
 
 const actionSource = '[User]';
 
-export const fetchUser = createAction(
+export const FetchUser = createAction(
   `${actionSource} Fetch User`
 )
 
-export const fetchUserSuccess = createAction(
+export const FetchUserSuccess = createAction(
   `${actionSource} Fetch User Success`,
   props<{ user: AuthInfoModel }>()
 )
 
-export const fetchUserFailed = createAction(
+export const FetchUserFailed = createAction(
   `${actionSource} Fetch User Failed`
+)
+
+export const LogoutUser = createAction(
+  `${actionSource} Logout User`
+)
+
+export const LogoutUserSuccess = createAction(
+  `${actionSource} Logout User Success`
 )

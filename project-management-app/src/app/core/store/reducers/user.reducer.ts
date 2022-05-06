@@ -1,17 +1,16 @@
 import {createFeatureSelector, createReducer, createSelector, on} from "@ngrx/store";
 import * as UserActions from '../actions/user.action'
 import {UserState} from "../store.model";
+import {LogoutUserSuccess} from "../actions/user.action";
 
 export const initialState: UserState = {
   user: null,
   isFetched: false
 }
 
-
 export const reducer = createReducer(
   initialState,
-  on(UserActions.fetchUserSuccess, (state, {user}) => {
-
+  on(UserActions.FetchUserSuccess, (state, {user}) => {
     console.log('USER', user);
     return {
       ...state,
@@ -19,12 +18,20 @@ export const reducer = createReducer(
       isFetched: true,
     }
   }),
-  on(UserActions.fetchUserFailed, (state) => ({
+  on(UserActions.FetchUserFailed, (state) => ({
     ...state,
     isFetched: false,
   })),
-)
 
+  on(UserActions.LogoutUserSuccess, () => ({
+      user: null,
+      isFetched: false,
+  })),
+  on(UserActions.LogoutUser, () => ({
+    user: null,
+    isFetched: false,
+  }))
+)
 
 export const getUserStore = createFeatureSelector<UserState>('auth');
 
@@ -40,6 +47,3 @@ export const getIsFetched = createSelector(
     return state.isFetched
   }
 );
-
-
-
