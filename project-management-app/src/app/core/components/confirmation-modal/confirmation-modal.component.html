@@ -1,0 +1,7 @@
+<form class="confirmation">
+  <h4 mat-dialog-title>Are you sure you want to do this?</h4>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()" cdkFocusInitial>Cancel</button>
+    <button mat-button [mat-dialog-close]="data" >Confirm <mat-icon>delete</mat-icon></button>
+  </div>
+</form>

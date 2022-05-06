@@ -4,8 +4,7 @@ export interface Iboards {
 }
 
 export interface Idb {
-  title: Array<string>;
-  deleteButton: Array<boolean>;
-  users: Array<Array<UUIDType>>;
-  id: Array<UUIDType>;
+  title: string;
+  users: Array<UUIDType>;
+  id: UUIDType;
 }

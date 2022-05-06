@@ -2,18 +2,13 @@
   <div class="container">
     <div class="board-inner">
 
-      <mat-card class="board-item" *ngFor="let item of db.title; let i = index">
-        <mat-card-title>{{item}}</mat-card-title>
+      <mat-card class="board-item" *ngFor="let item of db; let i = index">
+        <mat-card-title>{{item.title}}</mat-card-title>
         <div class="mat-card-controls">
-          <div class="mat-card-controls-delete">
-            <button class="board-item-button" *ngIf="db.deleteButton[i]" (click)="changeDeleteBoardState(i)">
-              <mat-icon>arrow_back</mat-icon>
-            </button>
-            <button class="board-item-button" (click)="deleteBoard(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-          <button class="board-item-button" routerLink="/board?id={{db.id[i]}}">
+          <button class="board-item-button" (click)="deleteBoard(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button class="board-item-button" routerLink="/project?id={{item.id}}">
             <mat-icon>launch</mat-icon>
           </button>
         </div>
@@ -34,8 +29,8 @@
         </mat-form-field>
 
         <div class="mat-card-controls">
-          <button class="board-item-button" type="button" (click)="changeState()"><mat-icon>arrow_back</mat-icon></button>
-          <button class="board-item-button" *ngIf="newBoardForm.invalid" type="button" disabled><mat-icon>check</mat-icon></button>
+          <button class="board-item-button" (click)="changeState()"><mat-icon>arrow_back</mat-icon></button>
+          <button class="board-item-button" *ngIf="newBoardForm.invalid" disabled><mat-icon>check</mat-icon></button>
           <button class="board-item-button" *ngIf="newBoardForm.valid" type="submit"><mat-icon>check</mat-icon></button>
         </div>
       </form>
