@@ -7,7 +7,7 @@
         </button>
         <button mat-raised-button color="primary" routerLink="boards">Boards</button>
 
-        <mat-button-toggle-group>
+        <mat-button-toggle-group (change)="changeLang($event.value)">
           <mat-button-toggle value="en">en</mat-button-toggle>
           <mat-button-toggle value="ru">ru</mat-button-toggle>
         </mat-button-toggle-group>

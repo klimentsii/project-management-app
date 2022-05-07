@@ -4,6 +4,7 @@ import {BoardUsersModel} from "../models/boards";
 export interface AppState {
   auth: UserState;
   boards: BoardState;
+  core: CoreState;
 }
 
 export interface UserState {
@@ -12,4 +13,10 @@ export interface UserState {
 
 export interface BoardState {
   boards: BoardUsersModel[];
+}
+
+export type Languages = 'ru' | 'en'
+
+export interface CoreState {
+  lang: Languages;
 }
