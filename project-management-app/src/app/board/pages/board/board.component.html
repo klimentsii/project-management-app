@@ -1,1 +1,30 @@
-<p>projects-page works!</p>
+<section class="project">
+  <div class="container">
+    <div class="project-inner">
+
+      <div class="board-columns"
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="dropGrid($event)">
+        <div class="board-column" cdkDragLockAxis="x" *ngFor="let column of board.columns" cdkDrag>
+          <div class="column-title" cdkDragHandle>
+            {{ column.name }}
+          </div>
+          <div
+            class="tasks-container"
+            id="{{column.id}}"
+            [cdkDropListConnectedTo]="['21', '32']"
+            cdkDropList
+            [cdkDropListData]="column.tasks"
+            (cdkDropListDropped)="drop($event)">
+
+            <div class="task" *ngFor="let item of column.tasks" cdkDrag>
+              {{ item }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
