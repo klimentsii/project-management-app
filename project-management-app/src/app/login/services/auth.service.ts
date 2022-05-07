@@ -24,9 +24,20 @@ export class AuthService {
     return !!this.localStorageService.get('auth');
   }
 
+  IsJsonString(str:string) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
   getToken(): string | null {
     const auth = this.localStorageService.get('auth');
-    return auth ? JSON.parse(auth).token : null;
+    return auth
+      ? this.IsJsonString(auth) ? JSON.parse(auth).token : auth
+      : null
   }
 
   setToken(value: Token): void {

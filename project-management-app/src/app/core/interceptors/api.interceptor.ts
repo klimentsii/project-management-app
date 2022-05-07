@@ -10,6 +10,7 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log('Interceptor1');
+
     return this.authService.isUserLoggedIn()
       ? next.handle(
           request.clone({
