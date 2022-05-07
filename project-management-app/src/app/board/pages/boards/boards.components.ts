@@ -27,7 +27,7 @@ import { TitleErrorMessages } from 'src/app/shared/validationMessages.enum';
   styleUrls: ['./boards.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BoardsComponents implements OnInit, OnDestroy {
+export class BoardsComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
@@ -38,7 +38,9 @@ export class BoardsComponents implements OnInit, OnDestroy {
   }
 
   boards$: Observable<BoardUsersModel[]> = this.store.select(fromBoards.getBoards);
+
   newBoardState: boolean = true;
+
   newBoardForm: FormGroup = new FormGroup({
     title: new FormControl('', [
       Validators.required,
@@ -81,8 +83,9 @@ export class BoardsComponents implements OnInit, OnDestroy {
 
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
-  delayed$ = new BehaviorSubject(false);
-  typingSubscription!: Subscription;
+  private delayed$ = new BehaviorSubject(false);
+
+  private typingSubscription!: Subscription;
 
   ngOnInit(): void {
     this.store.dispatch(BoardsAction.FetchBoards())
