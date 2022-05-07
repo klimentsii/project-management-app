@@ -6,6 +6,8 @@ import * as fromUser from '../../store/reducers/user.reducer';
 import * as UserAction from "../../store/actions/user.action";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../login/services/auth.service";
+import { ChangeLanguage } from '../../store/actions/core.action';
+import { Languages } from '../../store/store.model';
 
 @Component({
   selector: 'app-header',
@@ -21,10 +23,14 @@ export default class HeaderComponent {
 
   ) {}
 
-  userLogged$:Observable<AuthModel | null>= this.store.select(fromUser.getCurrentUser);
+  userLogged$:Observable<AuthModel | null> = this.store.select(fromUser.getCurrentUser);
 
   logOut() {
     this.store.dispatch(UserAction.LogoutUser());
     return this.router.navigate(['/welcome']);
+  }
+
+  changeLang(lang: Languages) {
+    this.store.dispatch(ChangeLanguage({lang}))
   }
 }

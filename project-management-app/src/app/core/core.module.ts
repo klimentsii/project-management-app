@@ -15,11 +15,10 @@ import {StoreModule} from "@ngrx/store";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
 import {EffectsModule} from "@ngrx/effects";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import * as fromUser from './store/reducers/user.reducer'
-import * as fromBoards from './store/reducers/boards.reducer'
 import {UserEffects} from "./store/effects/user.effects";
 import {BoardsEffects} from "./store/effects/boards.effects";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
+import { reducers } from './store/reducers';
 
 
 @NgModule({
@@ -37,7 +36,7 @@ import {ErrorInterceptor} from "./interceptors/error.interceptor";
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({auth: fromUser.reducer, boards: fromBoards.reducer}, {}),
+    StoreModule.forRoot(reducers),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([UserEffects, BoardsEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
