@@ -3,8 +3,6 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import * as UserActions from '../actions/user.action';
 import {catchError, map, of, switchMap, switchMapTo, tap} from "rxjs";
 import {AuthService} from "../../../login/services/auth.service";
-import {LogoutUser} from "../actions/user.action";
-import {Router} from "@angular/router";
 
 @Injectable()
 export class UserEffects {

@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {AuthInfoModel} from "../../../login/models/auth.model";
+import {AuthModel} from "../../../login/models/auth.model";
 
 const actionSource = '[User]';
 
@@ -9,7 +9,7 @@ export const FetchUser = createAction(
 
 export const FetchUserSuccess = createAction(
   `${actionSource} Fetch User Success`,
-  props<{ user: AuthInfoModel }>()
+  props<{ user: AuthModel | null }>()
 )
 
 export const FetchUserFailed = createAction(

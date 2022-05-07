@@ -3,9 +3,10 @@ import {catchError, EMPTY, Observable, retry, switchMap, tap} from 'rxjs';
 import {Token, UserNoIdModel} from 'src/app/core/models/user';
 import {ApiService} from 'src/app/core/services/api.service';
 import {BrowserStorageService} from '../../core/services/storage.service';
-import {AuthInfoModel} from "../models/auth.model";
+import {AuthModel} from "../models/auth.model";
 import * as UserAction from "../../core/store/actions/user.action";
 import {Store} from "@ngrx/store";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,8 @@ export class AuthService {
   constructor(
     private localStorageService: BrowserStorageService,
     private API: ApiService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {
   }
 
@@ -23,18 +25,19 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return this.localStorageService.get('auth');
+    const auth = this.localStorageService.get('auth');
+    return auth ? JSON.parse(auth).token : null;
   }
 
   setToken(value: Token): void {
     return this.localStorageService.set('auth', value.token);
   }
 
-  setAuthInfo(value: AuthInfoModel): void {
+  setAuthInfo(value: AuthModel): void {
     return this.localStorageService.set('auth', JSON.stringify(value));
   }
 
-  getAuthInfo(): AuthInfoModel | null {
+  getAuthInfo(): AuthModel | null {
     const auth = this.localStorageService.get('auth');
     return auth ? JSON.parse(auth) : null;
   }
@@ -42,6 +45,12 @@ export class AuthService {
   clearStorage():void {
     this.localStorageService.clear();
   }
+
+  logout() {
+    this.store.dispatch(UserAction.LogoutUser());
+    return this.router.navigate(['/auth/sign-in']);
+  }
+
 
 
   signIn$(login: string, password: string): Observable<UserNoIdModel[]> {

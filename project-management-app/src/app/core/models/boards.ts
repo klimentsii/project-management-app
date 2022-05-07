@@ -5,6 +5,12 @@ export interface BoardModel {
   title: string;
 }
 
+export interface BoardUsersModel extends BoardModel {
+  users: UUIDType[];
+}
+
+
+
 export interface BoardModelExtended extends BoardModel {
   columns: ColumnModelExtended[];
 }

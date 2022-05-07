@@ -27,5 +27,8 @@ export const getUserStore = createFeatureSelector<UserState>('auth');
 
 export const getCurrentUser = createSelector(
   getUserStore,
-  (state: UserState) => state.user
+  (state: UserState) => {
+    console.log(state)
+    return state.user
+  }
 );

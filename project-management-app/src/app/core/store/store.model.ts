@@ -1,15 +1,15 @@
-import {AuthInfoModel} from "../../login/models/auth.model";
-import {BoardModel} from "../../board/models/board.model";
+import {AuthModel} from "../../login/models/auth.model";
+import {BoardUsersModel} from "../models/boards";
 
 export interface AppState {
-  user: UserState;
-  boards: BoardsState;
+  auth: UserState;
+  boards: BoardState;
 }
 
 export interface UserState {
-  user: AuthInfoModel | null;
+  user: AuthModel | null;
 }
 
-export interface BoardsState {
-  boards: BoardModel[] | null;
+export interface BoardState {
+  boards: BoardUsersModel[];
 }

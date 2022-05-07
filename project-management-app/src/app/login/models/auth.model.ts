@@ -1,4 +1,4 @@
-export interface AuthInfoModel {
+export interface AuthModel {
   token: string;
   id: UUIDType;
   name: string;
