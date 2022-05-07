@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoardComponent } from './pages/board/board.component';
-import ProjectsPageComponent from './pages/projects-page/projects-page.component';
+import { BoardsComponent } from './pages/boards/boards.components';
+import BoardComponent from './pages/board/board.component';
 
 const routes: Routes = [
-  { path: '', component: BoardComponent },
-  { path: ':id', component: ProjectsPageComponent },
+  { path: '', component: BoardsComponent },
+  { path: ':id', component: BoardComponent },
 ];
 
 @NgModule({

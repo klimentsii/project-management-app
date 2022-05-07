@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component } from '@angular/core';
+import {AuthModel} from "../../../login/models/auth.model";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import * as fromUser from '../../store/reducers/user.reducer';
+import * as UserAction from "../../store/actions/user.action";
+import {Router} from "@angular/router";
+import {AuthService} from "../../../login/services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -6,4 +13,18 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HeaderComponent {}
+export default class HeaderComponent {
+  constructor(
+    private store: Store,
+    private router: Router,
+    private authService: AuthService
+
+  ) {}
+
+  userLogged$:Observable<AuthModel | null>= this.store.select(fromUser.getCurrentUser);
+
+  logOut() {
+    this.store.dispatch(UserAction.LogoutUser());
+    return this.router.navigate(['/welcome']);
+  }
+}

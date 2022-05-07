@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BoardRoutingModule } from './board-routing.module';
-import { BoardComponent } from './pages/board/board.component';
+import { BoardsComponent } from './pages/boards/boards.components';
 import { SharedModule } from '../shared/shared.module';
-import { CoreModule } from '../core/core.module';
 
 @NgModule({
-  declarations: [BoardComponent],
-  imports: [CommonModule, BoardRoutingModule, SharedModule, CoreModule],
+  declarations: [BoardsComponent],
+  imports: [CommonModule, BoardRoutingModule, SharedModule],
 })
 export class BoardModule {}

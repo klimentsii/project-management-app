@@ -1,0 +1,41 @@
+<section class="board">
+  <div class="container">
+    <div class="board-inner">
+        <mat-card class="board-item" *ngFor="let board of boards$ | async; let i = index">
+          <mat-card-title>{{board.title}}</mat-card-title>
+          <div class="mat-card-controls">
+            <button class="board-item-button" (click)="deleteBoard(board.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button class="board-item-button" routerLink="/project?id={{board.id}}">
+              <mat-icon>launch</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+
+      <button *ngIf="newBoardState" mat-button class="board-item" (click)="changeState()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <form [formGroup]="newBoardForm" (ngSubmit)="createNewBoard()" *ngIf="!newBoardState" class="board-item">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Name of board</mat-label>
+          <input type="text" matInput formControlName="title" placeholder="Ex. Projects">
+          <mat-hint>Errors appear instantly!</mat-hint>
+          <mat-error *ngIf="newBoardForm.controls['title'].errors">
+                        {{chooseTitleError()}}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="mat-card-controls">
+          <button class="board-item-button" (click)="changeState()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <button class="board-item-button" [disabled]="!newBoardForm.valid || !(delayed$ | async)" type="submit">
+            <mat-icon>check</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
