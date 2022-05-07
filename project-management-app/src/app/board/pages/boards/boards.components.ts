@@ -83,7 +83,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
-  private delayed$ = new BehaviorSubject(false);
+  delayed$ = new BehaviorSubject(false);
 
   private typingSubscription!: Subscription;
 
