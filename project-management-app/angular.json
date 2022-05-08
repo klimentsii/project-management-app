@@ -17,6 +17,15 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ru": {
+            "translation": "src/locale/messages.ru.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -27,6 +36,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "localize":true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -38,6 +48,9 @@
             "scripts": []
           },
           "configurations": {
+            "ru": {
+              "localize": ["ru"]
+            },
             "production": {
               "budgets": [
                 {
@@ -78,6 +91,9 @@
             },
             "development": {
               "browserTarget": "project-management-app:build:development"
+            },
+            "ru": {
+              "browserTarget": "project-management-app:build:ru"
             }
           },
           "defaultConfiguration": "development"
