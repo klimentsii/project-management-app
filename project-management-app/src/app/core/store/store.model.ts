@@ -1,5 +1,5 @@
-import {AuthModel} from "../../login/models/auth.model";
-import {BoardUsersModel} from "../models/boards";
+import { AuthModel } from '../../login/models/auth.model';
+import { BoardUsersModel } from '../models/boards';
 
 export interface AppState {
   auth: UserState;

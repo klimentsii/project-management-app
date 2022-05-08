@@ -7,16 +7,13 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 
-import {catchError, Observable, tap, throwError} from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { MessageService } from '../services/message.service';
-import {AuthService} from "../../login/services/auth.service";
+import { AuthService } from '../../login/services/auth.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(
-    private messageService: MessageService,
-    private authService: AuthService,
-    ) {}
+  constructor(private messageService: MessageService, private authService: AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log('Interceptor2');
