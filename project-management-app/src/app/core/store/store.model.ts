@@ -15,7 +15,7 @@ export interface BoardState {
   boards: BoardUsersModel[];
 }
 
-export type Languages = 'ru' | 'en'
+export type Languages = 'ru' | 'en';
 
 export interface CoreState {
   lang: Languages;

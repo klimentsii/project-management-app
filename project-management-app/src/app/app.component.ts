@@ -13,6 +13,7 @@ import { tap } from 'rxjs';
 })
 export default class AppComponent implements OnInit, AfterViewInit {
   title: string = 'project-management-app';
+
   loading: boolean = false;
 
   constructor(

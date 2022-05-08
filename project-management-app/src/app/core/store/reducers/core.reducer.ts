@@ -1,19 +1,19 @@
-import {createFeatureSelector, createReducer, createSelector, on} from "@ngrx/store";
-import { CoreState } from "../store.model";
-import * as CoreActions from '../actions/core.action'
+import { createFeatureSelector, createReducer, on } from '@ngrx/store';
+import { CoreState } from '../store.model';
+import * as CoreActions from '../actions/core.action';
 
 export const initialState: CoreState = {
-  lang: 'ru'
-}
+  lang: 'ru',
+};
 
 export const reducer = createReducer(
   initialState,
-  on(CoreActions.ChangeLanguage, (state, {lang}) => {
+  on(CoreActions.ChangeLanguage, (state, { lang }): CoreState => {
     return {
       ...state,
-      lang
-    }
+      lang,
+    };
   }),
-)
+);
 
-export const getUserStore = createFeatureSelector<CoreState>('core');
+export const selectUserStore = createFeatureSelector<CoreState>('core');

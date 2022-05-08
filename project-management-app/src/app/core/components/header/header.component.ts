@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import * as fromUser from '../../store/reducers/user.reducer';
 import * as UserAction from '../../store/actions/user.action';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../login/services/auth.service';
 import { Languages } from '../../store/store.model';
 import { ChangeLanguage } from '../../store/actions/core.action';
 
@@ -16,7 +15,7 @@ import { ChangeLanguage } from '../../store/actions/core.action';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HeaderComponent {
-  constructor(private store: Store, private router: Router, private authService: AuthService) {}
+  constructor(private store: Store, private router: Router) {}
 
   userLogged$: Observable<AuthModel | null> = this.store.select(fromUser.selectCurrentUser);
 
