@@ -10,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "local": "ng extract-i18n"
+    "local": "ng extract-i18n --output-path src/locale"
   },
   "private": true,
   "dependencies": {

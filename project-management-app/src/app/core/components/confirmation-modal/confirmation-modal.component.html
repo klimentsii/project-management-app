@@ -1,7 +1,7 @@
 <form class="confirmation">
-  <h4 mat-dialog-title>Are you sure you want to do this?</h4>
+  <h4 i18n="modal | @@confirmQuestion" mat-dialog-title>Are you sure you want to do this?</h4>
   <div mat-dialog-actions>
-    <button mat-button (click)="onCancelClick()" cdkFocusInitial>Cancel</button>
-    <button mat-button [mat-dialog-close]="data" >Confirm <mat-icon>delete</mat-icon></button>
+    <button i18n="modal | @@cancel" mat-button (click)="onCancelClick()" cdkFocusInitial>Cancel</button>
+    <button i18n="modal |@@confirm" mat-button [mat-dialog-close]="data" >Confirm <mat-icon>delete</mat-icon></button>
   </div>
 </form>

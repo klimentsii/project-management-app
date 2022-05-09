@@ -2,6 +2,39 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="confirmQuestion" datatype="html">
+        <source>Are you sure you want to do this?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/confirmation-modal/confirmation-modal.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description"> </note>
+        <note priority="1" from="meaning">modal </note>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/confirmation-modal/confirmation-modal.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description"> </note>
+        <note priority="1" from="meaning">modal </note>
+      </trans-unit>
+      <trans-unit id="confirm" datatype="html">
+        <source>Confirm <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>delete<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/confirmation-modal/confirmation-modal.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="meaning">modal </note>
+      </trans-unit>
+      <trans-unit id="boardsHeader" datatype="html">
+        <source>Boards</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="GreatingHeader" datatype="html">
         <source> Hello, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="&lt;/strong"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="(&lt;i&gt;{{us"/> (<x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="INTERPOLATION_1" equiv-text="&lt;/i&gt;) !"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text=") !
           &lt;/"/>) ! </source>
@@ -23,6 +56,38 @@
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
           <context context-type="linenumber">31,32</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="loginTitle" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-in/sing-in.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">login </note>
+      </trans-unit>
+      <trans-unit id="loginSubmit" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-in/sing-in.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">login </note>
+      </trans-unit>
+      <trans-unit id="signUpTitle" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-up/sing-up.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">sign up </note>
+      </trans-unit>
+      <trans-unit id="signUpSubmit" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-up/sing-up.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">sign up </note>
       </trans-unit>
     </body>
   </file>
