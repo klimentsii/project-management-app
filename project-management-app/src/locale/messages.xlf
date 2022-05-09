@@ -2,6 +2,22 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="nameBoard" datatype="html">
+        <source>Name of board</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <note priority="1" from="description">boards </note>
+      </trans-unit>
+      <trans-unit id="nameHint" datatype="html">
+        <source>Errors appear instantly!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+        <note priority="1" from="description">boards </note>
+      </trans-unit>
       <trans-unit id="confirmQuestion" datatype="html">
         <source>Are you sure you want to do this?</source>
         <context-group purpose="location">
