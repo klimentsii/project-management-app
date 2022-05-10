@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { NavigatorService } from 'src/app/core/services/navigator.service';
-import { isEnglish, myValidatorForPassword, PlaceTypes } from 'src/app/shared/helpers';
-import { EmailPlaceholdersRU, PasswordPlaceholdersRU } from 'src/app/shared/placeholder.enum.ru';
+import { getPassPlaceholderValue, isEnglish, myValidatorForPassword } from 'src/app/shared/helpers';
+import { EmailPlaceholdersRU } from 'src/app/shared/placeholder.enum.ru';
 import { AuthService } from '../../services/auth.service';
-import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
+import { EmailPlaceholders } from 'src/app/shared/placeholder.enum';
 
 @Component({
   selector: 'app-sing-in',
@@ -23,7 +23,7 @@ export class SingInComponent implements OnInit, OnDestroy {
     ru: EmailPlaceholdersRU.default,
   };
 
-  passwordPlaceholder = this.getPassPlaceholderValue('default');
+  passwordPlaceholder = getPassPlaceholderValue('default');
 
   login: string = '';
 
@@ -66,9 +66,8 @@ export class SingInComponent implements OnInit, OnDestroy {
     }
 
     this.passwordPlaceholder = this.loginData.controls['password'].pristine
-      ? this.getPassPlaceholderValue('default')
-      : this.loginData.controls['password'].getError('message') ||
-        this.getPassPlaceholderValue('valid');
+      ? getPassPlaceholderValue('default')
+      : this.loginData.controls['password'].getError('message') || getPassPlaceholderValue('valid');
   }
 
   onSubmit() {
@@ -79,9 +78,5 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   isEnglish(): boolean {
     return isEnglish();
-  }
-
-  getPassPlaceholderValue(value: PlaceTypes) {
-    return this.isEnglish() ? PasswordPlaceholders[value] : PasswordPlaceholdersRU[value];
   }
 }

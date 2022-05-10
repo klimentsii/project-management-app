@@ -15,13 +15,13 @@ export enum EmailPlaceholdersRU {
 }
 
 export enum RepeatedPasswordPlaceholdersRU {
-  default = 'Please repeat the login password',
-  valid = 'The password is valid',
-  invalid = 'The passwords must match',
+  default = 'Повторите пароль',
+  valid = 'Пароли совпадают',
+  invalid = 'Пароли должны совпадать',
 }
 
 export enum UserNamePlaceholdersRU {
-  default = 'Please enter a name',
-  valid = 'The name is valid',
-  invalid = 'The name is invalid',
+  default = 'Введите Ваше имя',
+  valid = 'Имя валидно',
+  invalid = 'Имя не валидно',
 }

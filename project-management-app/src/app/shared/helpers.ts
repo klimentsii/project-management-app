@@ -1,6 +1,16 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { PasswordPlaceholders } from './placeholder.enum';
-import { PasswordPlaceholdersRU } from './placeholder.enum.ru';
+import {
+  EmailPlaceholders,
+  PasswordPlaceholders,
+  RepeatedPasswordPlaceholders,
+  UserNamePlaceholders,
+} from './placeholder.enum';
+import {
+  EmailPlaceholdersRU,
+  PasswordPlaceholdersRU,
+  RepeatedPasswordPlaceholdersRU,
+  UserNamePlaceholdersRU,
+} from './placeholder.enum.ru';
 
 export type PlaceTypes = 'default' | 'valid' | 'invalid';
 
@@ -29,4 +39,17 @@ export const myValidatorForPassword = (control: AbstractControl): ValidationErro
   }
 
   return null;
+};
+
+export const getPassPlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? PasswordPlaceholders[value] : PasswordPlaceholdersRU[value];
+};
+export const getEmailPlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? EmailPlaceholders[value] : EmailPlaceholdersRU[value];
+};
+export const getUserNamePlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? UserNamePlaceholders[value] : UserNamePlaceholdersRU[value];
+};
+export const getRepeatPassPlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? RepeatedPasswordPlaceholders[value] : RepeatedPasswordPlaceholdersRU[value];
 };
