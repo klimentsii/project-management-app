@@ -1,9 +1,9 @@
-import {Component, OnInit, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ApiService} from 'src/app/core/services/api.service';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/core/services/api.service';
 import * as BoardsAction from 'src/app/core/store/actions/boards.action';
-import {MatDialog} from '@angular/material/dialog';
-import {ConfirmationModalComponent} from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
 import {
   BehaviorSubject,
   debounceTime,
@@ -12,32 +12,30 @@ import {
   ReplaySubject,
   Subscription,
   takeUntil,
-  tap
-} from "rxjs";
-import * as fromBoards from "../../../core/store/reducers/boards.reducer";
-import {BoardUsersModel} from "../../../core/models/boards";
-import {Store} from "@ngrx/store";
-import * as BoardsActions from "../../../core/store/actions/boards.action";
-import {AuthService} from "../../../login/services/auth.service";
+  tap,
+} from 'rxjs';
+import * as fromBoards from '../../../core/store/reducers/boards.reducer';
+import { BoardUsersModel } from '../../../core/models/boards';
+import { Store } from '@ngrx/store';
+import * as BoardsActions from '../../../core/store/actions/boards.action';
+import { AuthService } from '../../../login/services/auth.service';
 import { TitleErrorMessages } from 'src/app/shared/validationMessages.enum';
 
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html',
   styleUrls: ['./boards.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardsComponent implements OnInit, OnDestroy {
-
   constructor(
     private store: Store,
     private apiService: ApiService,
     private authService: AuthService,
     private dialog: MatDialog,
-  ) {
-  }
+  ) {}
 
-  boards$: Observable<BoardUsersModel[]> = this.store.select(fromBoards.getBoards);
+  boards$: Observable<BoardUsersModel[]> = this.store.select(fromBoards.selectBoards);
 
   newBoardState: boolean = true;
 
@@ -46,7 +44,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(20),
-    ])
+    ]),
   });
 
   changeState(): void {
@@ -55,7 +53,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   createNewBoard(): void {
     const title = this.newBoardForm.value.title;
-    this.store.dispatch(BoardsActions.CreateBoard({title}));
+    this.store.dispatch(BoardsActions.CreateBoard({ title }));
     this.changeState();
   }
 
@@ -73,11 +71,13 @@ export class BoardsComponent implements OnInit, OnDestroy {
       data: id,
     });
 
-    dialog.afterClosed()
+    dialog
+      .afterClosed()
       .pipe(
         tap(() => {
-          this.store.dispatch(BoardsActions.DeleteBoard({boardId: id}))
-        }))
+          if (id) this.store.dispatch(BoardsActions.DeleteBoard({ boardId: id }));
+        }),
+      )
       .subscribe();
   }
 
@@ -88,20 +88,20 @@ export class BoardsComponent implements OnInit, OnDestroy {
   private typingSubscription!: Subscription;
 
   ngOnInit(): void {
-    this.store.dispatch(BoardsAction.FetchBoards())
-
-    this.typingSubscription =
-      this.newBoardForm.valueChanges.pipe(
+    this.store.dispatch(BoardsAction.FetchBoards());
+    this.typingSubscription = this.newBoardForm.valueChanges
+      .pipe(
         tap(() => {
-          this.delayed$.next(false)
+          this.delayed$.next(false);
         }),
         takeUntil(this.destroyed$),
         debounceTime(1000),
         distinctUntilChanged(),
         tap(() => {
-          this.delayed$.next(true)
-        }))
-        .subscribe();
+          this.delayed$.next(true);
+        }),
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {

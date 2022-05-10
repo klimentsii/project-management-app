@@ -5,11 +5,26 @@
   src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .container {
   max-width: 1440px;
   margin: 0 auto;
   padding: 10px 20px;
+}
+
+.cursor-loader {
+  cursor: wait;
+  background: (0,0,0, 0.7);
+
+  * {
+    cursor: wait !important;
+  }
 }

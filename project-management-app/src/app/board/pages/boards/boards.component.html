@@ -31,7 +31,7 @@
           <button class="board-item-button" (click)="changeState()">
             <mat-icon>arrow_back</mat-icon>
           </button>
-          <button class="board-item-button" [disabled]="!newBoardForm.valid || !(delayed$ | async)" type="submit">
+          <button class="board-item-button" [disabled]="!newBoardForm.valid || (delayed$ | async) === false" type="submit">
             <mat-icon>check</mat-icon>
           </button>
         </div>
