@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromUser from '../../store/reducers/user.reducer';
 import * as UserAction from '../../store/actions/user.action';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../login/services/auth.service';
 import { ChangeLanguage } from '../../store/actions/core.action';
 import { Languages } from '../../store/store.model';
+import { NavigatorService } from '../../services/navigator.service';
 
 @Component({
   selector: 'app-header',
@@ -16,13 +16,17 @@ import { Languages } from '../../store/store.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HeaderComponent {
-  constructor(private store: Store, private router: Router, private authService: AuthService) {}
+  constructor(
+    private store: Store,
+    private authService: AuthService,
+    private navigator: NavigatorService,
+  ) {}
 
   userLogged$: Observable<AuthModel | null> = this.store.select(fromUser.getCurrentUser);
 
   logOut() {
     this.store.dispatch(UserAction.LogoutUser());
-    return this.router.navigate(['/welcome']);
+    return this.navigator.goToTheWelcome();
   }
 
   changeLang(lang: Languages) {

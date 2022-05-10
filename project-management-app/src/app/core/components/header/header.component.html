@@ -8,8 +8,8 @@
         <button i18n="@@boardsHeader" mat-raised-button color="primary" routerLink="boards">Boards</button>
 
         <mat-button-toggle-group (change)="changeLang($event.value)">
-          <mat-button-toggle value="en">en</mat-button-toggle>
-          <mat-button-toggle value="ru">ru</mat-button-toggle>
+          <a href="/en-US"><mat-button-toggle value="en">en</mat-button-toggle></a>
+          <a href="/ru"><mat-button-toggle value="ru">ru</mat-button-toggle></a>
         </mat-button-toggle-group>
       </nav>
 
