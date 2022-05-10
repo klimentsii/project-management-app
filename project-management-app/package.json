@@ -6,11 +6,12 @@
     "start": "ng serve",
     "start:ru": "ng serve --configuration=ru",
     "build": "ng build",
-    "buildAll": "ng build --localize",
+    "build:all": "ng build --localize",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "local": "ng extract-i18n --output-path src/locale"
+    "local": "ng extract-i18n --output-path src/locale",
+    "serve:firebase" : "firebase emulators:start"
   },
   "private": true,
   "dependencies": {

@@ -31,5 +31,6 @@ export default class HeaderComponent {
 
   changeLang(lang: Languages) {
     this.store.dispatch(ChangeLanguage({ lang }));
+    localStorage.setItem('lang', lang);
   }
 }
