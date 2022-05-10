@@ -2,9 +2,10 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { NavigatorService } from 'src/app/core/services/navigator.service';
-import { myValidatorForPassword } from 'src/app/shared/helpers';
-import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
+import { isEnglish, myValidatorForPassword, PlaceTypes } from 'src/app/shared/helpers';
+import { EmailPlaceholdersRU, PasswordPlaceholdersRU } from 'src/app/shared/placeholder.enum.ru';
 import { AuthService } from '../../services/auth.service';
+import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
 
 @Component({
   selector: 'app-sing-in',
@@ -17,9 +18,12 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   loginData: FormGroup;
 
-  emailPlaceholder = EmailPlaceholders.default;
+  emailPlaceholder = {
+    en: EmailPlaceholders.default,
+    ru: EmailPlaceholdersRU.default,
+  };
 
-  passwordPlaceholder = PasswordPlaceholders.default;
+  passwordPlaceholder = this.getPassPlaceholderValue('default');
 
   login: string = '';
 
@@ -44,22 +48,40 @@ export class SingInComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  showPlaceholderEmail() {
+    this.emailPlaceholder.en =
+      this.loginData.controls['email'].status === 'VALID'
+        ? EmailPlaceholders.valid
+        : EmailPlaceholders.invalid;
+
+    this.emailPlaceholder.ru =
+      this.loginData.controls['email'].status === 'VALID'
+        ? EmailPlaceholdersRU.valid
+        : EmailPlaceholdersRU.invalid;
+  }
+
   showPlaceholders() {
     if (!this.loginData.controls['email'].pristine) {
-      this.emailPlaceholder =
-        this.loginData.controls['email'].status === 'VALID'
-          ? EmailPlaceholders.valid
-          : EmailPlaceholders.invalid;
+      this.showPlaceholderEmail();
     }
 
     this.passwordPlaceholder = this.loginData.controls['password'].pristine
-      ? PasswordPlaceholders.default
-      : this.loginData.controls['password'].getError('message') || PasswordPlaceholders.valid;
+      ? this.getPassPlaceholderValue('default')
+      : this.loginData.controls['password'].getError('message') ||
+        this.getPassPlaceholderValue('valid');
   }
 
   onSubmit() {
     this.AuthServices.signIn$(this.login, this.password)
       .pipe(tap(() => this.navigator.goToTheBoards()))
       .subscribe();
+  }
+
+  isEnglish(): boolean {
+    return isEnglish();
+  }
+
+  getPassPlaceholderValue(value: PlaceTypes) {
+    return this.isEnglish() ? PasswordPlaceholders[value] : PasswordPlaceholdersRU[value];
   }
 }
