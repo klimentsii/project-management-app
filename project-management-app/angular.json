@@ -36,7 +36,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "localize": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
