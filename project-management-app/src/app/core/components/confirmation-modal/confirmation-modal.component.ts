@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ConfirmationModalComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmationModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number,
+    @Inject(MAT_DIALOG_DATA) public data: number | UUIDType,
   ) {}
 
   onCancelClick(): void {

@@ -52,6 +52,17 @@
     width: 100%;
     margin: 0 25px 25px 0;
     overflow-x: hidden;
+
+    .board-column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      h2 {
+        margin: auto 0;
+      }
+    }
   }
 }
 

@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
 import { CreateItemModalComponent } from './modals/create-item-modal/create-item-modal.component';
 import { ColumnModel } from 'src/app/core/models/columns';
+import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-board',
@@ -51,9 +52,11 @@ export default class BoardComponent {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event.previousIndex);
-    console.log(event.currentIndex);
-
+    this.store.dispatch(ColumnsActions.ChangeColumnsOrder({
+      boardId: this.id,
+      leftColumn: event.previousIndex,
+      rightColumn: event.currentIndex
+    }));
 
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
   }
@@ -90,5 +93,22 @@ export default class BoardComponent {
         };
       }))
     .subscribe();
+  }
+
+  deleteColumn(id: UUIDType): void {
+    const dialog = this.dialog.open(ConfirmationModalComponent, {
+      height: '150px',
+      width: '300px',
+      data: id,
+    });
+
+    dialog.afterClosed()
+      .pipe(
+        tap((i) => {
+          if (i) {
+            this.store.dispatch(ColumnsActions.DeleteColumn({ boardId: this.id, columnId: i }));
+          }
+        }))
+      .subscribe();
   }
 }

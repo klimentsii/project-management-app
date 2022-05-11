@@ -16,8 +16,11 @@ export const reducer = createReducer(
   })),
   on(ColumnsActions.CreateColumnSuccess, (state: ColumnModel[], {payload}) => ([
     ...state, payload
+  ])),
+  on(ColumnsActions.DeleteColumnSuccess, (state: ColumnModel[], {columnId}) => ([
+    ...state.filter(e => e.id !== columnId)
   ]))
-)
+);
 
 export const getColumnsState = createFeatureSelector<ColumnModel[]>('columns');
 

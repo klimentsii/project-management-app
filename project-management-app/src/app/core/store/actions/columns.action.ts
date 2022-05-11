@@ -40,16 +40,16 @@ export const ChangeColumnsOrderSuccess = createAction(
   props<{ payload: ColumnModel[] }>()
 )
 
-// export const DeleteColumn = createAction(
-//   `${actionSource} Delete Column`,
-//   props<{ payload: UUIDType }>()
-// )
+export const DeleteColumn = createAction(
+  `${actionSource} Delete Column`,
+  props<{ boardId: UUIDType, columnId: UUIDType }>()
+)
 
-// export const DeleteColumnsuccess = createAction(
-//   `${actionSource} Delete Column success`,
-//   props<{ payload: UUIDType }>()
-// )
+export const DeleteColumnSuccess = createAction(
+  `${actionSource} Delete Column success`,
+  props<{ columnId: UUIDType }>()
+)
 
-// export const DeleteColumnFailed = createAction(
-//   `${actionSource} Delete Column failed`
-// )
+export const DeleteColumnFailed = createAction(
+  `${actionSource} Delete Column failed`
+)

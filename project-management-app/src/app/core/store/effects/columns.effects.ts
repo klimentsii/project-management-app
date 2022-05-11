@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, switchMap } from "rxjs";
+import { map, switchMap, tap } from "rxjs";
 import { AuthService } from "src/app/login/services/auth.service";
 import { ColumnModel } from "../../models/columns";
 import { ApiService } from "../../services/api.service";
@@ -46,16 +46,77 @@ export class ColumnsEffects {
                 order: currentColumnOrder,
               }
               return ColumnsActions.CreateColumnSuccess({ payload: newColumn});
-          }));
-      }));
-  });
+            })
+          );
+        })
+      );
+    }
+  );
 
   changeOrder = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(ColumnsActions.ChangeColumnsOrder),
-        // this.apiService.getColumns$()
-      )
+        switchMap(({ boardId, leftColumn, rightColumn }) => {
+          return this.apiService.getColumns$(boardId).pipe(
+            map((data) => {
+              const [columnsToChange, dropSide] = leftColumn > rightColumn
+                ? [data.splice(rightColumn, leftColumn + 1), 'left']
+                : [data.splice(leftColumn, rightColumn + 1), 'right'];
+
+              columnsToChange.map((e, i) => {
+                // dropSide === 'right'
+                //   ? i === columnsToChange.length - 1
+                //     ? this.apiService.updateColumn$(
+                //         boardId,
+                //         e.id,
+                //         columnsToChange[0].title,
+                //         e.order
+                //       )
+                //     : this.apiService.updateColumn$(
+                //         boardId,
+                //         e.id,
+                //         columnsToChange[i + 1].title,
+                //         e.order
+                //       )
+                //   : i === 0
+                //     ? console.log(columnsToChange[columnsToChange.length - 1].title)
+                //     : console.log(columnsToChange[i - 1].title);
+
+                this.apiService.getColumnById$(boardId, e.id).subscribe(data => console.log(data));
+
+                this.apiService.updateColumn$(
+                  boardId,
+                  e.id,
+                  'ebeb',
+                  e.order
+                );
+
+                this.apiService.getColumnById$(boardId, e.id).subscribe(data => console.log(data));
+
+              });
+
+              return ColumnsActions.ChangeColumnsOrderSuccess({ payload: data });
+            })
+          );
+        })
+      );
     }
-  )
-}
+  );
+
+  deleteColumn = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(ColumnsActions.DeleteColumn),
+        switchMap(({ boardId, columnId }) => {
+          return this.apiService.deleteColumn$(boardId, columnId).pipe(
+            map(() => {
+              return  ColumnsActions.DeleteColumnSuccess({ columnId })
+            })
+          );
+        })
+      );
+    }
+  );
+
+};
