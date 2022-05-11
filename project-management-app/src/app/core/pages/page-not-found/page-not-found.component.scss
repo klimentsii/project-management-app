@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  height: 70%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #333435;
+  user-select: none;
+}
+
+img{
+  width: 200px;
+  height: 200px;
+  filter: invert(18%) sepia(5%) saturate(251%) hue-rotate(169deg) brightness(93%) contrast(90%);
+  margin-bottom: 10px;
+}
+
+h2,h5{
+  margin: 10px;
+}
+h2{
+  font-size: 50px;
+}
+h5{
+  font-size: 32px;
+}
+
+span{
+  color: blue;
+
+  &:hover{
+    color: rgb(8, 8, 43);
+    cursor: pointer;
+  }
+}
+
+p {
+  margin: 5px;
+}

@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { NavigatorService } from '../../services/navigator.service';
 
 @Component({
   selector: 'app-page-not-found',
@@ -6,8 +7,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageNotFoundComponent implements OnInit {
-  constructor() {}
+export class PageNotFoundComponent {
+  constructor(private navigator: NavigatorService) {}
 
-  ngOnInit(): void {}
+  goHome() {
+    this.navigator.goHome();
+  }
+
+  goBack() {
+    this.navigator.goBack();
+  }
 }
