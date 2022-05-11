@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "project-2dad4": {
+      "hosting": {
+        "project-management-app": [
+          "project-2dad4"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "project-2dad4"
+  }
+}

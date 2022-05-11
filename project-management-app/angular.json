@@ -17,6 +17,15 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ru": {
+            "translation": "src/locale/messages.ru.xlf",
+            "baseHref": "ru"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -38,6 +47,11 @@
             "scripts": []
           },
           "configurations": {
+            "ru": {
+              "localize": [
+                "ru"
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -78,6 +92,9 @@
             },
             "development": {
               "browserTarget": "project-management-app:build:development"
+            },
+            "ru": {
+              "browserTarget": "project-management-app:build:ru"
             }
           },
           "defaultConfiguration": "development"
@@ -114,6 +131,16 @@
               "src/**/*.ts",
               "src/**/*.html"
             ]
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "project-management-app:build:production",
+            "firebaseProject": "project-2dad4",
+            "firebaseHostingSite": "project-2dad4"
           }
         }
       }

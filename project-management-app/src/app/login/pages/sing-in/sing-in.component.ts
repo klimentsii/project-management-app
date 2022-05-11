@@ -2,8 +2,11 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { NavigatorService } from 'src/app/core/services/navigator.service';
-import { myValidatorForPassword } from 'src/app/shared/helpers';
-import { EmailPlaceholders, PasswordPlaceholders } from 'src/app/shared/placeholder.enum';
+import {
+  getPassPlaceholderValue,
+  myValidatorForPassword,
+  getEmailPlaceholderValue,
+} from 'src/app/shared/helpers';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -17,9 +20,9 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   loginData: FormGroup;
 
-  emailPlaceholder = EmailPlaceholders.default;
+  emailPlaceholder = getEmailPlaceholderValue('default');
 
-  passwordPlaceholder = PasswordPlaceholders.default;
+  passwordPlaceholder = getPassPlaceholderValue('default');
 
   login: string = '';
 
@@ -44,17 +47,21 @@ export class SingInComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  showPlaceholderEmail() {
+    this.emailPlaceholder =
+      this.loginData.controls['email'].status === 'VALID'
+        ? getEmailPlaceholderValue('valid')
+        : getEmailPlaceholderValue('invalid');
+  }
+
   showPlaceholders() {
     if (!this.loginData.controls['email'].pristine) {
-      this.emailPlaceholder =
-        this.loginData.controls['email'].status === 'VALID'
-          ? EmailPlaceholders.valid
-          : EmailPlaceholders.invalid;
+      this.showPlaceholderEmail();
     }
 
     this.passwordPlaceholder = this.loginData.controls['password'].pristine
-      ? PasswordPlaceholders.default
-      : this.loginData.controls['password'].getError('message') || PasswordPlaceholders.valid;
+      ? getPassPlaceholderValue('default')
+      : this.loginData.controls['password'].getError('message') || getPassPlaceholderValue('valid');
   }
 
   onSubmit() {

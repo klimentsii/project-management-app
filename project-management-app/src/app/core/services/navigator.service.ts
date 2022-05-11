@@ -14,4 +14,8 @@ export class NavigatorService {
   goToTheBoards() {
     this.router.navigate(['boards']);
   }
+
+  goToTheWelcome() {
+    this.router.navigate(['welcome']);
+  }
 }
