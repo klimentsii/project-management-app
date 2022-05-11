@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API: {
-    url: 'https://shrouded-chamber-79104.herokuapp.com/',
+    url: 'https://pure-taiga-85938.herokuapp.com/',
   },
 };
 
