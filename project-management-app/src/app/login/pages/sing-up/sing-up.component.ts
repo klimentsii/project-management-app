@@ -2,13 +2,13 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { NavigatorService } from 'src/app/core/services/navigator.service';
-import { myValidatorForPassword } from 'src/app/shared/helpers';
 import {
-  EmailPlaceholders,
-  PasswordPlaceholders,
-  RepeatedPasswordPlaceholders,
-  UserNamePlaceholders,
-} from 'src/app/shared/placeholder.enum';
+  getEmailPlaceholderValue,
+  getPassPlaceholderValue,
+  getRepeatPassPlaceholderValue,
+  getUserNamePlaceholderValue,
+  myValidatorForPassword,
+} from 'src/app/shared/helpers';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -20,13 +20,13 @@ import { AuthService } from '../../services/auth.service';
 export class SingUpComponent implements OnInit, OnDestroy {
   signUpData: FormGroup;
 
-  emailPlaceholder = EmailPlaceholders.default;
+  emailPlaceholder = getEmailPlaceholderValue('default');
 
-  userNamePlaceholder = UserNamePlaceholders.default;
+  userNamePlaceholder = getUserNamePlaceholderValue('default');
 
-  passwordPlaceholder = PasswordPlaceholders.default;
+  passwordPlaceholder = getPassPlaceholderValue('default');
 
-  repeatedPasswordPlaceholder = RepeatedPasswordPlaceholders.default;
+  repeatedPasswordPlaceholder = getRepeatPassPlaceholderValue('default');
 
   private destroy$ = new Subject<void>();
 
@@ -77,26 +77,27 @@ export class SingUpComponent implements OnInit, OnDestroy {
     if (!this.signUpData.controls['email'].pristine) {
       this.emailPlaceholder =
         this.signUpData.controls['email'].status === 'VALID'
-          ? EmailPlaceholders.valid
-          : EmailPlaceholders.invalid;
+          ? getEmailPlaceholderValue('valid')
+          : getEmailPlaceholderValue('invalid');
     }
 
     if (!this.signUpData.controls['userName'].pristine) {
       this.userNamePlaceholder =
         this.signUpData.controls['userName'].status === 'VALID'
-          ? UserNamePlaceholders.valid
-          : UserNamePlaceholders.invalid;
+          ? getUserNamePlaceholderValue('valid')
+          : getUserNamePlaceholderValue('invalid');
     }
 
     this.passwordPlaceholder = this.signUpData.controls['password'].pristine
-      ? PasswordPlaceholders.default
-      : this.signUpData.controls['password'].getError('message') || PasswordPlaceholders.valid;
+      ? getPassPlaceholderValue('default')
+      : this.signUpData.controls['password'].getError('message') ||
+        getPassPlaceholderValue('valid');
 
     if (!this.signUpData.controls['repeatedPassword'].pristine) {
       this.repeatedPasswordPlaceholder =
         this.signUpData.controls['repeatedPassword'].status === 'VALID'
-          ? RepeatedPasswordPlaceholders.valid
-          : RepeatedPasswordPlaceholders.invalid;
+          ? getRepeatPassPlaceholderValue('valid')
+          : getRepeatPassPlaceholderValue('invalid');
     }
   }
 

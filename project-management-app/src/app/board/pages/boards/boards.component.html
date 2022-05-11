@@ -19,9 +19,9 @@
 
       <form [formGroup]="newBoardForm" (ngSubmit)="createNewBoard()" *ngIf="!newBoardState" class="board-item">
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Name of board</mat-label>
+          <mat-label i18n="boards @@nameBoard">Name of board</mat-label>
           <input type="text" matInput formControlName="title" placeholder="Ex. Projects">
-          <mat-hint>Errors appear instantly!</mat-hint>
+          <mat-hint i18n="boards @@nameHint">Errors appear instantly!</mat-hint>
           <mat-error *ngIf="newBoardForm.controls['title'].errors">
                         {{chooseTitleError()}}
           </mat-error>

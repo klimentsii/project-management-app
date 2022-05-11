@@ -5,17 +5,17 @@
         <button mat-raised-button color="primary" routerLink="/">
           <mat-icon>assessment</mat-icon>
         </button>
-        <button mat-raised-button color="primary" routerLink="boards">Boards</button>
+        <button i18n="@@boardsHeader" mat-raised-button color="primary" routerLink="boards">Boards</button>
 
         <mat-button-toggle-group (change)="changeLang($event.value)">
-          <mat-button-toggle value="en">en</mat-button-toggle>
-          <mat-button-toggle value="ru">ru</mat-button-toggle>
+          <a href="/en-US"><mat-button-toggle value="en">en</mat-button-toggle></a>
+          <a href="/ru"><mat-button-toggle value="ru">ru</mat-button-toggle></a>
         </mat-button-toggle-group>
       </nav>
 
       <nav class="header-nav">
         <ng-container  *ngIf="(userLogged$ | async) as user; else notLoggedIn">
-          <div class="header-user-info">
+          <div i18n="@@GreatingHeader" class="header-user-info">
             Hello, <strong>{{user.name}}</strong> (<i>{{user.login}}</i>) !
           </div>
           <button mat-raised-button routerLink="profile" color="primary">
@@ -27,8 +27,8 @@
         </ng-container>
 
         <ng-template #notLoggedIn>
-          <button mat-raised-button routerLink="auth/sign-in" color="primary">Sign in</button>
-          <button mat-raised-button routerLink="auth/sign-up" color="primary">Sign up</button>
+          <button i18n="@@singInHeader" mat-raised-button routerLink="auth/sign-in" color="primary">Sign in</button>
+          <button i18n="@@singUpHeader" mat-raised-button routerLink="auth/sign-up" color="primary">Sign up</button>
         </ng-template>
 
       </nav>

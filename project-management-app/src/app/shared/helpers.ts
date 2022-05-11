@@ -1,24 +1,55 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { PasswordPlaceholders } from './placeholder.enum';
+import {
+  EmailPlaceholders,
+  PasswordPlaceholders,
+  RepeatedPasswordPlaceholders,
+  UserNamePlaceholders,
+} from './placeholder.enum';
+import {
+  EmailPlaceholdersRU,
+  PasswordPlaceholdersRU,
+  RepeatedPasswordPlaceholdersRU,
+  UserNamePlaceholdersRU,
+} from './placeholder.enum.ru';
+
+export type PlaceTypes = 'default' | 'valid' | 'invalid';
+
+export const isEnglish = () => {
+  return localStorage.getItem('lang') !== 'ru';
+};
 
 export const myValidatorForPassword = (control: AbstractControl): ValidationErrors | null => {
   const arrLetters = Array.from(control.value) as string[];
+  const placeholder = isEnglish() ? PasswordPlaceholders : PasswordPlaceholdersRU;
 
   if (control.value.length < 8) {
-    return { message: PasswordPlaceholders.invalid + PasswordPlaceholders.short };
+    return { message: placeholder.invalid + placeholder.short };
   }
   if (
     !arrLetters.some(letter => letter === letter.toLowerCase()) ||
     !arrLetters.some(letter => letter === letter.toUpperCase())
   ) {
-    return { message: PasswordPlaceholders.invalid + PasswordPlaceholders.case };
+    return { message: placeholder.invalid + placeholder.case };
   }
   if (!/[!@#\$%\^&\*\+]/.test(control.value)) {
-    return { message: PasswordPlaceholders.invalid + PasswordPlaceholders.specialChar };
+    return { message: placeholder.invalid + placeholder.specialChar };
   }
   if (!/\d/.test(control.value)) {
-    return { message: PasswordPlaceholders.invalid + PasswordPlaceholders.mixture };
+    return { message: placeholder.invalid + placeholder.mixture };
   }
 
   return null;
+};
+
+export const getPassPlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? PasswordPlaceholders[value] : PasswordPlaceholdersRU[value];
+};
+export const getEmailPlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? EmailPlaceholders[value] : EmailPlaceholdersRU[value];
+};
+export const getUserNamePlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? UserNamePlaceholders[value] : UserNamePlaceholdersRU[value];
+};
+export const getRepeatPassPlaceholderValue = (value: PlaceTypes) => {
+  return isEnglish() ? RepeatedPasswordPlaceholders[value] : RepeatedPasswordPlaceholdersRU[value];
 };

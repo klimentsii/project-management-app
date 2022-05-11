@@ -4,10 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:ru": "ng serve --configuration=ru",
     "build": "ng build",
+    "build:all": "ng build --localize",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "local": "ng extract-i18n --output-path src/locale",
+    "serve:firebase" : "firebase emulators:start"
   },
   "private": true,
   "dependencies": {
@@ -16,6 +20,7 @@
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
     "@angular/core": "~13.2.0",
+    "@angular/fire": "^7.3.0",
     "@angular/forms": "~13.2.0",
     "@angular/material": "^13.3.4",
     "@angular/platform-browser": "~13.2.0",
@@ -39,6 +44,7 @@
     "@angular-eslint/template-parser": "13.2.1",
     "@angular/cli": "~13.2.2",
     "@angular/compiler-cli": "~13.2.0",
+    "@angular/localize": "^13.2.7",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.17.0",
