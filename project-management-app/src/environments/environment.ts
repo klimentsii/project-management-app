@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API: {
-    url: 'https://gentle-peak-00968.herokuapp.com/',
+    url: 'https://shrouded-chamber-79104.herokuapp.com/',
   },
 };
 
