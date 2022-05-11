@@ -5,10 +5,7 @@
   <form [formGroup]="loginData" (ngSubmit)="onSubmit()" class="example-form">
     <mat-card-content>
       <mat-form-field class="example-full-width">
-        <input *ngIf="isEnglish(); else emailRu" formControlName= "email" matInput placeholder="{{ emailPlaceholder.en }}">
-        <ng-template #emailRu>
-          <input formControlName= "email" matInput placeholder="{{ emailPlaceholder.ru }}">
-        </ng-template>
+        <input formControlName= "email" matInput placeholder="{{ emailPlaceholder }}">
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <input type="password" formControlName="password" matInput placeholder="{{ passwordPlaceholder }}">

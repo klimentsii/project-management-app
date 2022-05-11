@@ -2,10 +2,12 @@ import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { NavigatorService } from 'src/app/core/services/navigator.service';
-import { getPassPlaceholderValue, isEnglish, myValidatorForPassword } from 'src/app/shared/helpers';
-import { EmailPlaceholdersRU } from 'src/app/shared/placeholder.enum.ru';
+import {
+  getPassPlaceholderValue,
+  myValidatorForPassword,
+  getEmailPlaceholderValue,
+} from 'src/app/shared/helpers';
 import { AuthService } from '../../services/auth.service';
-import { EmailPlaceholders } from 'src/app/shared/placeholder.enum';
 
 @Component({
   selector: 'app-sing-in',
@@ -18,10 +20,7 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   loginData: FormGroup;
 
-  emailPlaceholder = {
-    en: EmailPlaceholders.default,
-    ru: EmailPlaceholdersRU.default,
-  };
+  emailPlaceholder = getEmailPlaceholderValue('default');
 
   passwordPlaceholder = getPassPlaceholderValue('default');
 
@@ -49,15 +48,10 @@ export class SingInComponent implements OnInit, OnDestroy {
   }
 
   showPlaceholderEmail() {
-    this.emailPlaceholder.en =
+    this.emailPlaceholder =
       this.loginData.controls['email'].status === 'VALID'
-        ? EmailPlaceholders.valid
-        : EmailPlaceholders.invalid;
-
-    this.emailPlaceholder.ru =
-      this.loginData.controls['email'].status === 'VALID'
-        ? EmailPlaceholdersRU.valid
-        : EmailPlaceholdersRU.invalid;
+        ? getEmailPlaceholderValue('valid')
+        : getEmailPlaceholderValue('invalid');
   }
 
   showPlaceholders() {
@@ -74,9 +68,5 @@ export class SingInComponent implements OnInit, OnDestroy {
     this.AuthServices.signIn$(this.login, this.password)
       .pipe(tap(() => this.navigator.goToTheBoards()))
       .subscribe();
-  }
-
-  isEnglish(): boolean {
-    return isEnglish();
   }
 }

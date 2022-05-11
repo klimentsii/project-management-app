@@ -8,6 +8,7 @@ import { AuthService } from '../../../login/services/auth.service';
 import { ChangeLanguage } from '../../store/actions/core.action';
 import { Languages } from '../../store/store.model';
 import { NavigatorService } from '../../services/navigator.service';
+import { BrowserStorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ export default class HeaderComponent {
     private store: Store,
     private authService: AuthService,
     private navigator: NavigatorService,
+    private storage: BrowserStorageService,
   ) {}
 
   userLogged$: Observable<AuthModel | null> = this.store.select(fromUser.getCurrentUser);
@@ -31,6 +33,6 @@ export default class HeaderComponent {
 
   changeLang(lang: Languages) {
     this.store.dispatch(ChangeLanguage({ lang }));
-    localStorage.setItem('lang', lang);
+    this.storage.set('lang', lang);
   }
 }
