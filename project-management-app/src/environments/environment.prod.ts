@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   API: {
-    url: 'https://gentle-peak-00968.herokuapp.com/',
+    url: 'https://pure-taiga-85938.herokuapp.com/',
   },
 };
