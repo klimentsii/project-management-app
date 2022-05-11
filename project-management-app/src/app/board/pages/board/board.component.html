@@ -1,30 +1,26 @@
-<section class="project">
+<section class="board">
   <div class="container">
-    <div class="project-inner">
+    <div class="board-inner">
+      <div cdkDropList cdkDropListOrientation="horizontal" class="board-list" (cdkDropListDropped)="drop($event)">
 
-      <div class="board-columns"
-        cdkDropList
-        cdkDropListOrientation="horizontal"
-        (cdkDropListDropped)="dropGrid($event)">
-        <div class="board-column" cdkDragLockAxis="x" *ngFor="let column of board.columns" cdkDrag>
-          <div class="column-title" cdkDragHandle>
-            {{ column.name }}
-          </div>
-          <div
-            class="tasks-container"
-            id="{{column.id}}"
-            [cdkDropListConnectedTo]="['21', '32']"
-            cdkDropList
-            [cdkDropListData]="column.tasks"
-            (cdkDropListDropped)="drop($event)">
+        <div class="board-column" *ngFor="let column of columns$ | async" cdkDrag cdkDropListGroup>
+          <div class="board-column-container">
+            <h2>{{column.title}}</h2>
 
-            <div class="task" *ngFor="let item of column.tasks" cdkDrag>
-              {{ item }}
+            <div
+              cdkDropList
+              [cdkDropListData]="todo"
+              class="example-list"
+              (cdkDropListDropped)="dropin($event)">
+              <div class="example-box" *ngFor="let item of todo" cdkDrag>
+                {{item}}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
+        <button mat-button class="create-column-button" (click)="createColumn('column')">+</button>
+      </div>
     </div>
   </div>
 </section>

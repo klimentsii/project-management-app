@@ -1,0 +1,13 @@
+<form class="confirmation">
+  <div mat-dialog-content>
+    <h4 mat-dialog-title>Create new {{data}}</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="input" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()" cdkFocusInitial>Cancel</button>
+    <button mat-button [mat-dialog-close]="input" >Create <mat-icon>check</mat-icon></button>
+  </div>
+</form>

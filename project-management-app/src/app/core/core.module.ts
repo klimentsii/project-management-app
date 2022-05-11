@@ -20,6 +20,7 @@ import { BoardsEffects } from './store/effects/boards.effects';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { reducers } from './store/reducers';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { ColumnsEffects } from './store/effects/columns.effects';
 
 @NgModule({
   declarations: [
@@ -38,8 +39,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([UserEffects, BoardsEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
