@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, switchMap, tap } from "rxjs";
+import { map, pipe, switchMap, tap } from "rxjs";
 import { AuthService } from "src/app/login/services/auth.service";
 import { ColumnModel } from "../../models/columns";
 import { ApiService } from "../../services/api.service";
@@ -61,42 +61,39 @@ export class ColumnsEffects {
           return this.apiService.getColumns$(boardId).pipe(
             map((data) => {
               const [columnsToChange, dropSide] = leftColumn > rightColumn
-                ? [data.splice(rightColumn, leftColumn + 1), 'left']
-                : [data.splice(leftColumn, rightColumn + 1), 'right'];
+                ? [data.slice(rightColumn, leftColumn + 1).reverse(), 'left', ]
+                : [data.slice(leftColumn, rightColumn + 1), 'right', ];
 
-              columnsToChange.map((e, i) => {
-                // dropSide === 'right'
-                //   ? i === columnsToChange.length - 1
-                //     ? this.apiService.updateColumn$(
-                //         boardId,
-                //         e.id,
-                //         columnsToChange[0].title,
-                //         e.order
-                //       )
-                //     : this.apiService.updateColumn$(
-                //         boardId,
-                //         e.id,
-                //         columnsToChange[i + 1].title,
-                //         e.order
-                //       )
-                //   : i === 0
-                //     ? console.log(columnsToChange[columnsToChange.length - 1].title)
-                //     : console.log(columnsToChange[i - 1].title);
+              const firstTitle = columnsToChange[0].title;
 
-                this.apiService.getColumnById$(boardId, e.id).subscribe(data => console.log(data));
+              columnsToChange.forEach((e, i) => {
+                e.title =
+                  i !== columnsToChange.length - 1
+                    ? columnsToChange[i + 1].title
+                    : firstTitle;
+              });
 
+              if (dropSide === 'left')
+                columnsToChange.reverse();
+
+              columnsToChange.map(e => {
                 this.apiService.updateColumn$(
                   boardId,
                   e.id,
-                  'ebeb',
-                  e.order
-                );
-
-                this.apiService.getColumnById$(boardId, e.id).subscribe(data => console.log(data));
-
+                  e.title,
+                  e.order,
+                ).subscribe(data => data);
               });
 
-              return ColumnsActions.ChangeColumnsOrderSuccess({ payload: data });
+              data.forEach((e, i) => {
+                columnsToChange.map(el => {
+                  if (e.id === el.id) {
+                    e.title = el.title;
+                  };
+                });
+              });
+
+              return ColumnsActions.ChangeColumnsOrderSuccess({ data: data });
             })
           );
         })
@@ -111,7 +108,7 @@ export class ColumnsEffects {
         switchMap(({ boardId, columnId }) => {
           return this.apiService.deleteColumn$(boardId, columnId).pipe(
             map(() => {
-              return  ColumnsActions.DeleteColumnSuccess({ columnId })
+              return ColumnsActions.DeleteColumnSuccess({ columnId })
             })
           );
         })

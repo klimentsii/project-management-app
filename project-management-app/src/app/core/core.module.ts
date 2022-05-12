@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
-import BoardComponent from '../board/pages/board/board.component';
 import HeaderComponent from './components/header/header.component';
 import FooterComponent from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
@@ -24,7 +23,6 @@ import { ColumnsEffects } from './store/effects/columns.effects';
 
 @NgModule({
   declarations: [
-    BoardComponent,
     ConfirmationModalComponent,
     HeaderComponent,
     FooterComponent,
@@ -48,4 +46,4 @@ import { ColumnsEffects } from './store/effects/columns.effects';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
 })
-export class CoreModule {}
+export default class CoreModule {}

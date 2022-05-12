@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "local": "ng extract-i18n --output-path src/locale",
-    "serve:firebase" : "firebase emulators:start"
+    "serve:firebase": "firebase emulators:start"
   },
   "private": true,
   "dependencies": {

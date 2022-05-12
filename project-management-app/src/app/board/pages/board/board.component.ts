@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { AuthService } from 'src/app/login/services/auth.service';
 
 import * as ColumnsActions from '../../../core/store/actions/columns.action';
-import * as fromColumns from "../../../core/store/reducers/columns.reductor";
+import * as ColumnsReducers from "../../../core/store/reducers/columns.reductor";
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
 import { CreateItemModalComponent } from './modals/create-item-modal/create-item-modal.component';
@@ -30,7 +30,7 @@ export default class BoardComponent {
   columns: ColumnModel[] = [];
   columnsLength: number = 0;
 
-  columns$: Observable<ColumnModel[]> = this.store.select(fromColumns.getColumns);
+  columns$: Observable<ColumnModel[]> = this.store.select(ColumnsReducers.getColumns);
 
   constructor(
     private store: Store,

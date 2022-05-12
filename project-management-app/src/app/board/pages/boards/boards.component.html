@@ -68,6 +68,11 @@
           </mat-error>
         </mat-form-field>
 
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label i18n="boards @@nameBoard">Description of board</mat-label>
+          <input type="text" matInput formControlName="description" placeholder="Ex. Project is about trello">
+        </mat-form-field>
+
         <div class="mat-card-controls">
           <button class="board-item-button" (click)="changeState()">
             <mat-icon>arrow_back</mat-icon>

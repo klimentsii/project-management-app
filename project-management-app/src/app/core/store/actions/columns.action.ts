@@ -37,7 +37,7 @@ export const ChangeColumnsOrder = createAction(
 
 export const ChangeColumnsOrderSuccess = createAction(
   `${actionSource} Change Columns Order Success`,
-  props<{ payload: ColumnModel[] }>()
+  props<{ data: ColumnModel[] }>()
 )
 
 export const DeleteColumn = createAction(

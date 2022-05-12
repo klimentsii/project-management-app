@@ -8,7 +8,6 @@ export const initialState: ColumnModel[] = [];
 export const reducer = createReducer(
   initialState,
   on(ColumnsActions.FetchColumnsSuccess, (state: ColumnModel[], {payload}) => ([
-    ...state,
     ...payload
   ])),
   on(ColumnsActions.FetchColumnsFailed, (state) => ({
@@ -19,6 +18,9 @@ export const reducer = createReducer(
   ])),
   on(ColumnsActions.DeleteColumnSuccess, (state: ColumnModel[], {columnId}) => ([
     ...state.filter(e => e.id !== columnId)
+  ])),
+  on(ColumnsActions.ChangeColumnsOrderSuccess, (state: ColumnModel[], {data}) => ([
+    ...data
   ]))
 );
 

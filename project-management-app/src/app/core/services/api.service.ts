@@ -100,7 +100,7 @@ export class ApiService {
   getBoards$(): Observable<BoardModel[]> {
     const headers = new HttpHeaders().set('accept', 'application/json');
     return this.http.get<BoardModel[]>(this.url.Boards, { headers });
-  }
+  };
 
   createBoard$(title: string, description: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
@@ -114,12 +114,12 @@ export class ApiService {
       },
       { headers },
     );
-  }
+  };
 
   getBoardById$(id: UUIDType): Observable<BoardModelExtended> {
     const headers = new HttpHeaders().set('accept', 'application/json');
     return this.http.get<BoardModelExtended>(`${this.url.Boards}/${id}`, { headers });
-  }
+  };
 
   deleteBoard$(id: UUIDType): Observable<Response> {
     const headers = new HttpHeaders().set('accept', '*/*');
@@ -138,7 +138,7 @@ export class ApiService {
       },
       { headers },
     );
-  }
+  };
 
   /** Columns **/
 
@@ -147,7 +147,7 @@ export class ApiService {
     return this.http.get<ColumnModel[]>(`${this.url.Boards}/${boardId}/${this.url.Columns}`, {
       headers,
     });
-  }
+  };
 
   getColumnById$(boardId: UUIDType, columnId: UUIDType): Observable<ColumnModelExtended> {
     const headers = new HttpHeaders().set('accept', 'application/json');
@@ -155,7 +155,7 @@ export class ApiService {
       `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
       { headers },
     );
-  }
+  };
 
   createColumn(boardId: UUIDType, title: string, order: number): Observable<ColumnModel> {
     const headers = new HttpHeaders()
@@ -169,7 +169,7 @@ export class ApiService {
       },
       { headers },
     );
-  }
+  };
 
   deleteColumn$(boardId: UUIDType, columnId: UUIDType): Observable<Response> {
     const headers = new HttpHeaders().set('accept', '*/*');
@@ -182,7 +182,7 @@ export class ApiService {
           console.log(response);
         }),
       );
-  }
+  };
 
   updateColumn$(
     boardId: UUIDType,
@@ -201,7 +201,7 @@ export class ApiService {
       },
       { headers },
     );
-  }
+  };
 
   /** Tasks **/
 
