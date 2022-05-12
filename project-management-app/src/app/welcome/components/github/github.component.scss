@@ -1,0 +1,10 @@
+img{
+  filter: invert(75%) sepia(0%) saturate(3828%) hue-rotate(315deg) brightness(85%) contrast(87%);
+    height: 32px;
+}
+
+a:hover{
+  & *{
+    filter: invert(20%) sepia(5%) saturate(190%) hue-rotate(169deg) brightness(91%) contrast(93%);
+  }
+}

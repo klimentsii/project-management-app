@@ -1,11 +1,10 @@
 :host {
   display: flex;
-  height: 70%;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   color: #333435;
   user-select: none;
+  margin-top: 50px;
 }
 
 img{
@@ -17,6 +16,8 @@ img{
 
 h2,h5{
   margin: 10px;
+  font-family: 'Fredoka One', serif;
+  font-weight: bold;
 }
 h2{
   font-size: 50px;
