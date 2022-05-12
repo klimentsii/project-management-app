@@ -119,6 +119,31 @@
         </context-group>
         <note priority="1" from="description">sign up </note>
       </trans-unit>
+      <trans-unit id="notFound" datatype="html">
+        <source>Page not found</source>
+        <target>Страница не найдена</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageNotExist" datatype="html">
+        <source>The page you are looking for doesn&apos;t exist</source>
+        <target>Страница, которую Вы искали не сущетвует</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5690978881989905025" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span (click)=&quot;goBack()&quot;&gt;"/>Go back<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> or head over <x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span (click)=&quot;goHome()&quot;&gt;"/>Home page<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> to choose a new derection</source>
+        <target>Перейдите <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span (click)=&quot;goBack()&quot;&gt;"/>Назад<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> или на <x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span (click)=&quot;goHome()&quot;&gt;"/>Домашнюю страницу<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> для дальнейшей навигации</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">6,9</context>
+        </context-group>
+        <note priority="1" from="description">selectNavigation</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
