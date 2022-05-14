@@ -5,13 +5,15 @@
   src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 }
 
-html, body {
-  height: 100%;
+@font-face {
+  font-family: 'Fredoka One';
+  src: url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: beige;
 }
 
 .container {

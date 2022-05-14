@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from './core/pages/page-not-found/page-not-foun
 import { AuthorizeGuard } from './core/guards/authorize.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: '', redirectTo: '/boards', pathMatch: 'full' },
   {
     path: 'welcome',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule),

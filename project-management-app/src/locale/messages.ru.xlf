@@ -119,6 +119,135 @@
         </context-group>
         <note priority="1" from="description">sign up </note>
       </trans-unit>
+      <trans-unit id="notFound" datatype="html">
+        <source>Page not found</source>
+        <target>Страница не найдена</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageNotExist" datatype="html">
+        <source>The page you are looking for doesn&apos;t exist</source>
+        <target>Страница, которую Вы искали не сущетвует</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5690978881989905025" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span (click)=&quot;goBack()&quot;&gt;"/>Go back<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> or head over <x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span (click)=&quot;goHome()&quot;&gt;"/>Home page<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> to choose a new derection</source>
+        <target>Перейдите <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span (click)=&quot;goBack()&quot;&gt;"/>Назад<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> или на <x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span (click)=&quot;goHome()&quot;&gt;"/>Домашнюю страницу<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> для дальнейшей навигации</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">6,9</context>
+        </context-group>
+        <note priority="1" from="description">selectNavigation</note>
+      </trans-unit>
+            <trans-unit id="welcomeTitle" datatype="html">
+        <source>Our team</source>
+        <target>Наша команда</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">title </note>
+      </trans-unit>
+      <trans-unit id="welcomeSubTitle" datatype="html">
+        <source>We have been working on a project for you</source>
+        <target>Мы работали над проектом для вас</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">subtitle </note>
+      </trans-unit>
+      <trans-unit id="klimentsiiName" datatype="html">
+        <source>Klimentsii</source>
+        <target>Климентий</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">name </note>
+      </trans-unit>
+      <trans-unit id="positionLead" datatype="html">
+        <source>Team Lead</source>
+        <target>Тим Лид</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">position </note>
+      </trans-unit>
+      <trans-unit id="klimentsiiDescription" datatype="html">
+        <source> Need writing smt</source>
+        <target> Написать что-то</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">description </note>
+      </trans-unit>
+      <trans-unit id="yuriName" datatype="html">
+        <source>Yuri</source>
+        <target>Юрий</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">name </note>
+      </trans-unit>
+      <trans-unit id="positionDev" datatype="html">
+        <source>Developer</source>
+        <target>Разработчик</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">position </note>
+      </trans-unit>
+      <trans-unit id="yuriDescription" datatype="html">
+        <source> Engaged in the development of authorization, localization, routing, base pages.</source>
+        <target> Разработал базовые страницы, модуль авторизации, локализацию двух языков, занимался маршрутизаций приложения. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">description </note>
+      </trans-unit>
+      <trans-unit id="alexName" datatype="html">
+        <source>Alexander</source>
+        <target>Александр</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">name </note>
+      </trans-unit>
+      <trans-unit id="alexDescription" datatype="html">
+        <source> Need writing smt</source>
+        <target> Написать что-то</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">description </note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
