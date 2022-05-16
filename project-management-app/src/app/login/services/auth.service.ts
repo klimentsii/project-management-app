@@ -7,6 +7,7 @@ import { AuthModel } from '../models/auth.model';
 import * as UserAction from '../../core/store/actions/user.action';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import {IsJsonString} from "../../shared/helpers";
 
 @Injectable({
   providedIn: 'root',
@@ -23,18 +24,9 @@ export class AuthService {
     return !!this.localStorageService.get('auth');
   }
 
-  IsJsonString(str: string) {
-    try {
-      JSON.parse(str);
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-
   getToken(): string | null {
     const auth = this.localStorageService.get('auth');
-    return auth ? (this.IsJsonString(auth) ? JSON.parse(auth).token : auth) : null;
+    return auth ? (IsJsonString(auth) ? JSON.parse(auth).token : auth) : null;
   }
 
   setToken(value: Token): void {

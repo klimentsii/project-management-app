@@ -6,12 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
 import {
   BehaviorSubject,
-  debounceTime,
-  distinctUntilChanged,
   Observable,
   ReplaySubject,
-  Subscription,
-  takeUntil,
   tap,
 } from 'rxjs';
 import * as fromBoards from '../../../core/store/reducers/boards.reducer';
@@ -37,7 +33,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   boards$: Observable<BoardUsersModel[]> = this.store.select(fromBoards.selectBoards);
 
-  editBoard: string = '';
+  editBoardId: string = '';
 
   newBoardState: boolean = true;
 
@@ -47,15 +43,39 @@ export class BoardsComponent implements OnInit, OnDestroy {
       Validators.minLength(3),
       Validators.maxLength(20),
     ]),
-    description: new FormControl('')
+    description: new FormControl(''),
   });
 
-  editMode(boardId: string): void {
-    this.editBoard = boardId;
+  editBoardForm!: FormGroup;
+
+  enterEditMode(e: Event, boardId: string, title: string, desc: string): void {
+    e.stopPropagation();
+    this.editBoardId = boardId;
+    this.editBoardForm = new FormGroup({
+      title: new FormControl(title, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20),
+      ]),
+      description: new FormControl(desc),
+    });
+    console.log(boardId);
+  }
+
+  exitEditMode(e: Event): void {
+    e.stopPropagation();
+    this.editBoardId = '';
   }
 
   changeState(): void {
     this.newBoardState = !this.newBoardState;
+  }
+
+  updateBoard(): void {
+    const title = this.editBoardForm.value.title;
+    const description = this.editBoardForm.value.description;
+    this.store.dispatch(BoardsActions.UpdateBoard({ id: this.editBoardId, title, description }));
+    this.editBoardId = '';
   }
 
   createNewBoard(): void {
@@ -65,14 +85,29 @@ export class BoardsComponent implements OnInit, OnDestroy {
     this.changeState();
   }
 
-  chooseTitleError(): string {
-    for (let item in this.newBoardForm.controls['title'].errors) {
-      return Object.entries(TitleErrorMessages)[Object.keys(TitleErrorMessages).indexOf(item)][1];
+  chooseTitleError(boardType: string): string {
+    switch (boardType) {
+      case 'newBoard':
+        for (let item in this.newBoardForm.controls['title'].errors) {
+          return Object.entries(TitleErrorMessages)[
+            Object.keys(TitleErrorMessages).indexOf(item)
+          ][1];
+        }
+        return '';
+      case 'editBoard':
+        for (let item in this.editBoardForm.controls['title'].errors) {
+          return Object.entries(TitleErrorMessages)[
+            Object.keys(TitleErrorMessages).indexOf(item)
+          ][1];
+        }
+        return '';
+      default:
+        return '';
     }
-    return '';
   }
 
-  deleteBoard(id: UUIDType): void {
+  deleteBoard(e: Event, id: UUIDType): void {
+    e.stopPropagation();
     const dialog = this.dialog.open(ConfirmationModalComponent, {
       height: '150px',
       width: '300px',
@@ -82,7 +117,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
     dialog
       .afterClosed()
       .pipe(
-        tap(() => {
+        tap(id => {
           if (id) this.store.dispatch(BoardsActions.DeleteBoard({ boardId: id }));
         }),
       )
@@ -93,23 +128,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   delayed$ = new BehaviorSubject(false);
 
-  private typingSubscription!: Subscription;
-
   ngOnInit(): void {
     this.store.dispatch(BoardsAction.FetchBoards());
-    this.typingSubscription = this.newBoardForm.valueChanges
-      .pipe(
-        tap(() => {
-          this.delayed$.next(false);
-        }),
-        takeUntil(this.destroyed$),
-        debounceTime(1000),
-        distinctUntilChanged(),
-        tap(() => {
-          this.delayed$.next(true);
-        }),
-      )
-      .subscribe();
   }
 
   ngOnDestroy(): void {
