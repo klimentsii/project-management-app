@@ -101,7 +101,7 @@ export class ApiService {
     return this.http.get<BoardModel[]>(this.url.Boards, { headers });
   }
 
-  createBoard$(title: string): Observable<BoardModel> {
+  createBoard$(title: string, description: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
@@ -109,6 +109,7 @@ export class ApiService {
       this.url.Boards,
       {
         title: title,
+        description: description
       },
       { headers },
     );

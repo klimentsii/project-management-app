@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { BoardUsersModel } from '../../models/boards';
+import {BoardInputFields, BoardUsersModel} from '../../models/boards';
 
 const actionSource = '[Boards]';
 
@@ -12,7 +12,7 @@ export const FetchBoardsSuccess = createAction(
 
 export const FetchBoardsFailed = createAction(`${actionSource} Fetch Boards Failed`);
 
-export const CreateBoard = createAction(`${actionSource} Create Board`, props<{ title: string }>());
+export const CreateBoard = createAction(`${actionSource} Create Board`, props<BoardInputFields>());
 
 export const CreateBoardSuccess = createAction(
   `${actionSource} Create Board Success`,

@@ -28,6 +28,7 @@ export class BoardsEffects {
             const finalBoards = filteredBoards.map(board => ({
               id: board.id,
               title: JSON.parse(board.title).title,
+              description: board.description,
               users: JSON.parse(board.title).users,
             }));
             return finalBoards
@@ -43,15 +44,16 @@ export class BoardsEffects {
   createBoard = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardsActions.CreateBoard),
-      switchMap(({ title }) => {
+      switchMap(({ title, description }) => {
         const users: UUIDType[] = [];
         if (this.auth) users.push(this.auth.id);
         const finalTitle = JSON.stringify({ title, users });
-        return this.apiService.createBoard$(finalTitle).pipe(
+        return this.apiService.createBoard$(finalTitle, description).pipe(
           map((board: BoardModel) => {
             const payload = {
               id: board.id,
               title: JSON.parse(board.title).title,
+              description: board.description,
               users,
             };
             return payload

@@ -37,6 +37,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   boards$: Observable<BoardUsersModel[]> = this.store.select(fromBoards.selectBoards);
 
+  editBoard: string = '';
+
   newBoardState: boolean = true;
 
   newBoardForm: FormGroup = new FormGroup({
@@ -45,7 +47,12 @@ export class BoardsComponent implements OnInit, OnDestroy {
       Validators.minLength(3),
       Validators.maxLength(20),
     ]),
+    description: new FormControl('')
   });
+
+  editMode(boardId: string): void {
+    this.editBoard = boardId;
+  }
 
   changeState(): void {
     this.newBoardState = !this.newBoardState;
@@ -53,7 +60,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   createNewBoard(): void {
     const title = this.newBoardForm.value.title;
-    this.store.dispatch(BoardsActions.CreateBoard({ title }));
+    const description = this.newBoardForm.value.description;
+    this.store.dispatch(BoardsActions.CreateBoard({ title, description }));
     this.changeState();
   }
 

@@ -1,6 +1,7 @@
 export interface Iboards {
   id: UUIDType;
   title: string;
+  description: string;
 }
 
 export interface Idb {

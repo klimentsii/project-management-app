@@ -1,8 +1,12 @@
 import { ColumnModelExtended } from './columns';
 
-export interface BoardModel {
-  id: UUIDType;
+export interface BoardInputFields {
   title: string;
+  description: string;
+}
+
+export interface BoardModel extends BoardInputFields {
+  id: UUIDType;
 }
 
 export interface BoardUsersModel extends BoardModel {
@@ -12,3 +16,5 @@ export interface BoardUsersModel extends BoardModel {
 export interface BoardModelExtended extends BoardModel {
   columns: ColumnModelExtended[];
 }
+
+

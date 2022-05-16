@@ -18,12 +18,54 @@
 
     .board-item {
       width: 200px;
-      height: 100px;
+      min-height: 200px;
+      height: 100%;
       background-color: $color1;
       border: 1px solid rgb(209, 209, 209);
       border-radius: 20px;
       margin: 10px 0;
       padding: 0;
+      transition: .05s;
+      &.regular{
+        .mat-card-controls {
+          //background: $color-primary;
+          transition: .05s;
+          button {
+            //background-color: $color-primary;
+            transition: .05s;
+            .mat-icon {
+              //fill: $color1;
+              transition: .05s;
+            }
+          }
+        }
+        &:hover {
+          background-color: $color-primary;
+          cursor: pointer;
+          transition: .05s;
+          .mat-card-title {
+            color: $color1;
+          }
+          .mat-card-subtitle {
+            color: $color1;
+          }
+          .mat-card-controls {
+            background: $color-primary;
+            transition: .05s;
+            button {
+              background-color: $color-primary;
+              transition: .05s;
+              mat-icon {
+                &.material-icons {
+                  color: $color1;
+                }
+                transition: .05s;
+              }
+            }
+          }
+
+        }
+      }
 
       .mat-form-field {
         border-radius: 20px;
@@ -32,6 +74,10 @@
           border-radius: 20px;
           background: none;
         }
+        .board-description {
+          min-height: 40px;
+        }
+
       }
     }
 
