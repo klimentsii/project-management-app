@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {BoardInputFields, BoardModel, BoardUsersModel} from '../../models/boards';
+import { BoardInputFields, BoardModel, BoardUsersModel } from '../../models/boards';
 
 const actionSource = '[Boards]';
 
@@ -29,9 +29,6 @@ export const UpdateBoardSuccess = createAction(
 );
 
 export const UpdateBoardFailed = createAction(`${actionSource} Update Board Failed`);
-
-
-
 
 export const DeleteBoard = createAction(
   `${actionSource} Delete Board`,

@@ -7,7 +7,7 @@ import { AuthModel } from '../models/auth.model';
 import * as UserAction from '../../core/store/actions/user.action';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import {IsJsonString} from "../../shared/helpers";
+import { IsJsonString } from '../../shared/helpers';
 
 @Injectable({
   providedIn: 'root',

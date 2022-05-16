@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BoardsActions from '../actions/boards.action';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { AuthService } from '../../../login/services/auth.service';
 import { ApiService } from '../../services/api.service';
-import { BoardModel } from '../../models/boards';
+import { BoardModel, BoardModelExtended } from '../../models/boards';
 import { IsJsonString } from '../../../shared/helpers';
 
 @Injectable()
@@ -85,9 +85,14 @@ export class BoardsEffects {
       switchMap(({ id, title, description }) => {
         const newTitle = title;
         return this.apiService.getBoardById$(id).pipe(
-          switchMap(({ title }) => {
-            const titleParsed = IsJsonString(title) ? JSON.parse(title) : title;
-            const users = IsJsonString(title) ? titleParsed.users : this.auth ? [this.auth.id] : [];
+          switchMap((result: BoardModelExtended) => {
+            const oldTitle = result.title;
+            const titleParsed = IsJsonString(oldTitle) ? JSON.parse(oldTitle) : '';
+            const users = IsJsonString(oldTitle)
+              ? titleParsed.users
+              : this.auth
+              ? [this.auth.id]
+              : [];
             const finalTitle = JSON.stringify({ title: newTitle, users });
             return this.apiService.updateBoard$(id, finalTitle, description).pipe(
               map((board: BoardModel) => {

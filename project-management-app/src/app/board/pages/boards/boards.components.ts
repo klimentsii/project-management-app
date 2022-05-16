@@ -4,12 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import * as BoardsAction from 'src/app/core/store/actions/boards.action';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
-import {
-  BehaviorSubject,
-  Observable,
-  ReplaySubject,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, tap } from 'rxjs';
 import * as fromBoards from '../../../core/store/reducers/boards.reducer';
 import { BoardUsersModel } from '../../../core/models/boards';
 import { Store } from '@ngrx/store';
@@ -117,8 +112,9 @@ export class BoardsComponent implements OnInit, OnDestroy {
     dialog
       .afterClosed()
       .pipe(
-        tap(id => {
-          if (id) this.store.dispatch(BoardsActions.DeleteBoard({ boardId: id }));
+        tap(nextId => {
+          console.log('nextId', nextId);
+          if (nextId) this.store.dispatch(BoardsActions.DeleteBoard({ boardId: nextId }));
         }),
       )
       .subscribe();

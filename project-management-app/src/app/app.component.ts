@@ -1,10 +1,10 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
 import { AuthService } from './login/services/auth.service';
 import { Store } from '@ngrx/store';
 import { delay } from 'rxjs/operators';
 import * as UserAction from './core/store/actions/user.action';
-import { LoaderService } from './core/services/loading.service';
 import { tap } from 'rxjs';
+import { LoaderService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,7 @@ export default class AppComponent implements OnInit, AfterViewInit {
     private store: Store,
     private loaderService: LoaderService,
     private renderer: Renderer2,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -36,6 +37,7 @@ export default class AppComponent implements OnInit, AfterViewInit {
         tap((status: boolean) => {
           if (status) {
             this.loading = true;
+            this.cd.detectChanges();
             this.renderer.addClass(document.body, 'cursor-loader');
           }
         }),

@@ -10,7 +10,6 @@ import { Languages } from '../../store/store.model';
 import { NavigatorService } from '../../services/navigator.service';
 import { BrowserStorageService } from '../../services/storage.service';
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,13 +17,13 @@ import { BrowserStorageService } from '../../services/storage.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HeaderComponent {
-
   constructor(
     private store: Store,
     private authService: AuthService,
     private navigator: NavigatorService,
     private storage: BrowserStorageService,
   ) {}
+
   userLogged$: Observable<AuthModel | null> = this.store.select(fromUser.selectCurrentUser);
 
   logOut() {

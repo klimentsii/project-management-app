@@ -16,5 +16,3 @@ export interface BoardUsersModel extends BoardModel {
 export interface BoardModelExtended extends BoardModel {
   columns: ColumnModelExtended[];
 }
-
-

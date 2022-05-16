@@ -109,7 +109,7 @@ export class ApiService {
       this.url.Boards,
       {
         title: title,
-        description: description
+        description: description,
       },
       { headers },
     );
@@ -125,7 +125,7 @@ export class ApiService {
     return this.http.delete<Response>(`${this.url.Boards}/${id}`, { headers });
   }
 
-  updateBoard$(id: UUIDType, newTitle: string, newDecsription:string): Observable<BoardModel> {
+  updateBoard$(id: UUIDType, newTitle: string, newDecsription: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
