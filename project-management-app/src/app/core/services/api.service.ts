@@ -4,7 +4,7 @@ import { Token, UserModelExtended, UserNoIdModel } from '../models/user';
 import { Observable, tap } from 'rxjs';
 import { BoardModel, BoardModelExtended } from '../models/boards';
 import { ColumnModel, ColumnModelExtended } from '../models/columns';
-import { TaskModelPlus } from '../models/tasks';
+import { TaskModelPlus, TaskModelPlusFiles } from '../models/tasks';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,7 @@ export class ApiService {
     Columns: 'columns',
     Tasks: 'tasks',
     File: 'file',
+    Search: 'search',
   };
 
   /** Users **/
@@ -204,17 +205,21 @@ export class ApiService {
 
   /** Tasks **/
 
-  getTasks$(boardId: UUIDType, columnId: UUIDType): Observable<TaskModelPlus[]> {
+  getTasks$(boardId: UUIDType, columnId: UUIDType): Observable<TaskModelPlusFiles[]> {
     const headers = new HttpHeaders().set('accept', 'application/json');
-    return this.http.get<TaskModelPlus[]>(
+    return this.http.get<TaskModelPlusFiles[]>(
       `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}`,
       { headers },
     );
   }
 
-  getTaskById$(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Observable<TaskModelPlus> {
+  getTaskById$(
+    boardId: UUIDType,
+    columnId: UUIDType,
+    taskId: UUIDType,
+  ): Observable<TaskModelPlusFiles> {
     const headers = new HttpHeaders().set('accept', 'application/json');
-    return this.http.get<TaskModelPlus>(
+    return this.http.get<TaskModelPlusFiles>(
       `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
       { headers },
     );
@@ -223,19 +228,20 @@ export class ApiService {
   createTask(
     boardId: UUIDType,
     columnId: UUIDType,
-    taskId: UUIDType,
     title: string,
     order: number,
     description: string,
+    done: boolean,
     userId: UUIDType,
   ): Observable<TaskModelPlus> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
     return this.http.post<TaskModelPlus>(
-      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
+      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
       {
         title: title,
+        done: done,
         order: order,
         description: description,
         userId: userId,
@@ -264,6 +270,7 @@ export class ApiService {
     taskId: UUIDType,
     newTitle: string,
     newOrder: number,
+    done: boolean,
     newDescription: string,
     newUserId: UUIDType,
     newBoardId: UUIDType,
@@ -276,6 +283,7 @@ export class ApiService {
       `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}/${this.url.Tasks}/${taskId}`,
       {
         title: newTitle,
+        done: done,
         order: newOrder,
         description: newDescription,
         userId: newUserId,
@@ -284,6 +292,13 @@ export class ApiService {
       },
       { headers },
     );
+  }
+
+  /** Search **/
+
+  search$(): Observable<TaskModelPlusFiles[]> {
+    const headers = new HttpHeaders().set('accept', 'application/json');
+    return this.http.get<TaskModelPlusFiles[]>(`${this.url.Search}/${this.url.Tasks}`, { headers });
   }
 
   /** Files **/

@@ -13,11 +13,16 @@ export interface TaskModel {
 export interface TaskModelPlus {
   id: UUIDType;
   title: string;
+  done: boolean;
   order: number;
   description: string;
   userId: UUIDType;
   boardId: UUIDType;
   columnId: UUIDType;
+}
+
+export interface TaskModelPlusFiles extends TaskModelPlus {
+  files: FileModel[];
 }
 
 export interface TaskModelExtra {
