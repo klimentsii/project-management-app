@@ -1,6 +1,5 @@
 
 import { Component, VERSION, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
 
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
 import { CreateItemModalComponent } from './modals/create-item-modal/create-item-modal.component';
 import { ColumnModel } from 'src/app/core/models/columns';
-import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-board',
@@ -29,6 +28,7 @@ export default class BoardComponent {
 
   columns: ColumnModel[] = [];
   columnsLength: number = 0;
+
 
   columns$: Observable<ColumnModel[]> = this.store.select(ColumnsReducers.getColumns);
 
@@ -51,33 +51,6 @@ export default class BoardComponent {
     this.store.dispatch(ColumnsActions.FetchColumns({ payload: this.id }));
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    this.store.dispatch(ColumnsActions.ChangeColumnsOrder({
-      boardId: this.id,
-      leftColumn: event.previousIndex,
-      rightColumn: event.currentIndex
-    }));
-
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-  }
-
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
-
-  dropin(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-  }
-
   public createColumn(type: string) {
     const dialog = this.dialog.open(CreateItemModalComponent, {
       height: '250px',
@@ -89,26 +62,22 @@ export default class BoardComponent {
     .pipe(
       tap((string: string) => {
         if (string) {
-          this.store.dispatch(ColumnsActions.CreateColumn({ boardId: this.id, title: string, columnsCount: this.columnsLength }));
+          this.store.dispatch(ColumnsActions.CreateColumn({
+            boardId: this.id,
+            title: string,
+            columnsCount: this.columns[this.columnsLength - 1].order + 1,
+          }));
         };
       }))
     .subscribe();
   }
 
-  deleteColumn(id: UUIDType): void {
-    const dialog = this.dialog.open(ConfirmationModalComponent, {
-      height: '150px',
-      width: '300px',
-      data: id,
-    });
+  drop(event: CdkDragDrop<string[]>) {
+    this.store.dispatch(ColumnsActions.ChangeColumnsOrder({
+      boardId: this.id,
+      columns: this.columns,
+    }));
 
-    dialog.afterClosed()
-      .pipe(
-        tap((i) => {
-          if (i) {
-            this.store.dispatch(ColumnsActions.DeleteColumn({ boardId: this.id, columnId: i }));
-          }
-        }))
-      .subscribe();
+    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
   }
 }

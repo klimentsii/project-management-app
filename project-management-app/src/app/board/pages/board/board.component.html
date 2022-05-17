@@ -4,22 +4,7 @@
       <div cdkDropList cdkDropListOrientation="horizontal" class="board-list" (cdkDropListDropped)="drop($event)">
 
         <div class="board-column" *ngFor="let column of columns$ | async" cdkDrag cdkDropListGroup>
-          <div class="board-column-container">
-            <div class="board-column-header">
-              <h2>{{column.title}}</h2>
-              <button mat-dialog  (click)="deleteColumn(column.id)"><mat-icon>delete</mat-icon></button>
-            </div>
-
-            <div
-              cdkDropList
-              [cdkDropListData]="todo"
-              class="example-list"
-              (cdkDropListDropped)="dropin($event)">
-              <div class="example-box" *ngFor="let item of todo" cdkDrag>
-                {{item}}
-              </div>
-            </div>
-          </div>
+          <app-column [column]="column"></app-column>
         </div>
 
         <button mat-button class="create-column-button" (click)="createColumn('column')">+</button>

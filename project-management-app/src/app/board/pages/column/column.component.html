@@ -1,0 +1,30 @@
+<div class="board-column-container">
+  <div class="board-column-header">
+    <h2 (click)="changeColumnTitle()" *ngIf="!changeColumnTitleBoolean">
+      {{column.title}}
+    </h2>
+
+    <div class="board-column-header-change-title" *ngIf="changeColumnTitleBoolean">
+      <div class="board-column-header-change-title-buttons">
+        <button mat-dialog  (click)="approveChangeTitle(column.id, column.order)"><mat-icon>check</mat-icon></button>
+        <button mat-dialog  (click)="changeColumnTitle()"><mat-icon>arrow_back</mat-icon></button>
+      </div>
+      <mat-form-field class="board-column-header-title" appearance="fill">
+        <mat-label>Edit title</mat-label>
+        <input matInput placeholder="Ex. Title" [(ngModel)]="title">
+      </mat-form-field>
+    </div>
+
+    <button mat-dialog  (click)="deleteColumn()"><mat-icon>delete</mat-icon></button>
+  </div>
+
+  <div
+    cdkDropList
+    [cdkDropListData]="todo"
+    class="example-list"
+    (cdkDropListDropped)="dropin($event)">
+    <div class="example-box" *ngFor="let item of todo" cdkDrag>
+      {{item}}
+    </div>
+  </div>
+</div>

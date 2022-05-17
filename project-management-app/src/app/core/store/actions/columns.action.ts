@@ -8,12 +8,12 @@ export const FetchColumns = createAction(
 )
 
 export const FetchColumnsSuccess = createAction(
-  `${actionSource} Fetch Columns success`,
+  `${actionSource} Fetch Columns Success`,
   props<{ payload: ColumnModel[] }>()
 )
 
 export const FetchColumnsFailed = createAction(
-  `${actionSource} Fetch Columns failed`
+  `${actionSource} Fetch Columns Failed`
 )
 
 export const CreateColumn = createAction(
@@ -22,17 +22,17 @@ export const CreateColumn = createAction(
 )
 
 export const CreateColumnSuccess = createAction(
-  `${actionSource} Create Column success`,
+  `${actionSource} Create Column Success`,
   props<{ payload: ColumnModel}>()
 )
 
 export const CreateColumnFailed = createAction(
-  `${actionSource} Create Column failed`
+  `${actionSource} Create Column Failed`
 )
 
 export const ChangeColumnsOrder = createAction(
   `${actionSource} Change Columns Order`,
-  props<{ boardId: UUIDType, leftColumn: number, rightColumn: number }>()
+  props<{ boardId: UUIDType, columns: ColumnModel[] }>()
 )
 
 export const ChangeColumnsOrderSuccess = createAction(
@@ -40,16 +40,33 @@ export const ChangeColumnsOrderSuccess = createAction(
   props<{ data: ColumnModel[] }>()
 )
 
+export const ChangeColumnsOrderFailed = createAction(
+  `${actionSource} Change Columns Order Failed`
+)
+
 export const DeleteColumn = createAction(
   `${actionSource} Delete Column`,
-  props<{ boardId: UUIDType, columnId: UUIDType }>()
+  props<{ boardId: UUIDType, columnId: UUIDType }>(),
 )
 
 export const DeleteColumnSuccess = createAction(
-  `${actionSource} Delete Column success`,
-  props<{ columnId: UUIDType }>()
+  `${actionSource} Delete Column Success`,
+  props<{ columnId: UUIDType }>(),
 )
 
 export const DeleteColumnFailed = createAction(
-  `${actionSource} Delete Column failed`
+  `${actionSource} Delete Column Failed`,
+)
+
+export const UpdateColumnTitle = createAction(
+  `${actionSource} Update Columnn Title`,
+  props<{ boardId: UUIDType, columnId: UUIDType, title: string, order: number }>(),
+)
+
+export const UpdateColumnTitleSuccess = createAction(
+  `${actionSource} Update Columnn Title Success`,
+)
+
+export const UpdateColumnTitleFailed = createAction(
+  `${actionSource} Update Columnn Title Failed`,
 )

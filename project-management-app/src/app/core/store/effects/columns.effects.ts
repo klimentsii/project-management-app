@@ -57,40 +57,24 @@ export class ColumnsEffects {
     () => {
       return this.actions$.pipe(
         ofType(ColumnsActions.ChangeColumnsOrder),
-        switchMap(({ boardId, leftColumn, rightColumn }) => {
+        switchMap(({ boardId, columns }) => {
           return this.apiService.getColumns$(boardId).pipe(
             map((data) => {
-              const [columnsToChange, dropSide] = leftColumn > rightColumn
-                ? [data.slice(rightColumn, leftColumn + 1).reverse(), 'left', ]
-                : [data.slice(leftColumn, rightColumn + 1), 'right', ];
 
-              const firstTitle = columnsToChange[0].title;
+              const MAX_ORDER_IN_COLUMN = Math.max(...data.map(e => e.order));
 
-              columnsToChange.forEach((e, i) => {
-                e.title =
-                  i !== columnsToChange.length - 1
-                    ? columnsToChange[i + 1].title
-                    : firstTitle;
-              });
-
-              if (dropSide === 'left')
-                columnsToChange.reverse();
-
-              columnsToChange.map(e => {
-                this.apiService.updateColumn$(
-                  boardId,
-                  e.id,
-                  e.title,
-                  e.order,
-                ).subscribe(data => data);
-              });
-
-              data.forEach((e, i) => {
-                columnsToChange.map(el => {
-                  if (e.id === el.id) {
-                    e.title = el.title;
-                  };
-                });
+              data.map(e => {
+                columns.map((r, i) => {
+                  if (e.id === r.id) {
+                    e.order = MAX_ORDER_IN_COLUMN + 1 + i;
+                    this.apiService.updateColumn$(
+                      boardId,
+                      e.id,
+                      e.title,
+                      MAX_ORDER_IN_COLUMN + 1 + i,
+                    ).subscribe(data => data);
+                  }
+                })
               });
 
               return ColumnsActions.ChangeColumnsOrderSuccess({ data: data });
@@ -115,5 +99,17 @@ export class ColumnsEffects {
       );
     }
   );
+
+  updateColumnTitle$ = createEffect(() => {
+    return this.actions$.pipe(
+        ofType(ColumnsActions.UpdateColumnTitle),
+        switchMap(({ boardId, title, columnId, order }) => {
+          return this.apiService.updateColumn$(boardId, columnId, title, order).pipe(
+            map((data) => {
+              return ColumnsActions.UpdateColumnTitleSuccess();
+            })
+          )
+        }));
+  });
 
 };
