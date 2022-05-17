@@ -59,17 +59,22 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(BoardsActions.CreateBoard),
       switchMap(({ title, description }) => {
+        console.log('description', description);
         const users: UUIDType[] = [];
         if (this.auth) users.push(this.auth.id);
         const finalTitle = JSON.stringify({ title, users });
         return this.apiService.createBoard$(finalTitle, description).pipe(
           map((board: BoardModel) => {
+            console.log('board', board);
             const payload = {
               id: board.id,
               title: JSON.parse(board.title).title,
               description: board.description,
               users,
             };
+
+            console.log('payload', payload);
+
             return payload
               ? BoardsActions.CreateBoardSuccess({ payload })
               : BoardsActions.CreateBoardFailed();

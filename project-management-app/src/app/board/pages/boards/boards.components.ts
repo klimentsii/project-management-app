@@ -10,7 +10,10 @@ import { BoardUsersModel } from '../../../core/models/boards';
 import { Store } from '@ngrx/store';
 import * as BoardsActions from '../../../core/store/actions/boards.action';
 import { AuthService } from '../../../login/services/auth.service';
-import { TitleErrorMessages } from 'src/app/shared/validationMessages.enum';
+import {
+  DescriptionErrorMessages,
+  TitleErrorMessages,
+} from 'src/app/shared/validationMessages.enum';
 
 @Component({
   selector: 'app-boards',
@@ -38,7 +41,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
       Validators.minLength(3),
       Validators.maxLength(20),
     ]),
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
   });
 
   editBoardForm!: FormGroup;
@@ -52,7 +55,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
         Validators.minLength(3),
         Validators.maxLength(20),
       ]),
-      description: new FormControl(desc),
+      description: new FormControl(desc, [Validators.required]),
     });
     console.log(boardId);
   }
@@ -101,6 +104,27 @@ export class BoardsComponent implements OnInit, OnDestroy {
     }
   }
 
+  chooseDescriptionError(boardType: string): string {
+    switch (boardType) {
+      case 'newBoard':
+        for (let item in this.newBoardForm.controls['description'].errors) {
+          return Object.entries(DescriptionErrorMessages)[
+            Object.keys(DescriptionErrorMessages).indexOf(item)
+          ][1];
+        }
+        return '';
+      case 'editBoard':
+        for (let item in this.editBoardForm.controls['description'].errors) {
+          return Object.entries(DescriptionErrorMessages)[
+            Object.keys(DescriptionErrorMessages).indexOf(item)
+          ][1];
+        }
+        return '';
+      default:
+        return '';
+    }
+  }
+
   deleteBoard(e: Event, id: UUIDType): void {
     e.stopPropagation();
     const dialog = this.dialog.open(ConfirmationModalComponent, {
@@ -113,7 +137,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(
         tap(nextId => {
-          console.log('nextId', nextId);
           if (nextId) this.store.dispatch(BoardsActions.DeleteBoard({ boardId: nextId }));
         }),
       )

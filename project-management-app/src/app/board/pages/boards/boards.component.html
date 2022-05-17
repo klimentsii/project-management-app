@@ -2,8 +2,8 @@
   <div class="container">
     <div class="board-inner">
       <ng-container *ngFor="let board of boards$ | async; let i = index">
-      <mat-card class="board-item regular" *ngIf="board.id !== editBoardId; else editMode"
-                routerLink="/project?id={{board.id}}">
+        <mat-card class="board-item regular" *ngIf="board.id !== editBoardId; else editMode"
+                  routerLink="/project?id={{board.id}}">
           <mat-card-title>{{board.title}}</mat-card-title>
           <mat-card-subtitle>{{board.description}}</mat-card-subtitle>
           <div class="mat-card-controls">
@@ -14,7 +14,7 @@
               <mat-icon>edit</mat-icon>
             </button>
           </div>
-      </mat-card>
+        </mat-card>
         <ng-template #editMode>
           <form [formGroup]="editBoardForm" (ngSubmit)="updateBoard()" class="board-item">
             <mat-form-field class="example-full-width" appearance="fill">
@@ -25,9 +25,12 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="fill">
-          <textarea matInput class="board-description" formControlName="description">
-          </textarea>
               <mat-label i18n="boards @@descBoard">Board description</mat-label>
+              <textarea matInput class="board-description" formControlName="description">
+          </textarea>
+              <mat-error *ngIf="editBoardForm.controls['description'].errors">
+                {{chooseDescriptionError('editBoard')}}
+              </mat-error>
             </mat-form-field>
 
             <div class="mat-card-controls">
@@ -57,9 +60,12 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label i18n="boards @@descBoard">Board description</mat-label>
           <textarea matInput class="board-description" formControlName="description">
           </textarea>
-          <mat-label i18n="boards @@descBoard">Board description</mat-label>
+          <mat-error *ngIf="newBoardForm.controls['description'].errors">
+            {{chooseDescriptionError('newBoard')}}
+          </mat-error>
         </mat-form-field>
 
         <div class="mat-card-controls">
