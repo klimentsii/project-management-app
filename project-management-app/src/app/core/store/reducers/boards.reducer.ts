@@ -53,6 +53,12 @@ export const reducer = createReducer(
       boards: [...state.boards].filter(board => board.id !== boardId),
     }),
   ),
+  on(
+    BoardsActions.ClearBoards,
+    (): BoardState => ({
+      boards: [],
+    }),
+  ),
 );
 
 export const selectBoardsStore = createFeatureSelector<BoardState>('boards');

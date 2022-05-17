@@ -41,3 +41,5 @@ export const DeleteBoardSuccess = createAction(
 );
 
 export const DeleteBoardFailed = createAction(`${actionSource} Delete Board Failed`);
+
+export const ClearBoards = createAction(`${actionSource} Clear Boards`);

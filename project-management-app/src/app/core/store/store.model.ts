@@ -12,7 +12,7 @@ export interface UserState {
 }
 
 export interface BoardState {
-  boards: BoardUsersModel[];
+  boards: BoardUsersModel[] | [];
 }
 
 export type Languages = 'ru' | 'en';

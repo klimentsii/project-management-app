@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UserActions from '../actions/user.action';
-import { catchError, map, of, switchMapTo } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMapTo } from 'rxjs';
 import { AuthService } from '../../../login/services/auth.service';
+import * as BoardsAction from '../actions/boards.action';
 
 @Injectable()
 export class UserEffects {
@@ -25,9 +26,9 @@ export class UserEffects {
   logoutUser = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.LogoutUser),
-      map(() => {
+      exhaustMap(() => {
         this.authService.clearStorage();
-        return UserActions.LogoutUserSuccess();
+        return [UserActions.LogoutUserSuccess(), BoardsAction.ClearBoards()];
       }),
     );
   });
