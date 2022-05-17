@@ -20,11 +20,17 @@
 
   <div
     cdkDropList
+    [id]="column.id"
+    [cdkDropListConnectedTo]="columnIds"
     [cdkDropListData]="todo"
     class="example-list"
     (cdkDropListDropped)="dropin($event)">
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>
-      {{item}}
+    <div class="example-box" *ngFor="let item of tasks$ | async" cdkDrag>
+      <app-task [task]="item.title"></app-task>
     </div>
   </div>
+
+  <button mat-button class="example-box-button" (click)="createTask('task')">
+    +
+  </button>
 </div>

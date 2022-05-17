@@ -65,7 +65,9 @@ export default class BoardComponent {
           this.store.dispatch(ColumnsActions.CreateColumn({
             boardId: this.id,
             title: string,
-            columnsCount: this.columns[this.columnsLength - 1].order + 1,
+            columnsCount: this.columnsLength > 0
+            ? this.columns[this.columnsLength - 1].order + 1
+            : 0,
           }));
         };
       }))

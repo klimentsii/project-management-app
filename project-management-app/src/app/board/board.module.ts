@@ -7,9 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 import { CreateItemModalComponent } from './pages/board/modals/create-item-modal/create-item-modal.component';
 import BoardComponent from './pages/board/board.component';
 import { ColumnComponent } from './pages/column/column.component';
+import { TaskComponent } from './pages/task/task.component';
 
 @NgModule({
-  declarations: [BoardsComponent, CreateItemModalComponent, BoardComponent, ColumnComponent],
+  declarations: [BoardsComponent, CreateItemModalComponent, BoardComponent, ColumnComponent, TaskComponent],
   imports: [CommonModule, BoardRoutingModule, SharedModule],
 })
 export class BoardModule {}
