@@ -23,6 +23,7 @@ export class BoardsEffects {
       switchMap(() =>
         this.apiService.getBoards$().pipe(
           map((boards: BoardModel[]) => {
+            this.auth = this.authService.getAuthInfo();
             const filteredBoards = this.auth
               ? boards.filter(board => {
                   return IsJsonString(board.title)

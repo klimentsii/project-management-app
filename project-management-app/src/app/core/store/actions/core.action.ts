@@ -7,3 +7,5 @@ export const ChangeLanguage = createAction(
   `${actionSource} Change Language Success`,
   props<{ lang: Languages }>(),
 );
+
+export const LogoutUserSuccess = createAction(`${actionSource} Logout User Success`);
