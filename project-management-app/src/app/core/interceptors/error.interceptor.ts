@@ -17,10 +17,12 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log('Interceptor2');
+    console.log(request);
+
     return next.handle(request).pipe(
-      tap(() => console.log('Inside Error interceptor')),
+      tap(res => console.log('Inside Error interceptor', res)),
       catchError((error: HttpErrorResponse) => {
-        console.log('errorMsg');
+        console.log('errorMsg', error);
 
         let errorMsg = '';
         if (error.error instanceof ErrorEvent) {

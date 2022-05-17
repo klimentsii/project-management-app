@@ -1,17 +1,47 @@
 <section class="board">
   <div class="container">
     <div class="board-inner">
-        <mat-card class="board-item" *ngFor="let board of boards$ | async; let i = index">
+      <ng-container *ngFor="let board of boards$ | async; let i = index">
+      <mat-card class="board-item regular" *ngIf="board.id !== editBoardId; else editMode"
+                routerLink="/project?id={{board.id}}">
           <mat-card-title>{{board.title}}</mat-card-title>
+          <mat-card-subtitle>{{board.description}}</mat-card-subtitle>
           <div class="mat-card-controls">
-            <button class="board-item-button" (click)="deleteBoard(board.id)">
+            <button class="board-item-button" (click)="deleteBoard($event, board.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <button class="board-item-button" routerLink="/project?id={{board.id}}">
-              <mat-icon>launch</mat-icon>
+            <button class="board-item-button" (click)="enterEditMode($event, board.id, board.title, board.description)">
+              <mat-icon>edit</mat-icon>
             </button>
           </div>
-        </mat-card>
+      </mat-card>
+        <ng-template #editMode>
+          <form [formGroup]="editBoardForm" (ngSubmit)="updateBoard()" class="board-item">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label i18n="boards @@nameBoard">Name of board</mat-label>
+              <input type="text" matInput formControlName="title">
+              <mat-error *ngIf="editBoardForm.controls['title'].errors">
+                {{chooseTitleError('editBoard')}}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+          <textarea matInput class="board-description" formControlName="description">
+          </textarea>
+              <mat-label i18n="boards @@descBoard">Board description</mat-label>
+            </mat-form-field>
+
+            <div class="mat-card-controls">
+              <button class="board-item-button" (click)="exitEditMode($event)">
+                <mat-icon>arrow_back</mat-icon>
+              </button>
+              <button class="board-item-button" [disabled]="!editBoardForm.valid"
+                      type="submit">
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+          </form>
+        </ng-template>
+      </ng-container>
 
       <button *ngIf="newBoardState" mat-button class="board-item" (click)="changeState()">
         <mat-icon>add</mat-icon>
@@ -20,18 +50,24 @@
       <form [formGroup]="newBoardForm" (ngSubmit)="createNewBoard()" *ngIf="!newBoardState" class="board-item">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label i18n="boards @@nameBoard">Name of board</mat-label>
-          <input type="text" matInput formControlName="title" placeholder="Ex. Projects">
-          <mat-hint i18n="boards @@nameHint">Errors appear instantly!</mat-hint>
+          <input type="text" matInput formControlName="title">
+          <!--          <mat-hint i18n="boards @@nameHint">Errors appear instantly!</mat-hint>-->
           <mat-error *ngIf="newBoardForm.controls['title'].errors">
-                        {{chooseTitleError()}}
+            {{chooseTitleError('newBoard')}}
           </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <textarea matInput class="board-description" formControlName="description">
+          </textarea>
+          <mat-label i18n="boards @@descBoard">Board description</mat-label>
         </mat-form-field>
 
         <div class="mat-card-controls">
           <button class="board-item-button" (click)="changeState()">
             <mat-icon>arrow_back</mat-icon>
           </button>
-          <button class="board-item-button" [disabled]="!newBoardForm.valid || (delayed$ | async) === false" type="submit">
+          <button class="board-item-button" [disabled]="!newBoardForm.valid"
+                  type="submit">
             <mat-icon>check</mat-icon>
           </button>
         </div>

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as BoardsActions from '../actions/boards.action';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { AuthService } from '../../../login/services/auth.service';
 import { ApiService } from '../../services/api.service';
-import { BoardModel } from '../../models/boards';
+import { BoardModel, BoardModelExtended } from '../../models/boards';
+import { IsJsonString } from '../../../shared/helpers';
 
 @Injectable()
 export class BoardsEffects {
@@ -23,13 +24,26 @@ export class BoardsEffects {
         this.apiService.getBoards$().pipe(
           map((boards: BoardModel[]) => {
             const filteredBoards = this.auth
-              ? boards.filter(board => JSON.parse(board.title).users.includes(this.auth?.id))
+              ? boards.filter(board => {
+                  return IsJsonString(board.title)
+                    ? JSON.parse(board.title).users.includes(this.auth?.id)
+                    : true;
+                })
               : [];
-            const finalBoards = filteredBoards.map(board => ({
-              id: board.id,
-              title: JSON.parse(board.title).title,
-              users: JSON.parse(board.title).users,
-            }));
+            const finalBoards = filteredBoards.map(board => {
+              const title = IsJsonString(board.title) ? JSON.parse(board.title).title : board.title;
+              const users = IsJsonString(board.title)
+                ? JSON.parse(board.title).users
+                : this.auth
+                ? [this.auth.id]
+                : [];
+              return {
+                id: board.id,
+                title,
+                description: board.description,
+                users,
+              };
+            });
             return finalBoards
               ? BoardsActions.FetchBoardsSuccess({ boards: finalBoards })
               : BoardsActions.FetchBoardsFailed();
@@ -43,15 +57,16 @@ export class BoardsEffects {
   createBoard = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardsActions.CreateBoard),
-      switchMap(({ title }) => {
+      switchMap(({ title, description }) => {
         const users: UUIDType[] = [];
         if (this.auth) users.push(this.auth.id);
         const finalTitle = JSON.stringify({ title, users });
-        return this.apiService.createBoard$(finalTitle).pipe(
+        return this.apiService.createBoard$(finalTitle, description).pipe(
           map((board: BoardModel) => {
             const payload = {
               id: board.id,
               title: JSON.parse(board.title).title,
+              description: board.description,
               users,
             };
             return payload
@@ -64,12 +79,46 @@ export class BoardsEffects {
     );
   });
 
+  updateBoard = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardsActions.UpdateBoard),
+      switchMap(({ id, title, description }) => {
+        const newTitle = title;
+        return this.apiService.getBoardById$(id).pipe(
+          switchMap((result: BoardModelExtended) => {
+            const oldTitle = result.title;
+            const titleParsed = IsJsonString(oldTitle) ? JSON.parse(oldTitle) : '';
+            const users = IsJsonString(oldTitle)
+              ? titleParsed.users
+              : this.auth
+              ? [this.auth.id]
+              : [];
+            const finalTitle = JSON.stringify({ title: newTitle, users });
+            return this.apiService.updateBoard$(id, finalTitle, description).pipe(
+              map((board: BoardModel) => {
+                const payload = {
+                  id: board.id,
+                  title: JSON.parse(board.title).title,
+                  description: board.description,
+                  users,
+                };
+                return payload
+                  ? BoardsActions.UpdateBoardSuccess({ payload })
+                  : BoardsActions.UpdateBoardFailed();
+              }),
+              catchError(() => of(BoardsActions.UpdateBoardFailed())),
+            );
+          }),
+        );
+      }),
+    );
+  });
+
   deleteBoard = createEffect(() => {
     return this.actions$.pipe(
       ofType(BoardsActions.DeleteBoard),
       switchMap(({ boardId }) => {
         return this.apiService.deleteBoard$(boardId).pipe(
-          tap(res => console.log('res', res)),
           map(() => {
             return boardId
               ? BoardsActions.DeleteBoardSuccess({ boardId })

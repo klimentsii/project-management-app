@@ -101,7 +101,7 @@ export class ApiService {
     return this.http.get<BoardModel[]>(this.url.Boards, { headers });
   }
 
-  createBoard$(title: string): Observable<BoardModel> {
+  createBoard$(title: string, description: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
@@ -109,6 +109,7 @@ export class ApiService {
       this.url.Boards,
       {
         title: title,
+        description: description,
       },
       { headers },
     );
@@ -121,14 +122,10 @@ export class ApiService {
 
   deleteBoard$(id: UUIDType): Observable<Response> {
     const headers = new HttpHeaders().set('accept', '*/*');
-    return this.http.delete<Response>(`${this.url.Boards}/${id}`, { headers }).pipe(
-      tap((response: Response) => {
-        console.log(response);
-      }),
-    );
+    return this.http.delete<Response>(`${this.url.Boards}/${id}`, { headers });
   }
 
-  updateBoard$(id: UUIDType, newTitle: string): Observable<BoardModel> {
+  updateBoard$(id: UUIDType, newTitle: string, newDecsription: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
@@ -136,6 +133,7 @@ export class ApiService {
       `${this.url.Boards}/${id}`,
       {
         title: newTitle,
+        description: newDecsription,
       },
       { headers },
     );

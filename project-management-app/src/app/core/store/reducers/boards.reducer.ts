@@ -32,6 +32,21 @@ export const reducer = createReducer(
       ...state,
     }),
   ),
+  on(BoardsActions.UpdateBoardSuccess, (state: BoardState, { payload }): BoardState => {
+    const oldBoards = [...state.boards];
+    const newBoards = oldBoards.map(board => {
+      return board.id === payload.id ? payload : board;
+    });
+    return {
+      boards: newBoards,
+    };
+  }),
+  on(
+    BoardsActions.UpdateBoardFailed,
+    (state): BoardState => ({
+      ...state,
+    }),
+  ),
   on(
     BoardsActions.DeleteBoardSuccess,
     (state: BoardState, { boardId }): BoardState => ({
