@@ -24,8 +24,10 @@
     [cdkDropListConnectedTo]="columnIds"
     [cdkDropListData]="todo"
     class="example-list"
-    (cdkDropListDropped)="dropin($event)">
-    <div class="example-box" *ngFor="let item of tasks$ | async" cdkDrag>
+    (cdkDropListDropped)="dropin($event)"
+    *ngIf="(tasks$ | async) as tasks"
+  >
+    <div class="example-box" *ngFor="let item of tasks | filteredTasks:column.id" cdkDrag>
       <app-task [task]="item.title"></app-task>
     </div>
   </div>

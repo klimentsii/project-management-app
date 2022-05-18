@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { reducers } from './store/reducers';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { ColumnsEffects } from './store/effects/columns.effects';
+import { TasksEffects } from './store/effects/tasks.effects';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { ColumnsEffects } from './store/effects/columns.effects';
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects]),
+    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects, TasksEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
   ],
   providers: [

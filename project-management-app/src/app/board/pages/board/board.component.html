@@ -3,8 +3,12 @@
     <div class="board-inner">
       <div cdkDropList cdkDropListOrientation="horizontal" class="board-list" (cdkDropListDropped)="drop($event)">
 
-        <div class="board-column" *ngFor="let column of columns$ | async" cdkDrag cdkDropListGroup>
-          <app-column [column]="column"></app-column>
+        <div class="board-column"
+          *ngFor="let column of columns$ | async"
+          cdkDrag
+          cdkDropListGroup
+        >
+          <app-column [column]="column" [tasks$]="tasks$"></app-column>
         </div>
 
         <button mat-button class="create-column-button" (click)="createColumn('column')">+</button>

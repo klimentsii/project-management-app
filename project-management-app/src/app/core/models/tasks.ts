@@ -11,7 +11,6 @@ export interface TaskModel {
 }
 
 export interface TaskModelPlus {
-  id: UUIDType;
   title: string;
   done: boolean;
   order: number;

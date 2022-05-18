@@ -8,11 +8,14 @@ import { AuthService } from 'src/app/login/services/auth.service';
 
 import * as ColumnsActions from '../../../core/store/actions/columns.action';
 import * as ColumnsReducers from "../../../core/store/reducers/columns.reductor";
+import * as TasksReducers from "../../../core/store/reducers/tasks.reducer";
+import * as TasksActions from '../../../core/store/actions/tasks.action';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, tap } from 'rxjs';
 import { CreateItemModalComponent } from './modals/create-item-modal/create-item-modal.component';
 import { ColumnModel } from 'src/app/core/models/columns';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TaskModelPlus } from 'src/app/core/models/tasks';
 
 @Component({
   selector: 'app-board',
@@ -30,7 +33,9 @@ export default class BoardComponent {
   columnsLength: number = 0;
 
 
-  columns$: Observable<ColumnModel[]> = this.store.select(ColumnsReducers.getColumns);
+  public columns$: Observable<ColumnModel[]> = this.store.select(ColumnsReducers.getColumns);
+
+  public tasks$: Observable<TaskModelPlus[]> = this.store.select(TasksReducers.getTasks);
 
   constructor(
     private store: Store,
@@ -45,6 +50,8 @@ export default class BoardComponent {
       this.columns = [...data];
       this.columnsLength = data.length;
     });
+
+    this.store.dispatch(TasksActions.FetchTasks({ boardId: this.id }));
   }
 
   public ngOnInit(): void {

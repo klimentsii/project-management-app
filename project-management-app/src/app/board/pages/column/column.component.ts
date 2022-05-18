@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnModel } from 'src/app/core/models/columns';
 import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
-import { Observable, Subscription, tap } from 'rxjs';
+import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList } from '@angular/cdk/drag-drop';
 
@@ -13,6 +13,9 @@ import { FileModel } from 'src/app/core/models/files';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CreateItemModalComponent } from '../board/modals/create-item-modal/create-item-modal.component';
+import { TaskModelPlus } from 'src/app/core/models/tasks';
+import { AuthService } from 'src/app/login/services/auth.service';
+import { FilteredTasksPipe } from '../../pipes/filtered-tasks.pipe';
 
 @Component({
   selector: 'app-column',
@@ -23,6 +26,8 @@ import { CreateItemModalComponent } from '../board/modals/create-item-modal/crea
 export class ColumnComponent implements OnInit {
   @Input()
   column!: ColumnModel;
+  @Input()
+  tasks$!: Observable<TaskModelPlus[]>;
 
   changeColumnTitleBoolean: boolean = false;
 
@@ -36,23 +41,24 @@ export class ColumnComponent implements OnInit {
 
   public columnIds: string[] = [];
 
-  public tasks$: Observable<ColumnModel[]> = this.store.select(TasksReducers.getTasks);
-
   constructor(
     private dialog: MatDialog,
     private store: Store,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService,
+    private authService: AuthService,
   ) {
     this.subscription = activateRoute.params.subscribe(params => this.id=params['id']);
   }
 
   ngOnInit(): void {
-    this.getColumnIds()
+    this.getColumnIds();
 
-    this.tasks$.subscribe(data => {
-      this.tasksLength = data.length;
-    })
+    // this.tasks$.subscribe(data => {
+    //   if (data) {
+    //     this.tasksLength = data.length;
+    //   }
+    // })
   }
 
   public changeColumnTitle(): void {
@@ -125,15 +131,17 @@ export class ColumnComponent implements OnInit {
     .pipe(
       tap((string: string) => {
         if (string) {
+          const userId = this.authService.getAuthInfo()?.id as string;
+
           this.store.dispatch(TasksActions.CreateTask({
             task: {
-              id: this.column.id,
               title: string,
               order: this.tasksLength,
-              description: 'des',
-              userId: 'ewwrbwrb',
+              description: string,
+              userId: userId,
               boardId: this.id,
               columnId: this.column.id,
+              done: false,
             }
           }));
         };

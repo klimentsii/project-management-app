@@ -5,7 +5,7 @@ const actionSource = '[Tasks]';
 
 export const FetchTasks = createAction(
   `${actionSource} Fetch Tasks`,
-  props<{ boardId: UUIDType, columnId: UUIDType }>(),
+  props<{ boardId: UUIDType }>(),
 );
 
 export const FetchTasksSuccess = createAction(

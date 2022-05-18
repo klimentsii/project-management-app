@@ -142,9 +142,9 @@ export class ApiService {
 
   /** Columns **/
 
-  getColumns$(boardId: UUIDType): Observable<ColumnModel[]> {
+  getColumns$(boardId: UUIDType): Observable<ColumnModelExtended[]> {
     const headers = new HttpHeaders().set('accept', 'application/json');
-    return this.http.get<ColumnModel[]>(`${this.url.Boards}/${boardId}/${this.url.Columns}`, {
+    return this.http.get<ColumnModelExtended[]>(`${this.url.Boards}/${boardId}/${this.url.Columns}`, {
       headers,
     });
   };
@@ -226,25 +226,19 @@ export class ApiService {
   }
 
   createTask(
-    boardId: UUIDType,
-    columnId: UUIDType,
-    title: string,
-    order: number,
-    description: string,
-    done: boolean,
-    userId: UUIDType,
+    task: TaskModelPlus,
   ): Observable<TaskModelPlus> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
     return this.http.post<TaskModelPlus>(
-      `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
+      `${this.url.Boards}/${task.boardId}/${this.url.Columns}/${task.columnId}/${this.url.Tasks}`,
       {
-        title: title,
-        done: done,
-        order: order,
-        description: description,
-        userId: userId,
+        title: task.title,
+        done: task.done,
+        order: task.order,
+        description: task.description,
+        userId: task.userId,
       },
       { headers },
     );

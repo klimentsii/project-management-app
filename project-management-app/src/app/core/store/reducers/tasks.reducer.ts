@@ -9,10 +9,10 @@ export const reducer = createReducer(
   initialState,
   on(TasksActions.FetchTasksSuccess, (state: TaskModelPlus[], {tasks}) => ([
     ...tasks,
-  ].sort((a, b) => a.order > b.order ? 1 : -1))),
+  ])),//.sort((a, b) => a.order > b.order ? 1 : -1))),
   on(TasksActions.CreateTaskSuccess, (state: TaskModelPlus[], {task}) => ([
     ...state, task,
-  ]),
+  ])),
   // on(TasksActions.DeleteTaskSuccess, (state: TaskModel[], {TaskId}) => ([
   //   ...state.filter(e => e.id !== TaskId),
   // ].sort((a, b) => a.order > b.order ? 1 : -1))),
@@ -22,9 +22,9 @@ export const reducer = createReducer(
   // on(TasksActions.UpdateTaskTitleSuccess, (state: TaskModel[]) => ([
   //   ...state,
   // ].sort((a, b) => a.order > b.order ? 1 : -1))),
-));
+);
 
-export const getTasksState = createFeatureSelector<TaskModelPlus[]>('Tasks');
+export const getTasksState = createFeatureSelector<TaskModelPlus[]>('tasks');
 
 export const getTasks = createSelector(
   getTasksState,

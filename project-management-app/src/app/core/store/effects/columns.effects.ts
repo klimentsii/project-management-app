@@ -28,9 +28,12 @@ export class ColumnsEffects {
               return columns
                 ? ColumnsActions.FetchColumnsSuccess({ payload: columns })
                 : ColumnsActions.FetchColumnsFailed();
-          }));
-      }));
-  });
+            })
+          );
+        })
+      );
+    }
+  );
 
   createColumn = createEffect(
     () => {

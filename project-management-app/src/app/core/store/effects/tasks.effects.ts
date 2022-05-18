@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, pipe, switchMap, tap } from "rxjs";
 import { AuthService } from "src/app/login/services/auth.service";
-import { TaskModel, TaskModelPlus } from "../../models/tasks";
+import { ColumnModel } from "../../models/columns";
+import { TaskModel, TaskModelPlus, TaskModelPlusFiles } from "../../models/tasks";
 import { ApiService } from "../../services/api.service";
 
 import * as TasksActions from '../actions/tasks.action';
@@ -22,10 +23,20 @@ export class TasksEffects {
     () => {
       return this.actions$.pipe(
         ofType(TasksActions.FetchTasks),
-        switchMap(({ boardId, columnId }) => {
-          return this.apiService.getTasks$(boardId, columnId).pipe(
-            map((tasks: TaskModelPlus[]) => {
-              return TasksActions.FetchTasksSuccess({ tasks: tasks });
+        switchMap(({ boardId }) => {
+          return this.apiService.getColumns$(boardId).pipe(
+            map((columnsInBoard: ColumnModel[]) => {
+              let tasks: TaskModelPlusFiles[] = [];
+
+              return columnsInBoard.map(column => {
+                return this.apiService.getTasks$(boardId, column.id).pipe(
+                  map((tasksInColumn: TaskModelPlusFiles[]) => {
+                    tasks = [...tasks,...tasksInColumn];
+
+                    return TasksActions.FetchTasksSuccess({ tasks: tasks });
+                  })
+                );
+              });
             })
           );
         }
@@ -33,26 +44,20 @@ export class TasksEffects {
     }
   );
 
-  // createTask = createEffect(
-  //   () => {
-  //     return this.actions$.pipe(
-  //       ofType(TasksActions.CreateTask),
-  //       switchMap(({ task }) => {
-  //         const currentTaskOrder = TasksCount;
-  //         return this.apiService.createTask(boardId, title, currentTaskOrder).pipe(
-  //           map(() => {
-  //             const newTask: TaskModel = {
-  //               id: boardId,
-  //               title: title,
-  //               order: currentTaskOrder,
-  //             }
-  //             return TasksActions.CreateTaskSuccess({ payload: newTask});
-  //           })
-  //         );
-  //       })
-  //     );
-  //   }
-  // );
+  createTask = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(TasksActions.CreateTask),
+        switchMap(({ task }) => {
+          return this.apiService.createTask(task).pipe(
+            map(() => {
+              return TasksActions.CreateTaskSuccess({ task: task, });
+            })
+          );
+        })
+      );
+    }
+  );
 
   // changeOrder = createEffect(
   //   () => {

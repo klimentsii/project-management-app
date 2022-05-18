@@ -2,8 +2,10 @@
   <div class="container">
     <div class="board-inner">
       <ng-container *ngFor="let board of boards$ | async; let i = index">
-      <mat-card class="board-item regular" *ngIf="board.id !== editBoardId; else editMode"
-                routerLink="/boards/b/{{board.id}}">
+      <mat-card
+        class="board-item regular"
+        *ngIf="board.id !== editBoardId; else editMode"
+        routerLink="/boards/b/{{board.id}}">
           <mat-card-title>{{board.title}}</mat-card-title>
           <mat-card-subtitle>{{board.description}}</mat-card-subtitle>
           <div class="mat-card-controls">
