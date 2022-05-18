@@ -3,7 +3,7 @@ import { catchError, EMPTY, Observable, retry, switchMap, tap } from 'rxjs';
 import { Token, UserNoIdModel } from 'src/app/core/models/user';
 import { ApiService } from 'src/app/core/services/api.service';
 import { BrowserStorageService } from '../../core/services/storage.service';
-import { AuthModel } from '../models/auth.model';
+import { AuthModelExtended } from '../models/auth.model';
 import * as UserAction from '../../core/store/actions/user.action';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -33,11 +33,11 @@ export class AuthService {
     return this.localStorageService.set('auth', value.token);
   }
 
-  setAuthInfo(value: AuthModel): void {
+  setAuthInfo(value: AuthModelExtended): void {
     return this.localStorageService.set('auth', JSON.stringify(value));
   }
 
-  getAuthInfo(): AuthModel | null {
+  getAuthInfo(): AuthModelExtended | null {
     const auth = this.localStorageService.get('auth');
     return auth ? JSON.parse(auth) : null;
   }
@@ -62,8 +62,10 @@ export class AuthService {
         return this.API.getUsers$().pipe(
           tap(users => {
             const currentUser = users.filter(user => user.login === login);
+            const authExtended = { ...token, ...currentUser[0], password };
+            console.log('auth', authExtended);
+            this.setAuthInfo(authExtended);
             const auth = { ...token, ...currentUser[0] };
-            this.setAuthInfo(auth);
             this.store.dispatch(UserAction.FetchUserSuccess({ user: auth }));
             console.log('User registered');
           }),

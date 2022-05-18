@@ -4,3 +4,8 @@ export interface AuthModel {
   name: string;
   login: string;
 }
+
+export interface AuthModelExtended extends AuthModel {
+  password: string;
+}
+

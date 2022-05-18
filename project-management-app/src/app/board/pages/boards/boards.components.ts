@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import * as BoardsAction from 'src/app/core/store/actions/boards.action';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
-import { BehaviorSubject, Observable, ReplaySubject, tap } from 'rxjs';
+import { Observable, ReplaySubject, tap } from 'rxjs';
 import * as fromBoards from '../../../core/store/reducers/boards.reducer';
 import { BoardUsersModel } from '../../../core/models/boards';
 import { Store } from '@ngrx/store';
@@ -23,11 +23,15 @@ import {
 })
 export class BoardsComponent implements OnInit, OnDestroy {
   constructor(
+    private authService: AuthService,
     private store: Store,
     private apiService: ApiService,
-    private authService: AuthService,
+
     private dialog: MatDialog,
   ) {}
+
+  auth = this.authService.getAuthInfo();
+  id = this.auth?.id;
 
   boards$: Observable<BoardUsersModel[]> = this.store.select(fromBoards.selectBoards);
 
@@ -146,8 +150,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
   }
 
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
-
-  delayed$ = new BehaviorSubject(false);
 
   ngOnInit(): void {
     this.store.dispatch(BoardsAction.FetchBoards());

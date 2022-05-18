@@ -1,1 +1,39 @@
-<p>profile works!</p>
+<section class="profile">
+  <h1 class="page-title" i18n="pageTitle | profile @@profilePageTitle">Информация о пользователе</h1>
+  <ng-container *ngIf="(user$ | async) as user">
+    <div class="user-info">
+      <div>
+        <p class="profile-field-name" i18n="userNameTitle | profile @@profileUserNameTitle">Имя</p>
+        <div class="edit-container" *ngIf="!(editMode$ | async); else editModeName">
+          <h2 i18n="userName | profile @@profileUserName">{{user.name}}</h2>
+          <mat-icon class="edit-icon" (click)="enterEditModeName()">edit</mat-icon>
+        </div>
+        <ng-template #editModeName>
+          <div class="edit-container">
+            <input [formControl]="userName" type="text" id="userName" required minlength="3" class="form-control">
+            <mat-icon class="edit-icon" (click)="updateName()">check</mat-icon>
+          </div>
+          <mat-error *ngIf="userName.invalid">
+            Name required with min 3 character
+          </mat-error>
+        </ng-template>
+      </div>
+      <div class="email-container">
+        <p class="profile-field-name">Email</p>
+        <div class="edit-container">
+          <h2 i18n="id | profile @@wprofileLogin">{{user.login}}</h2>
+          <mat-icon
+            class="edit-icon"
+            (click)="enterEditModeLogin()"
+          >
+            edit
+          </mat-icon>
+        </div>
+      </div>
+      <div class="id-container">
+        <p class="profile-field-name">Идентификационный номер</p>
+        <h2 i18n="id | profile @@wprofileId">{{user.id}}</h2>
+      </div>
+    </div>
+  </ng-container>
+</section>
