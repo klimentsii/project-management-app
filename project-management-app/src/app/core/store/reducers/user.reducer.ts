@@ -58,6 +58,12 @@ export const reducer = createReducer(
       editPasswordMode
     };
   }),
+  on(UserActions.DeleteUserSuccessRedux, (state): UserState => {
+    return {
+      ...state,
+      user: null,
+    };
+  }),
 );
 
 export const selectUserStore = createFeatureSelector<UserState>('auth');

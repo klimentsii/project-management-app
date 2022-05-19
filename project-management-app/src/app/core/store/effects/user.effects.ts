@@ -19,6 +19,8 @@ import * as BoardsAction from '../actions/boards.action';
 import { ApiService } from '../../services/api.service';
 import { AuthModel } from '../../../login/models/auth.model';
 import { TaskModelPlus, TaskModelPlusFiles } from '../../models/tasks';
+import { DeleteUserTasks } from '../actions/user.action';
+import {BoardModel} from "../../models/boards";
 
 @Injectable()
 export class UserEffects {
@@ -172,33 +174,142 @@ export class UserEffects {
       switchMap(({ id }) => {
         return this.apiService.search$().pipe(
           switchMap((tasks: TaskModelPlusFiles[]) => {
+            const tasksOthers = tasks.filter(task => task.userId !== id);
             const tasksToDelete = tasks.filter(task => task.userId === id);
-            const streams = tasksToDelete.map((task: TaskModelPlusFiles) => {
-              return this.apiService.deleteTask$(task.boardId, task.columnId, task.id);
+            const columnsIdsBoardsWithMyTasks = tasksToDelete.map(task => ({
+              columnId: task.columnId,
+              boardId: task.boardId,
+            }));
+            const columnsToDelete = columnsIdsBoardsWithMyTasks.filter(column => {
+              for (let i = 0; i++; i < tasksOthers.length) {
+                if (tasksOthers[i].columnId === column.columnId) return false;
+              }
+              return true;
             });
-            const mergedStream = merge(streams);
-            return mergedStream.pipe(
-              map(() => {
-                return UserActions.DeleteUserSuccess({ id });
-              }),
-              catchError(() => of(UserActions.DeleteUserFailed())),
-            );
+            const boardsIdsWithMyTasks = tasksToDelete.map(task => task.boardId);
+
+            return [
+              // UserActions.DeleteUserTasks({ tasks: tasksToDelete }),
+              // UserActions.DeleteUserColumns({columns: columnsToDelete}),
+              // UserActions.DeleteUserBoards({ boardsIds: boardsIdsWithMyTasks }),
+              UserActions.DeleteUserSuccess({ id }),
+            ];
           }),
+
+          catchError(() => of(UserActions.DeleteUserFailed())),
+        );
+      }),
+    );
+  });
+
+  DeleteUserTasks = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.DeleteUserTasks),
+      switchMap(({ tasks }) => {
+        const streamsTasks = tasks.map((task: TaskModelPlusFiles) => {
+          return this.apiService
+            .deleteTask$(task.boardId, task.columnId, task.id)
+            .pipe(
+              map(() => of(UserActions.DeleteUserTasksSuccess())),
+              catchError(() => of(UserActions.DeleteUserTasksFailed())));
+        });
+        console.log('streams', streamsTasks);
+        return forkJoin(streamsTasks).pipe(
+          map(() => {
+            return UserActions.DeleteUserTasksSuccess();
+          }),
+          catchError(() => of(UserActions.DeleteUserTasksFailed())),
+        );
+      }),
+    );
+  });
+
+  DeleteUserColumns = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.DeleteUserColumns),
+      switchMap(({ columns }) => {
+        const streamsColumns = columns.map((column) => {
+          return this.apiService.deleteColumn$(column.boardId, column.columnId)
+            .pipe(
+              map(() => of(UserActions.DeleteUserColumnsSuccess())),
+              catchError(() => of(UserActions.DeleteUserColumnsFailed()))
+              )
+        });
+        console.log('streamsColumns', streamsColumns);
+        return forkJoin(streamsColumns).pipe(
+          map(() => {
+            return UserActions.DeleteUserColumnsSuccess();
+          }),
+          catchError(() => of(UserActions.DeleteUserColumnsFailed())),
         );
       }),
     );
   });
 
 
+  DeleteUserBoards = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.DeleteUserBoards),
+      switchMap(({boardsIds}) => {
+        return this.apiService.getBoards$()
+          .pipe(
+            switchMap((boardsAll: BoardModel[]) => {
+              const userId = this.authService.getAuthInfo()?.id;
+              const boardsMy = userId
+                ? boardsAll.filter((board) => JSON.parse(board.title).users[0] === userId)
+                : [];
+              const streamsBoards = boardsMy.map((board: BoardModel) => {
+                return this.apiService.deleteBoard$(board.id)
+                  .pipe(
+                    map(() => of(UserActions.DeleteUserBoardsSuccess())),
+                    catchError(() => of(UserActions.DeleteUserBoardsFailed()))
+                  )
+              });
+              return forkJoin(streamsBoards).pipe(
+                map(() => {
+                  return UserActions.DeleteUserBoardsSuccess();
+                }),
+                catchError(() => of(UserActions.DeleteUserBoardsFailed())),
+              );
+            }),
+          );
+      }))
+  });
+
+
+  DeleteUserSuccess = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.DeleteUserSuccess),
+      switchMap(({ id }) => {
+        console.log('userId', id);
+        this.authService.clearStorage();
+        return this.apiService.deleteUser$(id).pipe(
+          map(() => {
+            return UserActions.DeleteUserSuccessRedux({ id });
+          }),
+          catchError(() => of(UserActions.DeleteUserFailed())),
+        );
+      }),
+    );
+  });
+
+
+
   // DeleteUserSuccess = createEffect(() => {
   //   return this.actions$.pipe(
   //     ofType(UserActions.DeleteUserSuccess),
   //     concatMap(user => {
-  //       return [
-  //         UserActions.DeleteUserSuccess(user),
-  //         UserActions.UpdatePasswordEditMode({ editPasswordMode: false }),
-  //       ];
-  //     }),
-
-
+  //       return this.apiService.search$().pipe(
+  //         switchMap((tasks: TaskModelPlusFiles[]) => {
+  //           console.log('tasks', tasks);
+  //           console.log('user', user)
+  //           return [
+  //             UserActions.DeleteUserSuccess(user),
+  //             UserActions.DeleteUserSuccess(user),
+  //           ];
+  //         })
+  //       )
+  //     })
+  //   )
+  // });
 }

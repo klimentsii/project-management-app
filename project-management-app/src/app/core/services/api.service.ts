@@ -253,7 +253,7 @@ export class ApiService {
       )
       .pipe(
         tap((response: Response) => {
-          console.log(response);
+          console.log('Deleated', response);
         }),
       );
   }
