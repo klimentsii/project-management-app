@@ -29,6 +29,8 @@ export default class BoardComponent {
 
   private subscription: Subscription;
 
+  public pipeValue: string = '';
+
   columns: ColumnModel[] = [];
   columnsLength: number = 0;
 

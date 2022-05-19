@@ -42,9 +42,9 @@ export class ColumnsEffects {
         switchMap(({ boardId, title, columnsCount }) => {
           const currentColumnOrder = columnsCount;
           return this.apiService.createColumn(boardId, title, currentColumnOrder).pipe(
-            map(() => {
+            map((column: ColumnModel) => {
               const newColumn: ColumnModel = {
-                id: boardId,
+                id: column.id,
                 title: title,
                 order: currentColumnOrder,
               }

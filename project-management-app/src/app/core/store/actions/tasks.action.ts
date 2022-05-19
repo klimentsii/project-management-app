@@ -31,20 +31,6 @@ export const CreateTaskFailed = createAction(
   `${actionSource} Create Task Failed`,
 );
 
-export const UpdateTask = createAction(
-  `${actionSource} Update Task`,
-  props<TaskModelPlus>(),
-);
-
-export const UpdateTaskSuccess = createAction(
-  `${actionSource} Update Task Success`,
-  props<{ tasks: TaskModelPlus[] }>(),
-);
-
-export const UpdateTaskFailed = createAction(
-  `${actionSource} Update Task Failed`,
-);
-
 export const DeleteTask = createAction(
   `${actionSource} Delete Task`,
   props<{ boardId: UUIDType, columnId: UUIDType, TaskId: UUIDType }>(),
@@ -52,9 +38,37 @@ export const DeleteTask = createAction(
 
 export const DeleteTaskSuccess = createAction(
   `${actionSource} Delete Task Success`,
-  props<{ boardId: UUIDType, columnId: UUIDType, TaskId: UUIDType }>(),
+  props<{ TaskId: UUIDType }>(),
 );
 
 export const DeleteTaskFailed = createAction(
   `${actionSource} Delete Task Failed`,
 );
+
+export const EditTask = createAction(
+  `${actionSource} Edit Task`,
+  props<{ boardId: UUIDType, columnId: UUIDType, taskId: UUIDType, title: string, description: string, done: boolean, order: number, userId: UUIDType }>(),
+);
+
+export const EditTaskSuccess = createAction(
+  `${actionSource} Edit Task Success`,
+  props<{ taskId: UUIDType, title: string, description: string, order: number, done: boolean }>(),
+);
+
+export const EditTaskFailed = createAction(
+  `${actionSource} Edit Task Failed`,
+);
+
+export const ChangeTasksOrder = createAction(
+  `${actionSource} Change Columns Order`,
+  props<{ boardId: UUIDType, tasks: TaskModelPlus[] }>()
+)
+
+export const ChangeTasksOrderSuccess = createAction(
+  `${actionSource} Change Columns Order Success`,
+  props<{ data: TaskModelPlus[] }>()
+)
+
+export const ChangeTasksOrderFailed = createAction(
+  `${actionSource} Change Columns Order Failed`
+)

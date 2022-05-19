@@ -24,19 +24,9 @@ export class TasksEffects {
       return this.actions$.pipe(
         ofType(TasksActions.FetchTasks),
         switchMap(({ boardId }) => {
-          return this.apiService.getColumns$(boardId).pipe(
-            map((columnsInBoard: ColumnModel[]) => {
-              let tasks: TaskModelPlusFiles[] = [];
-
-              return columnsInBoard.map(column => {
-                return this.apiService.getTasks$(boardId, column.id).pipe(
-                  map((tasksInColumn: TaskModelPlusFiles[]) => {
-                    tasks = [...tasks,...tasksInColumn];
-
-                    return TasksActions.FetchTasksSuccess({ tasks: tasks });
-                  })
-                );
-              });
+          return this.apiService.search$().pipe(
+            map((tasks: TaskModelPlusFiles[]) => {
+              return TasksActions.FetchTasksSuccess({ tasks: tasks });
             })
           );
         }
@@ -50,8 +40,8 @@ export class TasksEffects {
         ofType(TasksActions.CreateTask),
         switchMap(({ task }) => {
           return this.apiService.createTask(task).pipe(
-            map(() => {
-              return TasksActions.CreateTaskSuccess({ task: task, });
+            map((newTask) => {
+              return TasksActions.CreateTaskSuccess({ task: newTask, });
             })
           );
         })
@@ -59,63 +49,81 @@ export class TasksEffects {
     }
   );
 
-  // changeOrder = createEffect(
-  //   () => {
-  //     return this.actions$.pipe(
-  //       ofType(TasksActions.ChangeTasksOrder),
-  //       switchMap(({ boardId, Tasks }) => {
-  //         return this.apiService.getTasks$(boardId).pipe(
-  //           map((data) => {
+  deleteTask = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(TasksActions.DeleteTask),
+        switchMap(({ boardId, columnId, TaskId }) => {
+          return this.apiService.deleteTask$(boardId, columnId, TaskId).pipe(
+            map(() => {
+              return TasksActions.DeleteTaskSuccess({ TaskId })
+            })
+          );
+        })
+      );
+    }
+  );
 
-  //             const MAX_ORDER_IN_Task = Math.max(...data.map(e => e.order));
+  editTask = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(TasksActions.EditTask),
+        switchMap(({ boardId, columnId, taskId, title, description, done, order, userId }) => {
+          return this.apiService.updateTask$(
+            boardId,
+            columnId,
+            taskId,
+            title,
+            order,
+            done,
+            description,
+            userId,
+            boardId,
+            columnId,
+          ).pipe(
+            map(() => {
+              return TasksActions.EditTaskSuccess({ taskId, title, description, order, done })
+            })
+          );
+        })
+      );
+    }
+  );
 
-  //             data.map(e => {
-  //               Tasks.map((r, i) => {
-  //                 if (e.id === r.id) {
-  //                   e.order = MAX_ORDER_IN_Task + 1 + i;
-  //                   this.apiService.updateTask$(
-  //                     boardId,
-  //                     e.id,
-  //                     e.title,
-  //                     MAX_ORDER_IN_Task + 1 + i,
-  //                   ).subscribe(data => data);
-  //                 }
-  //               })
-  //             });
+  changeOrder = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(TasksActions.ChangeTasksOrder),
+        switchMap(({ boardId, tasks }) => {
+          return this.apiService.search$().pipe(
+            map((data) => {
 
-  //             return TasksActions.ChangeTasksOrderSuccess({ data: data });
-  //           })
-  //         );
-  //       })
-  //     );
-  //   }
-  // );
+              const MAX_ORDER_IN_TASK = Math.max(...data.map(e => e.order));
 
-  // deleteTask = createEffect(
-  //   () => {
-  //     return this.actions$.pipe(
-  //       ofType(TasksActions.DeleteTask),
-  //       switchMap(({ boardId, TaskId }) => {
-  //         return this.apiService.deleteTask$(boardId, TaskId).pipe(
-  //           map(() => {
-  //             return TasksActions.DeleteTaskSuccess({ TaskId })
-  //           })
-  //         );
-  //       })
-  //     );
-  //   }
-  // );
+              console.log(tasks);
+              console.log(data);
 
-  // updateTaskTitle$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //       ofType(TasksActions.UpdateTaskTitle),
-  //       switchMap(({ boardId, title, TaskId, order }) => {
-  //         return this.apiService.updateTask$(boardId, TaskId, title, order).pipe(
-  //           map((data) => {
-  //             return TasksActions.UpdateTaskTitleSuccess();
-  //           })
-  //         )
-  //       }));
-  // });
+
+              // data.map(e => {
+              //   tasks.map((r, i) => {
+              //     if (e.id === r.id) {
+              //       e.order = MAX_ORDER_IN_TASK + 1 + i;
+              //       this.apiService.updateTask$(
+              //         boardId,
+              //         e.id,
+              //         e.title,
+              //         MAX_ORDER_IN_TASK + 1 + i,
+              //       ).subscribe(data => data);
+              //     }
+              //   })
+              // });
+
+              return TasksActions.ChangeTasksOrderSuccess({ data: data });
+            })
+          );
+        })
+      );
+    }
+  );
 
 };

@@ -1,7 +1,13 @@
 <section class="board">
   <div class="container">
-    <div class="board-inner">
-      <ng-container *ngFor="let board of boards$ | async; let i = index">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="pipeValue" placeholder="Ex. board">
+    </mat-form-field>
+
+    <div class="board-inner" *ngIf="(boards$ | async) as boards">
+
+      <ng-container *ngFor="let board of boards | search:pipeValue; let i = index">
       <mat-card
         class="board-item regular"
         *ngIf="board.id !== editBoardId; else editMode"

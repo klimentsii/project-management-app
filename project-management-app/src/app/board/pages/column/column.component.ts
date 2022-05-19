@@ -28,6 +28,12 @@ export class ColumnComponent implements OnInit {
   column!: ColumnModel;
   @Input()
   tasks$!: Observable<TaskModelPlus[]>;
+  @Input()
+  pipeValue!: string;
+
+  private tasks: TaskModelPlus[] = [];
+
+  public tasksTitles: string[] = []
 
   changeColumnTitleBoolean: boolean = false;
 
@@ -49,17 +55,19 @@ export class ColumnComponent implements OnInit {
     private authService: AuthService,
   ) {
     this.subscription = activateRoute.params.subscribe(params => this.id=params['id']);
-  }
+  };
 
   ngOnInit(): void {
     this.getColumnIds();
 
-    // this.tasks$.subscribe(data => {
-    //   if (data) {
-    //     this.tasksLength = data.length;
-    //   }
-    // })
-  }
+    this.tasks$.subscribe(data => {
+      if (data) {
+        this.tasksLength = data.length;
+        this.tasks = [...data];
+        this.tasksTitles = [...data.map(e => e.title)];
+      }
+    });
+  };
 
   public changeColumnTitle(): void {
     this.changeColumnTitleBoolean = !this.changeColumnTitleBoolean;
@@ -95,12 +103,21 @@ export class ColumnComponent implements OnInit {
     };
   };
 
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
   dropin(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+      console.log('first: ', event.container.data);
+
+      this.store.dispatch(TasksActions.ChangeTasksOrder({
+        boardId: this.id,
+        tasks: this.tasks,
+      }));
+
     } else {
+
+      console.log('second: ', event.previousContainer.data, event.container.data);
+
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -135,6 +152,7 @@ export class ColumnComponent implements OnInit {
 
           this.store.dispatch(TasksActions.CreateTask({
             task: {
+              id: '',
               title: string,
               order: this.tasksLength,
               description: string,
