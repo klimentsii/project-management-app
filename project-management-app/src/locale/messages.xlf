@@ -2,15 +2,92 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="BoardComponentSearch" datatype="html">
+        <source>Search</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/board.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalNew" datatype="html">
+        <source>Create new <x id="INTERPOLATION" equiv-text="{{data}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalTitle" datatype="html">
+        <source>Title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalCancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalCreate" datatype="html">
+        <source>Create <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>check<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditTask" datatype="html">
+        <source>Edit task</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditTaskDescription" datatype="html">
+        <source>Be sure to enter a title and description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditTitleEdit" datatype="html">
+        <source>Title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditdescriptionEdit" datatype="html">
+        <source>Description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditdescriptionEditCancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditdescriptionEditConfirm" datatype="html">
+        <source>Confirm <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>check<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="nameBoard" datatype="html">
         <source>Name of board</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
-          <context context-type="linenumber">21,22</context>
+          <context context-type="linenumber">30,31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
-          <context context-type="linenumber">55,56</context>
+          <context context-type="linenumber">67,68</context>
         </context-group>
         <note priority="1" from="description">boards </note>
       </trans-unit>
@@ -18,11 +95,11 @@
         <source>Board description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="linenumber">39,40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
-          <context context-type="linenumber">63,64</context>
+          <context context-type="linenumber">75,76</context>
         </context-group>
         <note priority="1" from="description">boards </note>
       </trans-unit>
@@ -178,7 +255,7 @@
         <note priority="1" from="meaning">position </note>
       </trans-unit>
       <trans-unit id="klimentsiiDescription" datatype="html">
-        <source> Need writing smt</source>
+        <source>Made functionality for boards, columns and tasks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
           <context context-type="linenumber">11</context>
