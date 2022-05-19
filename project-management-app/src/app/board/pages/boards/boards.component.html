@@ -11,7 +11,7 @@
       <mat-card
         class="board-item regular"
         *ngIf="board.id !== editBoardId; else editMode"
-        routerLink="/boards/b/{{board.id}}">
+        routerLink="/boards/{{board.id}}">
           <mat-card-title>{{board.title}}</mat-card-title>
           <mat-card-subtitle>{{board.description}}</mat-card-subtitle>
           <div class="mat-card-controls">

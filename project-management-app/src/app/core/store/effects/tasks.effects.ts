@@ -26,6 +26,7 @@ export class TasksEffects {
         switchMap(({ boardId }) => {
           return this.apiService.search$().pipe(
             map((tasks: TaskModelPlusFiles[]) => {
+              tasks = [...tasks].filter(task => task.boardId === boardId)
               return TasksActions.FetchTasksSuccess({ tasks: tasks });
             })
           );
@@ -93,32 +94,40 @@ export class TasksEffects {
   changeOrder = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(TasksActions.ChangeTasksOrder),
-        switchMap(({ boardId, tasks }) => {
-          return this.apiService.search$().pipe(
+        ofType(TasksActions.ChangeTasksInColumn),
+        switchMap(({ boardId, columnId, tasks }) => {
+          return this.apiService.getTasks$(boardId, columnId).pipe(
             map((data) => {
+              const MAX_ORDER_IN_TASK = Math.max(...tasks.map(e => e.order));
 
-              const MAX_ORDER_IN_TASK = Math.max(...data.map(e => e.order));
-
-              console.log(tasks);
               console.log(data);
 
+              data.map(e => {
+                tasks.map((r, i) => {
+                  if (e.id === r.id) {
 
-              // data.map(e => {
-              //   tasks.map((r, i) => {
-              //     if (e.id === r.id) {
-              //       e.order = MAX_ORDER_IN_TASK + 1 + i;
-              //       this.apiService.updateTask$(
-              //         boardId,
-              //         e.id,
-              //         e.title,
-              //         MAX_ORDER_IN_TASK + 1 + i,
-              //       ).subscribe(data => data);
-              //     }
-              //   })
-              // });
+                    e.order = MAX_ORDER_IN_TASK + 1 + i;
+                    // this.apiService.updateTask$(
+                    //   boardId,
+                    //   columnId,
+                    //   e.id,
+                    //   e.title,
+                    //   MAX_ORDER_IN_TASK + 1 + i,
+                    //   e.done,
+                    //   e.description,
+                    //   '',
+                    //   '',
+                    //   '',
+                    // ).subscribe(data => data);
+                  }
+                })
+              });
 
-              return TasksActions.ChangeTasksOrderSuccess({ data: data });
+              console.log(data);
+
+              return data
+                ? TasksActions.ChangeTasksInColumnSuccess({ data: data })
+                : TasksActions.ChangeTasksInColumnFailed();
             })
           );
         })
