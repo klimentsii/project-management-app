@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   login: FormControl = new FormControl('');
 
   passForm: FormGroup = new FormGroup({
-    password: new FormControl('')
+    password: new FormControl(''),
   });
 
   passwordPlaceholder = getPassPlaceholderValue('default');
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   enterEditModePassword(): void {
     this.passForm = new FormGroup({
-      password: new FormControl('', [Validators.required, myValidatorForPassword])
+      password: new FormControl('', [Validators.required, myValidatorForPassword]),
     });
     // this.password = new FormControl('', [Validators.required, myValidatorForPassword]);
     this.store.dispatch(UserActions.UpdatePasswordEditMode({ editPasswordMode: true }));

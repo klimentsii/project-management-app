@@ -40,22 +40,22 @@ export const reducer = createReducer(
       ...state,
     };
   }),
-  on(UserActions.UpdateUserNameEditMode, (state, {editNameMode}): UserState => {
+  on(UserActions.UpdateUserNameEditMode, (state, { editNameMode }): UserState => {
     return {
       ...state,
-      editNameMode
+      editNameMode,
     };
   }),
-  on(UserActions.UpdateLoginEditMode, (state, {editLoginMode}): UserState => {
+  on(UserActions.UpdateLoginEditMode, (state, { editLoginMode }): UserState => {
     return {
       ...state,
-      editLoginMode
+      editLoginMode,
     };
   }),
-  on(UserActions.UpdatePasswordEditMode, (state, {editPasswordMode}): UserState => {
+  on(UserActions.UpdatePasswordEditMode, (state, { editPasswordMode }): UserState => {
     return {
       ...state,
-      editPasswordMode
+      editPasswordMode,
     };
   }),
   on(UserActions.DeleteUserSuccessRedux, (state): UserState => {

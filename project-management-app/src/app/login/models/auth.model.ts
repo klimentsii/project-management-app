@@ -8,4 +8,3 @@ export interface AuthModel {
 export interface AuthModelExtended extends AuthModel {
   password: string;
 }
-

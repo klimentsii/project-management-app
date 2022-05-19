@@ -1,26 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UserActions from '../actions/user.action';
-import {
-  catchError,
-  concatMap,
-  exhaustMap,
-  forkJoin,
-  map,
-  merge,
-  mergeMap,
-  of,
-  switchMap,
-  switchMapTo,
-  tap,
-} from 'rxjs';
+import { catchError, concatMap, exhaustMap, forkJoin, map, of, switchMap, switchMapTo } from 'rxjs';
 import { AuthService } from '../../../login/services/auth.service';
 import * as BoardsAction from '../actions/boards.action';
 import { ApiService } from '../../services/api.service';
 import { AuthModel } from '../../../login/models/auth.model';
-import { TaskModelPlus, TaskModelPlusFiles } from '../../models/tasks';
-import { DeleteUserTasks } from '../actions/user.action';
-import {BoardModel} from "../../models/boards";
+import { TaskModelPlusFiles } from '../../models/tasks';
+import { BoardModel } from '../../models/boards';
 
 @Injectable()
 export class UserEffects {
@@ -187,7 +174,6 @@ export class UserEffects {
               return true;
             });
             const boardsIdsWithMyTasks = tasksToDelete.map(task => task.boardId);
-
             return [
               // UserActions.DeleteUserTasks({ tasks: tasksToDelete }),
               // UserActions.DeleteUserColumns({columns: columnsToDelete}),
@@ -195,7 +181,6 @@ export class UserEffects {
               UserActions.DeleteUserSuccess({ id }),
             ];
           }),
-
           catchError(() => of(UserActions.DeleteUserFailed())),
         );
       }),
@@ -207,13 +192,11 @@ export class UserEffects {
       ofType(UserActions.DeleteUserTasks),
       switchMap(({ tasks }) => {
         const streamsTasks = tasks.map((task: TaskModelPlusFiles) => {
-          return this.apiService
-            .deleteTask$(task.boardId, task.columnId, task.id)
-            .pipe(
-              map(() => of(UserActions.DeleteUserTasksSuccess())),
-              catchError(() => of(UserActions.DeleteUserTasksFailed())));
+          return this.apiService.deleteTask$(task.boardId, task.columnId, task.id).pipe(
+            map(() => of(UserActions.DeleteUserTasksSuccess())),
+            catchError(() => of(UserActions.DeleteUserTasksFailed())),
+          );
         });
-        console.log('streams', streamsTasks);
         return forkJoin(streamsTasks).pipe(
           map(() => {
             return UserActions.DeleteUserTasksSuccess();
@@ -228,14 +211,12 @@ export class UserEffects {
     return this.actions$.pipe(
       ofType(UserActions.DeleteUserColumns),
       switchMap(({ columns }) => {
-        const streamsColumns = columns.map((column) => {
-          return this.apiService.deleteColumn$(column.boardId, column.columnId)
-            .pipe(
-              map(() => of(UserActions.DeleteUserColumnsSuccess())),
-              catchError(() => of(UserActions.DeleteUserColumnsFailed()))
-              )
+        const streamsColumns = columns.map(column => {
+          return this.apiService.deleteColumn$(column.boardId, column.columnId).pipe(
+            map(() => of(UserActions.DeleteUserColumnsSuccess())),
+            catchError(() => of(UserActions.DeleteUserColumnsFailed())),
+          );
         });
-        console.log('streamsColumns', streamsColumns);
         return forkJoin(streamsColumns).pipe(
           map(() => {
             return UserActions.DeleteUserColumnsSuccess();
@@ -246,36 +227,33 @@ export class UserEffects {
     );
   });
 
-
   DeleteUserBoards = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.DeleteUserBoards),
-      switchMap(({boardsIds}) => {
-        return this.apiService.getBoards$()
-          .pipe(
-            switchMap((boardsAll: BoardModel[]) => {
-              const userId = this.authService.getAuthInfo()?.id;
-              const boardsMy = userId
-                ? boardsAll.filter((board) => JSON.parse(board.title).users[0] === userId)
-                : [];
-              const streamsBoards = boardsMy.map((board: BoardModel) => {
-                return this.apiService.deleteBoard$(board.id)
-                  .pipe(
-                    map(() => of(UserActions.DeleteUserBoardsSuccess())),
-                    catchError(() => of(UserActions.DeleteUserBoardsFailed()))
-                  )
-              });
-              return forkJoin(streamsBoards).pipe(
-                map(() => {
-                  return UserActions.DeleteUserBoardsSuccess();
-                }),
+      switchMap(({ boardsIds }) => {
+        return this.apiService.getBoards$().pipe(
+          switchMap((boardsAll: BoardModel[]) => {
+            const userId = this.authService.getAuthInfo()?.id;
+            const boardsMy = userId
+              ? boardsAll.filter(board => JSON.parse(board.title).users[0] === userId)
+              : [];
+            const streamsBoards = boardsMy.map((board: BoardModel) => {
+              return this.apiService.deleteBoard$(board.id).pipe(
+                map(() => of(UserActions.DeleteUserBoardsSuccess())),
                 catchError(() => of(UserActions.DeleteUserBoardsFailed())),
               );
-            }),
-          );
-      }))
+            });
+            return forkJoin(streamsBoards).pipe(
+              map(() => {
+                return UserActions.DeleteUserBoardsSuccess();
+              }),
+              catchError(() => of(UserActions.DeleteUserBoardsFailed())),
+            );
+          }),
+        );
+      }),
+    );
   });
-
 
   DeleteUserSuccess = createEffect(() => {
     return this.actions$.pipe(
@@ -292,24 +270,4 @@ export class UserEffects {
       }),
     );
   });
-
-
-
-  // DeleteUserSuccess = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(UserActions.DeleteUserSuccess),
-  //     concatMap(user => {
-  //       return this.apiService.search$().pipe(
-  //         switchMap((tasks: TaskModelPlusFiles[]) => {
-  //           console.log('tasks', tasks);
-  //           console.log('user', user)
-  //           return [
-  //             UserActions.DeleteUserSuccess(user),
-  //             UserActions.DeleteUserSuccess(user),
-  //           ];
-  //         })
-  //       )
-  //     })
-  //   )
-  // });
 }
