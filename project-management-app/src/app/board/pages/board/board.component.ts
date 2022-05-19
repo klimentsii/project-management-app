@@ -32,8 +32,8 @@ export default class BoardComponent {
   public pipeValue: string = '';
 
   columns: ColumnModel[] = [];
-  columnsLength: number = 0;
 
+  columnsLength: number = 0;
 
   public columns$: Observable<ColumnModel[]> = this.store.select(ColumnsReducers.getColumns);
 

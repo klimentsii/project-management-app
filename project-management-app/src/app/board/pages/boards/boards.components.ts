@@ -59,7 +59,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
       ]),
       description: new FormControl(desc, [Validators.required]),
     });
-    console.log(boardId);
   }
 
   exitEditMode(e: Event): void {
