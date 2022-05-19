@@ -10,7 +10,9 @@ export interface AppState {
 
 export interface UserState {
   user: AuthModel | null;
-  editMode: boolean;
+  editNameMode: boolean;
+  editLoginMode: boolean;
+  editPasswordMode: boolean;
 }
 
 export interface BoardState {

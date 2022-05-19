@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UserActions from '../actions/user.action';
-import { catchError, concatMap, exhaustMap, map, of, switchMap, switchMapTo } from 'rxjs';
+import {catchError, concatMap, exhaustMap, map, of, switchMap, switchMapTo} from 'rxjs';
 import { AuthService } from '../../../login/services/auth.service';
 import * as BoardsAction from '../actions/boards.action';
 import { ApiService } from '../../services/api.service';
-import { UserInfo } from '../../models/user';
-import {UpdateUserEditMode} from "../actions/user.action";
-import {delay} from "rxjs/operators";
+import {AuthModel} from "../../../login/models/auth.model";
 
 @Injectable()
 export class UserEffects {
@@ -23,7 +21,12 @@ export class UserEffects {
       switchMapTo(
         of(this.authService.getAuthInfo()).pipe(
           map(user => {
-            return user ? UserActions.FetchUserSuccess({ user }) : UserActions.FetchUserFailed();
+            const userCopy = {...user};
+            delete userCopy.password;
+            const userWithOutPass = {...userCopy} as AuthModel;
+            return userWithOutPass
+              ? UserActions.FetchUserSuccess({ user: userWithOutPass })
+              : UserActions.FetchUserFailed();
           }),
           catchError(() => of(UserActions.FetchUserFailed())),
         ),
@@ -41,12 +44,13 @@ export class UserEffects {
     );
   });
 
-  updateUser = createEffect(() => {
+  updateUserName = createEffect(() => {
     return this.actions$.pipe(
-      ofType(UserActions.UpdateUser),
-      switchMap(({ name, login }) => {
+      ofType(UserActions.UpdateUserName),
+      switchMap(({ name }) => {
         const user = this.authService.getAuthInfo();
         const id = user?.id || '';
+        const login = user?.login || '';
         const password = user?.password || '';
         const token = user?.token || '';
         return this.apiService.updateUser$(id, name, login, password).pipe(
@@ -55,7 +59,7 @@ export class UserEffects {
             const newUserRedux = { ...authInfo, token };
             if (newUser) this.authService.setAuthInfo(newUser);
             return newUserRedux
-              ? UserActions.UpdateUserSuccess({ user: newUserRedux })
+              ? UserActions.UpdateUserNameSuccess({ user: newUserRedux })
               : UserActions.UpdateUserFailed();
           }),
           catchError(() => of(UserActions.UpdateUserFailed())),
@@ -64,12 +68,85 @@ export class UserEffects {
     );
   });
 
-  updateUserSuccess = createEffect(() => {
+  UpdateUserNameSuccess = createEffect(() => {
     return this.actions$.pipe(
-      ofType(UserActions.UpdateUserSuccess),
-      map(() => UserActions.UpdateUserEditMode({editMode: false})),
+      ofType(UserActions.UpdateUserNameSuccess),
+      concatMap((user) => {
+        return [UserActions.UpdateUserSuccess(user), UserActions.UpdateUserNameEditMode({editNameMode: false})];
+      }),
     );
   });
+
+
+  updateLogin = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.UpdateLogin),
+      switchMap(({ login }) => {
+        const user = this.authService.getAuthInfo();
+        const id = user?.id || '';
+        const name = user?.name || '';
+        const password = user?.password || '';
+        const token = user?.token || '';
+        return this.apiService.updateUser$(id, name, login, password).pipe(
+          map(authInfo => {
+            const newUser = { ...authInfo, token, password };
+            const newUserRedux = { ...authInfo, token };
+            if (newUser) this.authService.setAuthInfo(newUser);
+            return newUserRedux
+              ? UserActions.UpdateLoginSuccess({ user: newUserRedux })
+              : UserActions.UpdateUserFailed();
+          }),
+          catchError(() => of(UserActions.UpdateUserFailed())),
+        );
+      }),
+    );
+  });
+
+  UpdateLoginSuccess = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.UpdateLoginSuccess),
+      concatMap((user) => {
+        return [UserActions.UpdateUserSuccess(user), UserActions.UpdateLoginEditMode({editLoginMode: false})];
+      }),
+    );
+  });
+
+  updatePassword = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.UpdatePassword),
+      switchMap(({ password }) => {
+        const user = this.authService.getAuthInfo();
+        const id = user?.id || '';
+        const name = user?.name || '';
+        const login = user?.login || '';
+        const token = user?.token || '';
+
+        return this.apiService.updateUser$(id, name, login, password).pipe(
+          map(authInfo => {
+            const newUser = { ...authInfo, token, password };
+            const newUserRedux = { ...authInfo, token };
+            if (newUser) this.authService.setAuthInfo(newUser);
+            return newUserRedux
+              ? UserActions.UpdatePasswordSuccess({ user: newUserRedux })
+              : UserActions.UpdateUserFailed();
+          }),
+          catchError(() => of(UserActions.UpdateUserFailed())),
+        );
+      }),
+    );
+  });
+
+  UpdatePasswordSuccess = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.UpdatePasswordSuccess),
+      concatMap((user) => {
+        return [UserActions.UpdateUserSuccess(user), UserActions.UpdatePasswordEditMode({editPasswordMode: false})];
+      }),
+    );
+  });
+
+
+
 
   // updateUserSuccess = createEffect(() => {
   //   return this.actions$.pipe(

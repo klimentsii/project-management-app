@@ -2,37 +2,108 @@
   <h1 class="page-title" i18n="pageTitle | profile @@profilePageTitle">Информация о пользователе</h1>
   <ng-container *ngIf="(user$ | async) as user">
     <div class="user-info">
-      <div>
+      <div class="profile-field-container">
         <p class="profile-field-name" i18n="userNameTitle | profile @@profileUserNameTitle">Имя</p>
-        <div class="edit-container" *ngIf="!(editMode$ | async); else editModeName">
+        <div class="edit-container" *ngIf="!(editNameMode$ | async); else editModeName">
           <h2 i18n="userName | profile @@profileUserName">{{user.name}}</h2>
-          <mat-icon class="edit-icon" (click)="enterEditModeName()">edit</mat-icon>
+          <button (click)="enterEditModeName()">
+            <mat-icon class="edit-icon">edit</mat-icon>
+          </button>
         </div>
         <ng-template #editModeName>
           <div class="edit-container">
             <input [formControl]="userName" type="text" id="userName" required minlength="3" class="form-control">
-            <mat-icon class="edit-icon" (click)="updateName()">check</mat-icon>
+            <button (click)="updateName()">
+              <mat-icon class="edit-icon">check</mat-icon>
+            </button>
+            <button
+              (click)="exitEditModeName()"
+            >
+              <mat-icon class="edit-icon">close</mat-icon>
+            </button>
           </div>
-          <mat-error *ngIf="userName.invalid">
-            Name required with min 3 character
+          <mat-error *ngIf="userName.errors?.['required']">
+            <!-- Name is required -->
+            <span i18n="loginErrorRequired | profile @@profileEmailTitle">Имя является обязательным полем.</span>
+          </mat-error>
+          <!-- Name required with min 3 character -->
+          <mat-error *ngIf="userName.errors?.['minlength']">
+            <span
+              i18n="loginErrorEmail | profile @@profileEmailTitle">Имя должно состоять как минимум из 3 знаков.</span>
           </mat-error>
         </ng-template>
       </div>
-      <div class="email-container">
-        <p class="profile-field-name">Email</p>
-        <div class="edit-container">
+      <div class="email-container profile-field-container">
+        <p class="profile-field-name" i18n="emailTitle | profile @@profileEmailTitle">Email</p>
+        <div class="edit-container" *ngIf="!(editLoginMode$ | async); else editModeLogin">
           <h2 i18n="id | profile @@wprofileLogin">{{user.login}}</h2>
-          <mat-icon
-            class="edit-icon"
-            (click)="enterEditModeLogin()"
-          >
-            edit
-          </mat-icon>
+          <button (click)="enterEditModeLogin()">
+            <mat-icon class="edit-icon">edit</mat-icon>
+          </button>
         </div>
+        <ng-template #editModeLogin>
+          <div class="edit-container">
+            <input [formControl]="login" type="text" id="login" required email class="form-control">
+            <button
+              (click)="updateLogin()" [disabled]="login.invalid"
+            >
+              <mat-icon class="edit-icon">check</mat-icon>
+            </button>
+            <button
+              (click)="exitEditModeLogin()"
+            >
+              <mat-icon class="edit-icon">close</mat-icon>
+            </button>
+          </div>
+          <mat-error *ngIf="login.errors?.['required']">
+            <!-- Email is required -->
+            <span i18n="loginErrorRequired | profile @@profileEmailTitle">Email является обязательным.</span>
+          </mat-error>
+          <!-- Wrong email -->
+          <mat-error *ngIf="login.errors?.['email']">
+            <span i18n="loginErrorEmail | profile @@profileEmailTitle">Email указан неверно.</span>
+          </mat-error>
+        </ng-template>
       </div>
-      <div class="id-container">
-        <p class="profile-field-name">Идентификационный номер</p>
+      <div class="id-container profile-field-container">
+        <p class="profile-field-name" i18n="idTitle | profile @@profileIdTitle">Идентификационный номер</p>
         <h2 i18n="id | profile @@wprofileId">{{user.id}}</h2>
+      </div>
+      <div class="actions-container profile-field-container">
+        <p class="profile-field-name" i18n="actionsTitle | profile @@profileActionsTitle">Действия</p>
+        <div *ngIf="!(editPasswordMode$ | async); else editModePassword">
+          <button mat-raised-button color="primary"
+                  class="btn-change-pass"
+                  i18n="passwordTitle | profile @@profilePasswordTitle"
+                  (click)="enterEditModePassword()"
+          >
+            Сменить пароль
+          </button>
+        </div>
+        <ng-template #editModePassword>
+          <div class="edit-container container-password">
+            <form [formGroup]="passForm" (ngSubmit)="updatePassword()" class="password-form">
+              <input formControlName="password" type="text" id="password" class="form-control">
+              <button type="submit" [disabled]="passForm.invalid">
+                <mat-icon class="edit-icon">check</mat-icon>
+              </button>
+              <button
+                (click)="exitEditModePassword()"
+              >
+                <mat-icon class="edit-icon">close</mat-icon>
+              </button>
+            </form>
+            <mat-error *ngIf="passForm.invalid && passForm.dirty">
+              <span>{{passForm.controls['password'].getError('message')}}</span>
+            </mat-error>
+          </div>
+        </ng-template>
+        <button mat-flat-button class="btn-delete" color="warn"
+                i18n="deleteTitle | profile @@profileDeleteTitle"
+                (click)="deleteUser()"
+        >
+          Удалить учетную запись
+        </button>
       </div>
     </div>
   </ng-container>

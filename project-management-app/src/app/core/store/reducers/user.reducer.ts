@@ -1,11 +1,12 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import * as UserActions from '../actions/user.action';
 import { UserState } from '../store.model';
-import {UpdateUserSuccess} from "../actions/user.action";
 
 export const initialState: UserState = {
   user: null,
-  editMode: false
+  editNameMode: false,
+  editLoginMode: false,
+  editPasswordMode: false,
 };
 
 export const reducer = createReducer(
@@ -39,13 +40,24 @@ export const reducer = createReducer(
       ...state,
     };
   }),
-  on(UserActions.UpdateUserEditMode, (state, {editMode}): UserState => {
+  on(UserActions.UpdateUserNameEditMode, (state, {editNameMode}): UserState => {
     return {
       ...state,
-      editMode
+      editNameMode
     };
   }),
-
+  on(UserActions.UpdateLoginEditMode, (state, {editLoginMode}): UserState => {
+    return {
+      ...state,
+      editLoginMode
+    };
+  }),
+  on(UserActions.UpdatePasswordEditMode, (state, {editPasswordMode}): UserState => {
+    return {
+      ...state,
+      editPasswordMode
+    };
+  }),
 );
 
 export const selectUserStore = createFeatureSelector<UserState>('auth');
@@ -54,6 +66,14 @@ export const selectCurrentUser = createSelector(selectUserStore, (state: UserSta
   return state.user;
 });
 
-export const selectCurrentUserEditMode = createSelector(selectUserStore, (state: UserState) => {
-  return state.editMode;
+export const selectUserNameEditMode = createSelector(selectUserStore, (state: UserState) => {
+  return state.editNameMode;
+});
+
+export const selectLoginEditMode = createSelector(selectUserStore, (state: UserState) => {
+  return state.editLoginMode;
+});
+
+export const selectPasswordEditMode = createSelector(selectUserStore, (state: UserState) => {
+  return state.editPasswordMode;
 });

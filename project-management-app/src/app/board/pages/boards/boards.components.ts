@@ -31,6 +31,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
   ) {}
 
   auth = this.authService.getAuthInfo();
+
   id = this.auth?.id;
 
   boards$: Observable<BoardUsersModel[]> = this.store.select(fromBoards.selectBoards);
@@ -63,7 +64,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
       ]),
       description: new FormControl(desc, [Validators.required]),
     });
-    console.log(boardId);
   }
 
   exitEditMode(e: Event): void {
