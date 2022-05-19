@@ -1,11 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UserActions from '../actions/user.action';
-import {catchError, concatMap, exhaustMap, map, of, switchMap, switchMapTo} from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  forkJoin,
+  map,
+  merge,
+  mergeMap,
+  of,
+  switchMap,
+  switchMapTo,
+  tap,
+} from 'rxjs';
 import { AuthService } from '../../../login/services/auth.service';
 import * as BoardsAction from '../actions/boards.action';
 import { ApiService } from '../../services/api.service';
-import {AuthModel} from "../../../login/models/auth.model";
+import { AuthModel } from '../../../login/models/auth.model';
+import { TaskModelPlus, TaskModelPlusFiles } from '../../models/tasks';
 
 @Injectable()
 export class UserEffects {
@@ -21,9 +34,9 @@ export class UserEffects {
       switchMapTo(
         of(this.authService.getAuthInfo()).pipe(
           map(user => {
-            const userCopy = {...user};
+            const userCopy = { ...user };
             delete userCopy.password;
-            const userWithOutPass = {...userCopy} as AuthModel;
+            const userWithOutPass = { ...userCopy } as AuthModel;
             return userWithOutPass
               ? UserActions.FetchUserSuccess({ user: userWithOutPass })
               : UserActions.FetchUserFailed();
@@ -71,12 +84,14 @@ export class UserEffects {
   UpdateUserNameSuccess = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.UpdateUserNameSuccess),
-      concatMap((user) => {
-        return [UserActions.UpdateUserSuccess(user), UserActions.UpdateUserNameEditMode({editNameMode: false})];
+      concatMap(user => {
+        return [
+          UserActions.UpdateUserSuccess(user),
+          UserActions.UpdateUserNameEditMode({ editNameMode: false }),
+        ];
       }),
     );
   });
-
 
   updateLogin = createEffect(() => {
     return this.actions$.pipe(
@@ -105,8 +120,11 @@ export class UserEffects {
   UpdateLoginSuccess = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.UpdateLoginSuccess),
-      concatMap((user) => {
-        return [UserActions.UpdateUserSuccess(user), UserActions.UpdateLoginEditMode({editLoginMode: false})];
+      concatMap(user => {
+        return [
+          UserActions.UpdateUserSuccess(user),
+          UserActions.UpdateLoginEditMode({ editLoginMode: false }),
+        ];
       }),
     );
   });
@@ -139,27 +157,48 @@ export class UserEffects {
   UpdatePasswordSuccess = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.UpdatePasswordSuccess),
-      concatMap((user) => {
-        return [UserActions.UpdateUserSuccess(user), UserActions.UpdatePasswordEditMode({editPasswordMode: false})];
+      concatMap(user => {
+        return [
+          UserActions.UpdateUserSuccess(user),
+          UserActions.UpdatePasswordEditMode({ editPasswordMode: false }),
+        ];
+      }),
+    );
+  });
+
+  DeleteUser = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.DeleteUser),
+      switchMap(({ id }) => {
+        return this.apiService.search$().pipe(
+          switchMap((tasks: TaskModelPlusFiles[]) => {
+            const tasksToDelete = tasks.filter(task => task.userId === id);
+            const streams = tasksToDelete.map((task: TaskModelPlusFiles) => {
+              return this.apiService.deleteTask$(task.boardId, task.columnId, task.id);
+            });
+            const mergedStream = merge(streams);
+            return mergedStream.pipe(
+              map(() => {
+                return UserActions.DeleteUserSuccess({ id });
+              }),
+              catchError(() => of(UserActions.DeleteUserFailed())),
+            );
+          }),
+        );
       }),
     );
   });
 
 
-
-
-  // updateUserSuccess = createEffect(() => {
+  // DeleteUserSuccess = createEffect(() => {
   //   return this.actions$.pipe(
-  //     ofType(UserActions.UpdateUserSuccess),
-  //     exhaustMap(() =>
-  //       of(null).pipe(
-  //         map(() => UserActions.UpdateUserEditMode({editMode: false})),
-  //       ),
-  //     )
-  //   );
-  // });
-
-
+  //     ofType(UserActions.DeleteUserSuccess),
+  //     concatMap(user => {
+  //       return [
+  //         UserActions.DeleteUserSuccess(user),
+  //         UserActions.UpdatePasswordEditMode({ editPasswordMode: false }),
+  //       ];
+  //     }),
 
 
 }

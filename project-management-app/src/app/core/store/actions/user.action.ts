@@ -73,3 +73,10 @@ export const DeleteUser = createAction(
   `${actionSource} Delete User`,
   props<{ id: UUIDType }>(),
 );
+
+export const DeleteUserSuccess = createAction(
+  `${actionSource} Delete User Success`,
+  props<{ id: UUIDType }>()
+);
+
+export const DeleteUserFailed = createAction(`${actionSource} Delete User Failed`);
