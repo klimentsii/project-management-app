@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "local": "ng extract-i18n --output-path src/locale",
-    "serve:firebase" : "firebase emulators:start"
+    "serve:firebase": "firebase emulators:start"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +22,7 @@
     "@angular/core": "~13.2.0",
     "@angular/fire": "^7.3.0",
     "@angular/forms": "~13.2.0",
-    "@angular/material": "^13.3.4",
+    "@angular/material": "^13.3.5",
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",

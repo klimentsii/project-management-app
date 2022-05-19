@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
-import BoardComponent from '../board/pages/board/board.component';
 import HeaderComponent from './components/header/header.component';
 import FooterComponent from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
@@ -20,10 +19,11 @@ import { BoardsEffects } from './store/effects/boards.effects';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { reducers } from './store/reducers';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { ColumnsEffects } from './store/effects/columns.effects';
+import { TasksEffects } from './store/effects/tasks.effects';
 
 @NgModule({
   declarations: [
-    BoardComponent,
     ConfirmationModalComponent,
     HeaderComponent,
     FooterComponent,
@@ -38,8 +38,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([UserEffects, BoardsEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects, TasksEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
@@ -47,4 +47,4 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
 })
-export class CoreModule {}
+export default class CoreModule {}

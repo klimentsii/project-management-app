@@ -1,11 +1,6 @@
 @import './styles/mixin.scss';
 
 @font-face {
-  font-family: 'Roboto';
-  src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-}
-
-@font-face {
   font-family: 'Fredoka One';
   src: url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 }
@@ -13,7 +8,7 @@
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: beige;
+  // background-color: beige;
 }
 
 .container {

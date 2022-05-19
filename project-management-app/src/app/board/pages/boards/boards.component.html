@@ -1,9 +1,17 @@
 <section class="board">
   <div class="container">
-    <div class="board-inner">
-      <ng-container *ngFor="let board of boards$ | async; let i = index">
-        <mat-card class="board-item regular" *ngIf="board.id !== editBoardId; else editMode"
-                  routerLink="/project?id={{board.id}}">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="pipeValue" placeholder="Ex. board">
+    </mat-form-field>
+
+    <div class="board-inner" *ngIf="(boards$ | async) as boards">
+
+      <ng-container *ngFor="let board of boards | search:pipeValue; let i = index">
+      <mat-card
+        class="board-item regular"
+        *ngIf="board.id !== editBoardId; else editMode"
+        routerLink="/boards/b/{{board.id}}">
           <mat-card-title>{{board.title}}</mat-card-title>
           <mat-card-subtitle>{{board.description}}</mat-card-subtitle>
           <div class="mat-card-controls">
@@ -17,6 +25,7 @@
         </mat-card>
         <ng-template #editMode>
           <form [formGroup]="editBoardForm" (ngSubmit)="updateBoard()" class="board-item">
+
             <mat-form-field class="example-full-width" appearance="fill">
               <mat-label i18n="boards @@nameBoard">Name of board</mat-label>
               <input type="text" matInput formControlName="title">
@@ -24,7 +33,9 @@
                 {{chooseTitleError('editBoard')}}
               </mat-error>
             </mat-form-field>
+
             <mat-form-field class="example-full-width" appearance="fill">
+              <textarea matInput class="board-description" formControlName="description"></textarea>
               <mat-label i18n="boards @@descBoard">Board description</mat-label>
               <textarea matInput class="board-description" formControlName="description">
           </textarea>
@@ -42,6 +53,7 @@
                 <mat-icon>check</mat-icon>
               </button>
             </div>
+
           </form>
         </ng-template>
       </ng-container>
@@ -67,6 +79,11 @@
             {{chooseDescriptionError('newBoard')}}
           </mat-error>
         </mat-form-field>
+
+        <!-- <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label i18n="boards @@nameBoard">Description of board</mat-label>
+          <input type="text" matInput formControlName="description" placeholder="Ex. Project is about trello">
+        </mat-form-field> -->
 
         <div class="mat-card-controls">
           <button class="board-item-button" (click)="changeState()">

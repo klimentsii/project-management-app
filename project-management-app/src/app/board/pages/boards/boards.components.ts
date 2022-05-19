@@ -35,6 +35,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   newBoardState: boolean = true;
 
+  public pipeValue: string = '';
+
   newBoardForm: FormGroup = new FormGroup({
     title: new FormControl('', [
       Validators.required,
@@ -123,7 +125,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
       default:
         return '';
     }
-  }
+  };
 
   deleteBoard(e: Event, id: UUIDType): void {
     e.stopPropagation();
