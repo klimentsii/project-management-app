@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ConfirmationModalComponent } from 'src/app/core/components/confirmation-modal/confirmation-modal.component';
 import { TaskModelPlus } from 'src/app/core/models/tasks';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/login/services/auth.service';
 
 import * as TasksActions from '../../../core/store/actions/tasks.action';
 import * as TasksReducers from "../../../core/store/reducers/tasks.reducer";
+import * as fromTasks from '../../../core/store/reducers/tasks.reducer';
 import { EditTaskModalComponent } from '../board/modals/edit-task-modal/edit-task-modal.component';
 
 @Component({
@@ -22,10 +23,14 @@ export class TaskComponent implements OnInit {
   @Input()
   task!: TaskModelPlus;
 
+  // tasks$: Observable<TaskModelPlus[]> = this.store.select(fromTasks.getTasks);
+
   constructor(
     private dialog: MatDialog,
     private store: Store,
-  ) { }
+    private cdf: ChangeDetectorRef,
+    private apiService: ApiService,
+  ) {}
 
   ngOnInit(): void {}
 
@@ -48,7 +53,7 @@ export class TaskComponent implements OnInit {
 
   editTask(): void {
     const dialog = this.dialog.open(EditTaskModalComponent, {
-      height: '400px',
+      height: '350px',
       width: '300px',
       data: this.task,
     });
@@ -67,6 +72,10 @@ export class TaskComponent implements OnInit {
             order: this.task.order,
             userId: this.task.userId,
           }));
+          // console.log(this.task);
+
+          // this.apiService.getTaskById$(this.task.boardId, this.task.columnId, this.task.id).subscribe(data => this.task = {...data})
+          // console.log(this.task);
         };
       })
     )

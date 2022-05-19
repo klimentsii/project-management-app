@@ -31,7 +31,7 @@ export class ColumnComponent implements OnInit {
   @Input()
   pipeValue!: string;
 
-  private tasks: TaskModelPlus[] = [];
+  public tasks: TaskModelPlus[] = [];
 
   public tasksTitles: string[] = []
 
@@ -63,7 +63,7 @@ export class ColumnComponent implements OnInit {
     this.tasks$.subscribe(data => {
       if (data) {
         this.tasksLength = data.length;
-        this.tasks = [...data];
+        this.tasks = [...data].filter(task => task.columnId === this.column.id);
         this.tasksTitles = [...data.map(e => e.title)];
       }
     });
@@ -103,14 +103,16 @@ export class ColumnComponent implements OnInit {
     };
   };
 
-  dropin(event: CdkDragDrop<string[]>) {
+  dropin(event: CdkDragDrop<TaskModelPlus[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       this.store.dispatch(TasksActions.ChangeTasksOrder({
         boardId: this.id,
+        columnId: this.column.id,
         tasks: this.tasks,
       }));
     } else {
+
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,

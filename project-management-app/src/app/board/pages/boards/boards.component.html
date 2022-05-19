@@ -1,7 +1,7 @@
 <section class="board">
   <div class="container">
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Search</mat-label>
+      <mat-label i18n="@@BoardComponentSearch">Search</mat-label>
       <input matInput [(ngModel)]="pipeValue" placeholder="Ex. board">
     </mat-form-field>
 
@@ -11,7 +11,7 @@
       <mat-card
         class="board-item regular"
         *ngIf="board.id !== editBoardId; else editMode"
-        routerLink="/boards/b/{{board.id}}">
+        routerLink="/boards/{{board.id}}">
           <mat-card-title>{{board.title}}</mat-card-title>
           <mat-card-subtitle>{{board.description}}</mat-card-subtitle>
           <div class="mat-card-controls">

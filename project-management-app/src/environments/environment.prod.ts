@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   API: {
-    url: 'https://pure-taiga-85938.herokuapp.com/',
+    url: 'https://lit-brook-85437.herokuapp.com/',
   },
 };
