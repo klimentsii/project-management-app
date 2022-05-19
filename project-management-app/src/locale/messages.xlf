@@ -6,15 +6,23 @@
         <source>Name of board</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">55,56</context>
         </context-group>
         <note priority="1" from="description">boards </note>
       </trans-unit>
-      <trans-unit id="nameHint" datatype="html">
-        <source>Errors appear instantly!</source>
+      <trans-unit id="descBoard" datatype="html">
+        <source>Board description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
-          <context context-type="linenumber">24,25</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">63,64</context>
         </context-group>
         <note priority="1" from="description">boards </note>
       </trans-unit>
@@ -51,26 +59,32 @@
           <context context-type="linenumber">8,10</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="GreatingHeader" datatype="html">
-        <source> Hello, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="&lt;/strong"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="(&lt;i&gt;{{us"/> (<x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="INTERPOLATION_1" equiv-text="&lt;/i&gt;) !"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text=") !
-          &lt;/"/>) ! </source>
+      <trans-unit id="actualLang" datatype="html">
+        <source>en</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">19,21</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="GreatingHeader" datatype="html">
+        <source> Hello, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="&lt;/strong"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;i class"/><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;header-user-login&quot;&gt;"/>(<x id="INTERPOLATION_1" equiv-text="{{user.login}}"/>)!<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">26,28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="singInHeader" datatype="html">
         <source>Sign in</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">30,31</context>
+          <context context-type="linenumber">37,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="singUpHeader" datatype="html">
         <source>Sign up</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="linenumber">38,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="notFound" datatype="html">

@@ -1,4 +1,5 @@
 @import "../../../../styles/colors";
+@import '../../../../styles/mixin.scss';
 
 header {
   height: 70px;
@@ -32,13 +33,65 @@ header {
         display: flex;
         column-gap: 10px;
 
-        .header-user-info {
+        .header-user{
+          &-info {
           padding-top: 12px;
           padding-right: 40px;
           color: $color1;
           font-size: 1rem;
+
+          @include tablet{
+          padding-right: 10px;
+          }
+
+          @include mobile{
+            display: none;
+            padding-right: 1px;
+          }
+        }
+          &-login {
+          @include tablet{
+            display: none;
+          }
+        }
         }
       }
     }
   }
+}
+.mat-form-field-type-mat-select {
+  width: 60px;
+  height: 45px;
+}
+
+mat-form-field {
+  display: none;
+
+    @include laptop {
+      display: block;
+    }
+}
+
+mat-button-toggle-group{
+
+  @include laptop {
+    display: none;
+  }
+}
+
+mat-label{
+  color: #fff;
+}
+.mat-option{
+  color: #3F51B5;
+    background-color: #fff;
+
+  &:hover {
+    color: #fff;
+    background-color: #3F51B5;
+  }
+}
+
+a {
+  text-decoration: none;
 }

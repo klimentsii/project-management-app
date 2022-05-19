@@ -1,9 +1,12 @@
+@import '../../../../styles/mixin.scss';
+
 :host {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 80%;
   max-height: 90%;
+  margin-top: 100px;
 }
 .app-header {
   justify-content: space-between;
@@ -33,6 +36,11 @@
   -ms-transform: scale(1);
   z-index: 5;
   max-width: 330px;
+
+  @include mobile {
+    max-width: 170px;
+    margin: 10px;
+  }
 }
 .box.back {
   transform: scale(.95);
