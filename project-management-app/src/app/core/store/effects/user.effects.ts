@@ -259,7 +259,6 @@ export class UserEffects {
     return this.actions$.pipe(
       ofType(UserActions.DeleteUserSuccess),
       switchMap(({ id }) => {
-        console.log('userId', id);
         this.authService.clearStorage();
         return this.apiService.deleteUser$(id).pipe(
           map(() => {

@@ -38,7 +38,6 @@ export class ApiService {
     const headers = new HttpHeaders().set('accept', '*/*');
     return this.http.delete<Response>(`${this.url.Users}/${id}`, { headers }).pipe(
       tap((response: Response) => {
-        console.log(response);
       }),
     );
   }
@@ -182,7 +181,6 @@ export class ApiService {
       })
       .pipe(
         tap((response: Response) => {
-          console.log(response);
         }),
       );
   }
@@ -254,7 +252,6 @@ export class ApiService {
       )
       .pipe(
         tap((response: Response) => {
-          console.log('Deleated', response);
         }),
       );
   }
@@ -311,7 +308,6 @@ export class ApiService {
       )
       .pipe(
         tap((response: Response) => {
-          console.log(response);
         }),
       );
   }
@@ -320,7 +316,6 @@ export class ApiService {
     const headers = new HttpHeaders().set('accept', '*/*').set('Content-Type', 'application/json');
     return this.http.get<Response>(`${this.url.File}/${taskId}/${filename}`, { headers }).pipe(
       tap((response: Response) => {
-        console.log(response);
       }),
     );
   }

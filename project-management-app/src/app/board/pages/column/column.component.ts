@@ -106,18 +106,11 @@ export class ColumnComponent implements OnInit {
   dropin(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-
-      console.log('first: ', event.container.data);
-
       this.store.dispatch(TasksActions.ChangeTasksOrder({
         boardId: this.id,
         tasks: this.tasks,
       }));
-
     } else {
-
-      console.log('second: ', event.previousContainer.data, event.container.data);
-
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,

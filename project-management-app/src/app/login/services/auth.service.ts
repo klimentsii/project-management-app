@@ -56,18 +56,15 @@ export class AuthService {
       retry(4),
       tap(token => {
         this.setToken(token);
-        console.log('Token is set');
       }),
       switchMap(token => {
         return this.API.getUsers$().pipe(
           tap(users => {
             const currentUser = users.filter(user => user.login === login);
             const authExtended = { ...token, ...currentUser[0], password };
-            console.log('auth', authExtended);
             this.setAuthInfo(authExtended);
             const auth = { ...token, ...currentUser[0] };
             this.store.dispatch(UserAction.FetchUserSuccess({ user: auth }));
-            console.log('User registered');
           }),
         );
       }),
@@ -79,8 +76,7 @@ export class AuthService {
     return this.API.signUp$(name, login, password).pipe(
       retry(4),
       switchMap(user => (user ? this.signIn$(user.login, password) : EMPTY)),
-      catchError(() => EMPTY),
-      tap(() => console.log('User created')),
+      catchError(() => EMPTY)
     );
   }
 }

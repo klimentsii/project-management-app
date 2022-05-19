@@ -1,9 +1,9 @@
 <section class="profile">
-  <h1 class="page-title" i18n="pageTitle | profile @@profilePageTitle">Информация о пользователе</h1>
+  <h1 class="page-title" i18n="pageTitle | profile @@profilePageTitle">User info</h1>
   <ng-container *ngIf="(user$ | async) as user">
     <div class="user-info">
       <div class="profile-field-container">
-        <p class="profile-field-name" i18n="userNameTitle | profile @@profileUserNameTitle">Имя</p>
+        <p class="profile-field-name" i18n="userNameTitle | profile @@profileUserNameTitle">Name</p>
         <div class="edit-container" *ngIf="!(editNameMode$ | async); else editModeName">
           <h2 i18n="userName | profile @@profileUserName">{{user.name}}</h2>
           <button (click)="enterEditModeName()">
@@ -24,12 +24,12 @@
           </div>
           <mat-error *ngIf="userName.errors?.['required']">
             <!-- Name is required -->
-            <span i18n="loginErrorRequired | profile @@profileEmailTitle">Имя является обязательным полем.</span>
+            <span i18n="loginErrorRequired | profile @@profileNameTitleRequired">Name is required.</span>
           </mat-error>
           <!-- Name required with min 3 character -->
           <mat-error *ngIf="userName.errors?.['minlength']">
             <span
-              i18n="loginErrorEmail | profile @@profileEmailTitle">Имя должно состоять как минимум из 3 знаков.</span>
+              i18n="loginErrorEmail | profile @@profileNameTitleMinLength">Name required with min 3 character.</span>
           </mat-error>
         </ng-template>
       </div>
@@ -57,27 +57,27 @@
           </div>
           <mat-error *ngIf="login.errors?.['required']">
             <!-- Email is required -->
-            <span i18n="loginErrorRequired | profile @@profileEmailTitle">Email является обязательным.</span>
+            <span i18n="loginErrorRequired | profile @@profileEmailTitleRequired">Email является обязательным.</span>
           </mat-error>
           <!-- Wrong email -->
           <mat-error *ngIf="login.errors?.['email']">
-            <span i18n="loginErrorEmail | profile @@profileEmailTitle">Email указан неверно.</span>
+            <span i18n="loginErrorEmail | profile @@profileEmailTitleWrong">Email указан неверно.</span>
           </mat-error>
         </ng-template>
       </div>
       <div class="id-container profile-field-container">
-        <p class="profile-field-name" i18n="idTitle | profile @@profileIdTitle">Идентификационный номер</p>
+        <p class="profile-field-name" i18n="idTitle | profile @@profileIdTitle">ID number</p>
         <h2 i18n="id | profile @@wprofileId">{{user.id}}</h2>
       </div>
       <div class="actions-container profile-field-container">
-        <p class="profile-field-name" i18n="actionsTitle | profile @@profileActionsTitle">Действия</p>
+        <p class="profile-field-name" i18n="actionsTitle | profile @@profileActionsTitle">Actions</p>
         <div *ngIf="!(editPasswordMode$ | async); else editModePassword">
           <button mat-raised-button color="primary"
                   class="btn-change-pass"
                   i18n="passwordTitle | profile @@profilePasswordTitle"
                   (click)="enterEditModePassword()"
           >
-            Сменить пароль
+            Change password
           </button>
         </div>
         <ng-template #editModePassword>
@@ -102,7 +102,7 @@
                 i18n="deleteTitle | profile @@profileDeleteTitle"
                 (click)="deleteUser()"
         >
-          Удалить учетную запись
+          Delete user
         </button>
       </div>
     </div>
