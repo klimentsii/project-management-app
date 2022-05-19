@@ -9,13 +9,13 @@ export const reducer = createReducer(
   initialState,
   on(TasksActions.FetchTasksSuccess, (state: TaskModelPlus[], {tasks}) => ([
     ...tasks,
-  ])),//.sort((a, b) => a.order > b.order ? 1 : -1))),
+  ].sort((a, b) => a.order > b.order ? 1 : -1))),
   on(TasksActions.CreateTaskSuccess, (state: TaskModelPlus[], {task}) => ([
     ...state, task,
-  ])),
+  ].sort((a, b) => a.order > b.order ? 1 : -1))),
   on(TasksActions.DeleteTaskSuccess, (state: TaskModelPlus[], {TaskId}) => ([
     ...state.filter(e => e.id !== TaskId),
-  ])),
+  ].sort((a, b) => a.order > b.order ? 1 : -1))),
   on(TasksActions.EditTaskSuccess, (state: TaskModelPlus[], {taskId, title, description, order, done}) => {
     state.map(e => {
       if (e.id === taskId) {
@@ -25,14 +25,23 @@ export const reducer = createReducer(
         e.done = done;
       }
     })
-    return [...state]
+    return [...state].sort((a, b) => a.order > b.order ? 1 : -1);
   }),
-  // on(TasksActions.ChangeTasksOrderSuccess, (state: TaskModel[], {data}) => ([
-  //   ...data,
-  // ].sort((a, b) => a.order > b.order ? 1 : -1))),
-  // on(TasksActions.UpdateTaskTitleSuccess, (state: TaskModel[]) => ([
-  //   ...state,
-  // ].sort((a, b) => a.order > b.order ? 1 : -1))),
+  on(TasksActions.ChangeTasksInColumnSuccess, (state: TaskModelPlus[], {data}) => {
+    // state.map(e => {
+    //   data.map(r => {
+    //     e.id === r.id
+    //       ? e = {...r}
+    //       : e;
+    //   });
+    // });
+    return [...state.sort((a, b) => a.order > b.order ? 1 : -1)];
+  }),
+    // ...state.map(e => {data.map(r => e.id === r.id ? e = {...r} : e)})
+  // .sort((a, b) => a.order > b.order ? 1 : -1)),
+  on(TasksActions.ChangeTasksInColumnFailed, (state: TaskModelPlus[]) => [
+    ...state,
+  ].sort((a, b) => a.order > b.order ? 1 : -1))
 );
 
 export const getTasksState = createFeatureSelector<TaskModelPlus[]>('tasks');
