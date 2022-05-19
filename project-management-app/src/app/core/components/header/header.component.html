@@ -1,0 +1,44 @@
+<header>
+  <div class="header-container">
+    <div class="header-inner container">
+      <nav class="header-nav">
+        <button mat-raised-button color="primary" routerLink="/welcome">
+          <mat-icon>home</mat-icon>
+        </button>
+        <button i18n="@@boardsHeader" mat-raised-button color="primary" routerLink="boards">Boards</button>
+
+        <mat-form-field appearance="fill">
+          <mat-label>en</mat-label>
+          <mat-select>
+          <a href="/en-US"><mat-option i18n="@@actualLang" >en</mat-option></a>
+          <a href="/ru"><mat-option>ru</mat-option></a>
+          </mat-select>
+        </mat-form-field>
+        <mat-button-toggle-group (change)="changeLang($event.value)">
+          <a href="/en-US"><mat-button-toggle value="en">en</mat-button-toggle></a>
+          <a href="/ru"><mat-button-toggle value="ru">ru</mat-button-toggle></a>
+        </mat-button-toggle-group>
+      </nav>
+
+      <nav class="header-nav">
+        <ng-container  *ngIf="(userLogged$ | async) as user; else notLoggedIn">
+          <div i18n="@@GreatingHeader" class="header-user-info">
+            Hello, <strong>{{user.name}}</strong> <i class="header-user-login">({{user.login}})!</i>
+          </div>
+          <button mat-raised-button routerLink="profile" color="primary">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" (click)="logOut()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </ng-container>
+
+        <ng-template #notLoggedIn>
+          <button i18n="@@singInHeader" mat-raised-button routerLink="auth/sign-in" color="primary">Sign in</button>
+          <button i18n="@@singUpHeader" mat-raised-button routerLink="auth/sign-up" color="primary">Sign up</button>
+        </ng-template>
+
+      </nav>
+    </div>
+  </div>
+</header>

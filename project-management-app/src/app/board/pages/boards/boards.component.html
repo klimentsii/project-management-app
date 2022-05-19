@@ -1,0 +1,98 @@
+<section class="board">
+  <div class="container">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label i18n="@@BoardComponentSearch">Search</mat-label>
+      <input matInput [(ngModel)]="pipeValue" placeholder="Ex. board">
+    </mat-form-field>
+
+    <div class="board-inner" *ngIf="(boards$ | async) as boards">
+
+      <ng-container *ngFor="let board of boards | search:pipeValue; let i = index">
+      <mat-card
+        class="board-item regular"
+        *ngIf="board.id !== editBoardId; else editMode"
+        routerLink="/boards/{{board.id}}">
+          <mat-card-title>{{board.title}}</mat-card-title>
+          <mat-card-subtitle>{{board.description}}</mat-card-subtitle>
+          <div class="mat-card-controls">
+            <button class="board-item-button" (click)="deleteBoard($event, board.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button class="board-item-button" (click)="enterEditMode($event, board.id, board.title, board.description)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+        <ng-template #editMode>
+          <form [formGroup]="editBoardForm" (ngSubmit)="updateBoard()" class="board-item">
+
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label i18n="boards @@nameBoard">Name of board</mat-label>
+              <input type="text" matInput formControlName="title">
+              <mat-error *ngIf="editBoardForm.controls['title'].errors">
+                {{chooseTitleError('editBoard')}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+              <textarea matInput class="board-description" formControlName="description"></textarea>
+              <mat-label i18n="boards @@descBoard">Board description</mat-label>
+              <mat-error *ngIf="editBoardForm.controls['description'].errors">
+                {{chooseDescriptionError('editBoard')}}
+              </mat-error>
+            </mat-form-field>
+
+            <div class="mat-card-controls">
+              <button class="board-item-button" (click)="exitEditMode($event)">
+                <mat-icon>arrow_back</mat-icon>
+              </button>
+              <button class="board-item-button" [disabled]="!editBoardForm.valid"
+                      type="submit">
+                <mat-icon>check</mat-icon>
+              </button>
+            </div>
+
+          </form>
+        </ng-template>
+      </ng-container>
+
+      <button *ngIf="newBoardState" mat-button class="board-item" (click)="changeState()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <form [formGroup]="newBoardForm" (ngSubmit)="createNewBoard()" *ngIf="!newBoardState" class="board-item">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label i18n="boards @@nameBoard">Name of board</mat-label>
+          <input type="text" matInput formControlName="title">
+          <!--          <mat-hint i18n="boards @@nameHint">Errors appear instantly!</mat-hint>-->
+          <mat-error *ngIf="newBoardForm.controls['title'].errors">
+            {{chooseTitleError('newBoard')}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label i18n="boards @@descBoard">Board description</mat-label>
+          <textarea matInput class="board-description" formControlName="description">
+          </textarea>
+          <mat-error *ngIf="newBoardForm.controls['description'].errors">
+            {{chooseDescriptionError('newBoard')}}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label i18n="boards @@nameBoard">Description of board</mat-label>
+          <input type="text" matInput formControlName="description" placeholder="Ex. Project is about trello">
+        </mat-form-field> -->
+
+        <div class="mat-card-controls">
+          <button class="board-item-button" (click)="changeState()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <button class="board-item-button" [disabled]="!newBoardForm.valid"
+                  type="submit">
+            <mat-icon>check</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

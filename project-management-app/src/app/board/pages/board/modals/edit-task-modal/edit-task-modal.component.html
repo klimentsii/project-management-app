@@ -1,0 +1,23 @@
+<form class="confirmation">
+  <div mat-dialog-content>
+    <h3 mat-dialog-title i18n="@@boardEditTask">Edit task</h3>
+    <h5 mat-dialog-title i18n="@@boardEditTaskDescription">Be sure to enter a title and description</h5>
+    <mat-form-field appearance="fill">
+      <mat-label i18n="@@boardEditTitleEdit">Title</mat-label>
+      <input matInput [(ngModel)]="task.title" [ngModelOptions]="{standalone: true}" value="{{data.title}}">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label i18n="@@boardEditdescriptionEdit">Description</mat-label>
+      <input matInput [(ngModel)]="task.description" [ngModelOptions]="{standalone: true}" value="{{task.description}}">
+    </mat-form-field>
+
+    <mat-slide-toggle *ngIf="task.done" class="mat-checked" (change)="task.done = false">Done</mat-slide-toggle>
+    <mat-slide-toggle *ngIf="!task.done" (change)="task.done = true">Done</mat-slide-toggle>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()" cdkFocusInitial i18n="@@boardEditdescriptionEditCancel">Cancel</button>
+    <button mat-button [mat-dialog-close]="task" i18n="@@boardEditdescriptionEditConfirm">Confirm <mat-icon>check</mat-icon></button>
+  </div>
+</form>

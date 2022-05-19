@@ -1,0 +1,24 @@
+<section class="board">
+  <div class="container">
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label i18n="@@BoardComponentSearch">Search</mat-label>
+      <input matInput [(ngModel)]="pipeValue" placeholder="Ex. task">
+    </mat-form-field>
+
+    <div class="board-inner">
+      <div cdkDropList cdkDropListOrientation="horizontal" class="board-list" (cdkDropListDropped)="drop($event)">
+
+        <div class="board-column"
+          *ngFor="let column of columns$ | async"
+          cdkDrag
+          cdkDropListGroup
+        >
+          <app-column [column]="column" [tasks$]="tasks$" [pipeValue]="pipeValue"></app-column>
+        </div>
+
+        <button mat-button class="create-column-button" (click)="createColumn('column')">+</button>
+      </div>
+    </div>
+  </div>
+</section>

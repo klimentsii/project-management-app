@@ -1,0 +1,39 @@
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+
+  .mat-dialog-actions {
+
+    button {
+
+      transition: all .3s;
+      &:nth-child(2) {
+
+        &:hover {
+          background-color: #4DB53F;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .mat-dialog-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+      background-color: #4DB53F;
+    }
+    .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+      background-color: #4db53f6b;
+    }
+  }
+}

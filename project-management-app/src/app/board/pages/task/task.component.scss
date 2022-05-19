@@ -1,0 +1,18 @@
+p {
+  margin: 0;
+  max-width: 125px;
+  overflow-x: scroll;
+}
+
+.buttons {
+
+  button {
+    margin-left: 5px;
+  }
+
+  ::ng-deep {
+    .mat-mini-fab {
+      background-color: #3F51B5;
+    }
+  }
+}

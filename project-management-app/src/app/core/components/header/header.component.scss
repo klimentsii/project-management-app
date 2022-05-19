@@ -1,0 +1,97 @@
+@import "../../../../styles/colors";
+@import '../../../../styles/mixin.scss';
+
+header {
+  height: 70px;
+  width: 100%;
+
+  .header-container {
+    width: 100%;
+    background-color: #3F51B5;
+    position: fixed;
+    z-index: 1;
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .mat-button-toggle {
+        background-color: $color-primary;
+        color: white;
+      }
+
+      .mat-button-toggle-checked {
+        background-color: #324191;
+      }
+
+      .mat-button-toggle-group {
+        border: none;
+        margin-right: 10px;
+      }
+
+      .header-nav {
+        display: flex;
+        column-gap: 10px;
+
+        .header-user{
+          &-info {
+          padding-top: 12px;
+          padding-right: 40px;
+          color: $color1;
+          font-size: 1rem;
+
+          @include tablet{
+          padding-right: 10px;
+          }
+
+          @include mobile{
+            display: none;
+            padding-right: 1px;
+          }
+        }
+          &-login {
+          @include tablet{
+            display: none;
+          }
+        }
+        }
+      }
+    }
+  }
+}
+.mat-form-field-type-mat-select {
+  width: 60px;
+  height: 45px;
+}
+
+mat-form-field {
+  display: none;
+
+    @include laptop {
+      display: block;
+    }
+}
+
+mat-button-toggle-group{
+
+  @include laptop {
+    display: none;
+  }
+}
+
+mat-label{
+  color: #fff;
+}
+.mat-option{
+  color: #3F51B5;
+    background-color: #fff;
+
+  &:hover {
+    color: #fff;
+    background-color: #3F51B5;
+  }
+}
+
+a {
+  text-decoration: none;
+}

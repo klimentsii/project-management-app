@@ -1,0 +1,55 @@
+@import '../../../../styles/mixin.scss';
+
+footer {
+  position: fixed;
+  background-color: #3F51B5;
+  width: 100%;
+  bottom: 0;
+  height: 70px;
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+
+    @include mobile {
+      justify-content: center;
+    }
+
+    .footer-nav {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      column-gap: 10px;
+
+      @include mobile {
+        width: 100%;
+        justify-content: space-evenly;
+      }
+
+      &.footer-nav_school{
+        @include mobile {
+          display: none;
+        }
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+
+      img {
+        width: 40px;
+        border-radius: 50%;
+        padding: 5px;
+
+      }
+    }
+  }
+}
+
+.gh-name{
+  @include tablet {
+    display: none;
+  }
+}

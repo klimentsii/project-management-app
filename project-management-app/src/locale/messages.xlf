@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="profilePageTitle" datatype="html">
+        <source>User info</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">pageTitle </note>
+      </trans-unit>
+      <trans-unit id="profileUserNameTitle" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">userNameTitle </note>
+      </trans-unit>
+      <trans-unit id="profileUserName" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="&lt;/h2&gt;
+          &lt;button (click)=&quot;ent"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">userName </note>
+      </trans-unit>
+      <trans-unit id="profileNameTitleRequired" datatype="html">
+        <source>Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorRequired </note>
+      </trans-unit>
+      <trans-unit id="profileNameTitleMinLength" datatype="html">
+        <source>Name required with min 3 character.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">32,35</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorEmail </note>
+      </trans-unit>
+      <trans-unit id="profileEmailTitle" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">emailTitle </note>
+      </trans-unit>
+      <trans-unit id="wprofileLogin" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="&lt;/h2&gt;
+          &lt;button (cl"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">id </note>
+      </trans-unit>
+      <trans-unit id="profileEmailTitleRequired" datatype="html">
+        <source>Email является обязательным.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">60,63</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorRequired </note>
+      </trans-unit>
+      <trans-unit id="profileEmailTitleWrong" datatype="html">
+        <source>Email указан неверно.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">64,67</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorEmail </note>
+      </trans-unit>
+      <trans-unit id="profileIdTitle" datatype="html">
+        <source>ID number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">69,70</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">idTitle </note>
+      </trans-unit>
+      <trans-unit id="wprofileId" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">id </note>
+      </trans-unit>
+      <trans-unit id="profileActionsTitle" datatype="html">
+        <source>Actions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">73,74</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">actionsTitle </note>
+      </trans-unit>
+      <trans-unit id="profilePasswordTitle" datatype="html">
+        <source> Change password </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">80,83</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">passwordTitle </note>
+      </trans-unit>
+      <trans-unit id="profileDeleteTitle" datatype="html">
+        <source> Delete user </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">105,108</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">deleteTitle </note>
+      <trans-unit id="BoardComponentSearch" datatype="html">
+        <source>Search</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/board.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalNew" datatype="html">
+        <source>Create new <x id="INTERPOLATION" equiv-text="{{data}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalTitle" datatype="html">
+        <source>Title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalCancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateItemModalCreate" datatype="html">
+        <source>Create <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>check<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/create-item-modal/create-item-modal.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditTask" datatype="html">
+        <source>Edit task</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditTaskDescription" datatype="html">
+        <source>Be sure to enter a title and description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditTitleEdit" datatype="html">
+        <source>Title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditdescriptionEdit" datatype="html">
+        <source>Description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditdescriptionEditCancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="boardEditdescriptionEditConfirm" datatype="html">
+        <source>Confirm <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>check<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+
+      </trans-unit>
+      <trans-unit id="nameBoard" datatype="html">
+        <source>Name of board</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">67,68</context>
+        </context-group>
+        <note priority="1" from="description">boards </note>
+      </trans-unit>
+      <trans-unit id="descBoard" datatype="html">
+        <source>Board description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/board/pages/boards/boards.component.html</context>
+          <context context-type="linenumber">75,76</context>
+        </context-group>
+        <note priority="1" from="description">boards </note>
+      </trans-unit>
+      <trans-unit id="confirmQuestion" datatype="html">
+        <source>Are you sure you want to do this?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/confirmation-modal/confirmation-modal.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description"> </note>
+        <note priority="1" from="meaning">modal </note>
+      </trans-unit>
+      <trans-unit id="cancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/confirmation-modal/confirmation-modal.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description"> </note>
+        <note priority="1" from="meaning">modal </note>
+      </trans-unit>
+      <trans-unit id="confirm" datatype="html">
+        <source>Confirm <x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>delete<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/confirmation-modal/confirmation-modal.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="meaning">modal </note>
+      </trans-unit>
+      <trans-unit id="boardsHeader" datatype="html">
+        <source>Boards</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="actualLang" datatype="html">
+        <source>en</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="GreatingHeader" datatype="html">
+        <source> Hello, <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="&lt;/strong"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;i class"/><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;header-user-login&quot;&gt;"/>(<x id="INTERPOLATION_1" equiv-text="{{user.login}}"/>)!<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="singInHeader" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="singUpHeader" datatype="html">
+        <source>Sign up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/header/header.component.html</context>
+          <context context-type="linenumber">38,39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="notFound" datatype="html">
+        <source>Page not found</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageNotExist" datatype="html">
+        <source>The page you are looking for doesn&apos;t exist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5690978881989905025" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span (click)=&quot;goBack()&quot;&gt;"/>Go back<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> or head over <x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span (click)=&quot;goHome()&quot;&gt;"/>Home page<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> to choose a new derection</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/pages/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">6,9</context>
+        </context-group>
+        <note priority="1" from="description">selectNavigation</note>
+      </trans-unit>
+      <trans-unit id="loginTitle" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-in/sing-in.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">login </note>
+      </trans-unit>
+      <trans-unit id="loginSubmit" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-in/sing-in.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">login </note>
+      </trans-unit>
+      <trans-unit id="signUpTitle" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-up/sing-up.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">sign up </note>
+      </trans-unit>
+      <trans-unit id="signUpSubmit" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/pages/sing-up/sing-up.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">sign up </note>
+      </trans-unit>
+      <trans-unit id="welcomeTitle" datatype="html">
+        <source>Our team</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">title </note>
+      </trans-unit>
+      <trans-unit id="welcomeSubTitle" datatype="html">
+        <source>We have been working on a project for you</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">subtitle </note>
+      </trans-unit>
+      <trans-unit id="klimentsiiName" datatype="html">
+        <source>Klimentsii</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">name </note>
+      </trans-unit>
+      <trans-unit id="positionLead" datatype="html">
+        <source>Team Lead</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">position </note>
+      </trans-unit>
+      <trans-unit id="klimentsiiDescription" datatype="html">
+        <source>Made functionality for boards, columns and tasks</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">description </note>
+      </trans-unit>
+      <trans-unit id="yuriName" datatype="html">
+        <source>Yuri</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">name </note>
+      </trans-unit>
+      <trans-unit id="positionDev" datatype="html">
+        <source>Developer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">position </note>
+      </trans-unit>
+      <trans-unit id="yuriDescription" datatype="html">
+        <source> Engaged in the development of authorization, localization, routing, base pages.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">description </note>
+      </trans-unit>
+      <trans-unit id="alexName" datatype="html">
+        <source>Alexander</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">name </note>
+      </trans-unit>
+      <trans-unit id="alexDescription" datatype="html">
+        <source> API interaction, Ngrx tune-up, boards, profile. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <note priority="1" from="description"> welcome </note>
+        <note priority="1" from="meaning">description </note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

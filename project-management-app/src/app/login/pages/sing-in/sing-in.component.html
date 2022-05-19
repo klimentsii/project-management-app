@@ -1,0 +1,16 @@
+<mat-card class="box">
+  <mat-card-header>
+    <mat-card-title i18n="login @@loginTitle">Login</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="loginData" (ngSubmit)="onSubmit()" class="example-form">
+    <mat-card-content>
+      <mat-form-field class="example-full-width">
+        <input formControlName= "email" matInput placeholder="{{ emailPlaceholder }}">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input type="password" formControlName="password" matInput placeholder="{{ passwordPlaceholder }}">
+      </mat-form-field>
+    </mat-card-content>
+    <button i18n="login @@loginSubmit" type="submit" [disabled]="!loginData.valid" mat-stroked-button color="primary" class="btn-block">Login</button>
+  </form>
+</mat-card>
