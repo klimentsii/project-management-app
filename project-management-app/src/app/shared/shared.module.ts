@@ -13,7 +13,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [CommonModule],
   exports: [
     FormsModule,

@@ -37,7 +37,6 @@ export const myValidatorForPassword = (control: AbstractControl): ValidationErro
   if (!/\d/.test(control.value)) {
     return { message: placeholder.invalid + placeholder.mixture };
   }
-
   return null;
 };
 

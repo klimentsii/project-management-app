@@ -12,6 +12,11 @@ export interface UserModelExtended extends UserModel {
   id: UUIDType;
 }
 
+export interface UserInfo {
+  name: string;
+  login: string;
+}
+
 export interface UserNoIdModel {
   id: UUIDType;
   name: string;

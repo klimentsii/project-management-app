@@ -70,7 +70,6 @@ export class BoardsEffects {
               description: board.description,
               users,
             };
-
             return payload
               ? BoardsActions.CreateBoardSuccess({ payload })
               : BoardsActions.CreateBoardFailed();

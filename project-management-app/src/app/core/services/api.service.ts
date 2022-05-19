@@ -38,7 +38,6 @@ export class ApiService {
     const headers = new HttpHeaders().set('accept', '*/*');
     return this.http.delete<Response>(`${this.url.Users}/${id}`, { headers }).pipe(
       tap((response: Response) => {
-        console.log(response);
       }),
     );
   }
@@ -100,7 +99,7 @@ export class ApiService {
   getBoards$(): Observable<BoardModel[]> {
     const headers = new HttpHeaders().set('accept', 'application/json');
     return this.http.get<BoardModel[]>(this.url.Boards, { headers });
-  };
+  }
 
   createBoard$(title: string, description: string): Observable<BoardModel> {
     const headers = new HttpHeaders()
@@ -114,12 +113,12 @@ export class ApiService {
       },
       { headers },
     );
-  };
+  }
 
   getBoardById$(id: UUIDType): Observable<BoardModelExtended> {
     const headers = new HttpHeaders().set('accept', 'application/json');
     return this.http.get<BoardModelExtended>(`${this.url.Boards}/${id}`, { headers });
-  };
+  }
 
   deleteBoard$(id: UUIDType): Observable<Response> {
     const headers = new HttpHeaders().set('accept', '*/*');
@@ -138,16 +137,19 @@ export class ApiService {
       },
       { headers },
     );
-  };
+  }
 
   /** Columns **/
 
   getColumns$(boardId: UUIDType): Observable<ColumnModelExtended[]> {
     const headers = new HttpHeaders().set('accept', 'application/json');
-    return this.http.get<ColumnModelExtended[]>(`${this.url.Boards}/${boardId}/${this.url.Columns}`, {
-      headers,
-    });
-  };
+    return this.http.get<ColumnModelExtended[]>(
+      `${this.url.Boards}/${boardId}/${this.url.Columns}`,
+      {
+        headers,
+      },
+    );
+  }
 
   getColumnById$(boardId: UUIDType, columnId: UUIDType): Observable<ColumnModelExtended> {
     const headers = new HttpHeaders().set('accept', 'application/json');
@@ -155,7 +157,7 @@ export class ApiService {
       `${this.url.Boards}/${boardId}/${this.url.Columns}/${columnId}`,
       { headers },
     );
-  };
+  }
 
   createColumn(boardId: UUIDType, title: string, order: number): Observable<ColumnModel> {
     const headers = new HttpHeaders()
@@ -169,7 +171,7 @@ export class ApiService {
       },
       { headers },
     );
-  };
+  }
 
   deleteColumn$(boardId: UUIDType, columnId: UUIDType): Observable<Response> {
     const headers = new HttpHeaders().set('accept', '*/*');
@@ -179,10 +181,9 @@ export class ApiService {
       })
       .pipe(
         tap((response: Response) => {
-          console.log(response);
         }),
       );
-  };
+  }
 
   updateColumn$(
     boardId: UUIDType,
@@ -201,7 +202,7 @@ export class ApiService {
       },
       { headers },
     );
-  };
+  }
 
   /** Tasks **/
 
@@ -225,9 +226,7 @@ export class ApiService {
     );
   }
 
-  createTask(
-    task: TaskModelPlus,
-  ): Observable<TaskModelPlus> {
+  createTask(task: TaskModelPlus): Observable<TaskModelPlus> {
     const headers = new HttpHeaders()
       .set('accept', 'application/json')
       .set('Content-Type', 'application/json');
@@ -253,7 +252,6 @@ export class ApiService {
       )
       .pipe(
         tap((response: Response) => {
-          console.log(response);
         }),
       );
   }
@@ -310,7 +308,6 @@ export class ApiService {
       )
       .pipe(
         tap((response: Response) => {
-          console.log(response);
         }),
       );
   }
@@ -319,7 +316,6 @@ export class ApiService {
     const headers = new HttpHeaders().set('accept', '*/*').set('Content-Type', 'application/json');
     return this.http.get<Response>(`${this.url.File}/${taskId}/${filename}`, { headers }).pipe(
       tap((response: Response) => {
-        console.log(response);
       }),
     );
   }

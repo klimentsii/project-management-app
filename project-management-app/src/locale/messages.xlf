@@ -2,6 +2,135 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="profilePageTitle" datatype="html">
+        <source>User info</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">pageTitle </note>
+      </trans-unit>
+      <trans-unit id="profileUserNameTitle" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">userNameTitle </note>
+      </trans-unit>
+      <trans-unit id="profileUserName" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="&lt;/h2&gt;
+          &lt;button (click)=&quot;ent"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">userName </note>
+      </trans-unit>
+      <trans-unit id="profileNameTitleRequired" datatype="html">
+        <source>Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorRequired </note>
+      </trans-unit>
+      <trans-unit id="profileNameTitleMinLength" datatype="html">
+        <source>Name required with min 3 character.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">32,35</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorEmail </note>
+      </trans-unit>
+      <trans-unit id="profileEmailTitle" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">emailTitle </note>
+      </trans-unit>
+      <trans-unit id="wprofileLogin" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="&lt;/h2&gt;
+          &lt;button (cl"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">id </note>
+      </trans-unit>
+      <trans-unit id="profileEmailTitleRequired" datatype="html">
+        <source>Email является обязательным.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">60,63</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorRequired </note>
+      </trans-unit>
+      <trans-unit id="profileEmailTitleWrong" datatype="html">
+        <source>Email указан неверно.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">64,67</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">loginErrorEmail </note>
+      </trans-unit>
+      <trans-unit id="profileIdTitle" datatype="html">
+        <source>ID number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">69,70</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">idTitle </note>
+      </trans-unit>
+      <trans-unit id="wprofileId" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">id </note>
+      </trans-unit>
+      <trans-unit id="profileActionsTitle" datatype="html">
+        <source>Actions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">73,74</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">actionsTitle </note>
+      </trans-unit>
+      <trans-unit id="profilePasswordTitle" datatype="html">
+        <source> Change password </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">80,83</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">passwordTitle </note>
+      </trans-unit>
+      <trans-unit id="profileDeleteTitle" datatype="html">
+        <source> Delete user </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/account/pages/profile/profile.component.html</context>
+          <context context-type="linenumber">105,108</context>
+        </context-group>
+        <note priority="1" from="description"> profile </note>
+        <note priority="1" from="meaning">deleteTitle </note>
       <trans-unit id="BoardComponentSearch" datatype="html">
         <source>Search</source>
         <context-group purpose="location">
@@ -78,6 +207,7 @@
           <context context-type="sourcefile">src/app/board/pages/board/modals/edit-task-modal/edit-task-modal.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
+
       </trans-unit>
       <trans-unit id="nameBoard" datatype="html">
         <source>Name of board</source>
@@ -304,7 +434,7 @@
         <note priority="1" from="meaning">name </note>
       </trans-unit>
       <trans-unit id="alexDescription" datatype="html">
-        <source> Need writing smt</source>
+        <source> API interaction, Ngrx tune-up, boards, profile. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/welcome/pages/welcome/welcome.component.html</context>
           <context context-type="linenumber">31</context>
