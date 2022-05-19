@@ -37,8 +37,6 @@
             <mat-form-field class="example-full-width" appearance="fill">
               <textarea matInput class="board-description" formControlName="description"></textarea>
               <mat-label i18n="boards @@descBoard">Board description</mat-label>
-              <textarea matInput class="board-description" formControlName="description">
-          </textarea>
               <mat-error *ngIf="editBoardForm.controls['description'].errors">
                 {{chooseDescriptionError('editBoard')}}
               </mat-error>
